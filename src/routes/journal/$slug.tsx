@@ -1,0 +1,26 @@
+import { Link, createFileRoute, notFound } from '@tanstack/react-router'
+import { getContent, renderContent } from '../../lib/content'
+
+export const Route = createFileRoute('/journal/$slug')({
+  loader: ({ params }) => getContent('journal', params.slug) ?? notFound(),
+  component: Entry,
+})
+function Entry() {
+  const entry = Route.useLoaderData()
+  return (
+    <main className="page-shell">
+      <article className="article-panel">
+        <Link className="back-link" to="/journal">
+          ← Back to Journal
+        </Link>
+        <p className="eyebrow">{entry.date}</p>
+        <h1>{entry.title}</h1>
+        <p className="article-description">{entry.description}</p>
+        <div
+          className="markdown-renderer"
+          dangerouslySetInnerHTML={{ __html: renderContent(entry) }}
+        />
+      </article>
+    </main>
+  )
+}
