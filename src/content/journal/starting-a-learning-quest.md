@@ -2,6 +2,7 @@
 title: Starting a learning quest
 date: 2026-08-31
 description: Why this site treats notes as routes instead of a backlog of bookmarks.
+tags: learning, typescript
 ---
 
 # Starting a learning quest

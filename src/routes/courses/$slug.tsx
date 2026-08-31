@@ -22,13 +22,6 @@ function Course() {
           <li>Practice Challenge</li>
           <li>Route Review</li>
         </ol>
-        <div className="lesson-progress">
-          <span>Progress</span>
-          <b>3 / 5</b>
-          <i>
-            <span />
-          </i>
-        </div>
       </aside>
       <article className="article-panel">
         <div className="lesson-banner">

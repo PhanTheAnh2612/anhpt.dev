@@ -6,4 +6,6 @@ import { shell } from '@tanstack/highlight/languages/shell'
 import { ts } from '@tanstack/highlight/languages/ts'
 import { tsx } from '@tanstack/highlight/languages/tsx'
 
-export const highlighter = createHighlighter({ languages: [css, html, json, shell, ts, tsx] })
+export const highlighter = createHighlighter({
+  languages: [css, html, json, shell, ts, tsx],
+})

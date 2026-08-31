@@ -17,6 +17,33 @@ No runtime secret is required for the static Markdown site. CI deployment uses G
 
 Add both at GitHub → repository **Settings** → **Secrets and variables** → **Actions**. The deployment workflow runs after a push to `main`.
 
+## Markdown content model
+
+Courses belong to exactly one Journey category. Use a singular `category`
+value that matches a slug in `src/lib/learning-path.ts`:
+
+```yaml
+---
+title: React interfaces
+date: 2026-08-31
+description: Build a clear, accessible component system.
+order: 2
+category: react
+---
+```
+
+Journal entries can cover several subjects. Add comma-separated `tags`; these
+become the filter bubbles on the Journal page:
+
+```yaml
+---
+title: Starting a learning quest
+date: 2026-08-31
+description: Notes from the first route.
+tags: learning, typescript
+---
+```
+
 # Getting Started
 
 To run this application:
@@ -49,7 +76,6 @@ If you prefer not to use Tailwind CSS:
 
 ## Linting & Formatting
 
-
 This project uses [eslint](https://eslint.org/) and [prettier](https://prettier.io/) for linting and formatting. Eslint is configured using [tanstack/eslint-config](https://tanstack.com/config/latest/docs/eslint). The following scripts are available:
 
 ```bash
@@ -57,7 +83,6 @@ pnpm lint
 pnpm format
 pnpm check
 ```
-
 
 ## Deploy to Cloudflare Workers
 
@@ -70,8 +95,6 @@ This project uses the Cloudflare Vite plugin (configured in `vite.config.ts`) an
 For production env vars, run `wrangler secret put MY_VAR` for each secret listed in `.env.example`. Public (non-secret) vars go in `wrangler.jsonc` under `vars`.
 
 KV, D1, R2, and Durable Object bindings are configured in `wrangler.jsonc` — see https://developers.cloudflare.com/workers/wrangler/configuration/.
-
-
 
 ## Routing
 
@@ -90,7 +113,7 @@ Now that you have two routes you can use a `Link` component to navigate between 
 To use SPA (Single Page Application) navigation you will need to import the `Link` component from `@tanstack/react-router`.
 
 ```tsx
-import { Link } from "@tanstack/react-router";
+import { Link } from '@tanstack/react-router'
 ```
 
 Then anywhere in your JSX you can use it like so:
@@ -158,11 +181,11 @@ const getServerTime = createServerFn({
 // Use in a component
 function MyComponent() {
   const [time, setTime] = useState('')
-  
+
   useEffect(() => {
     getServerTime().then(setTime)
   }, [])
-  
+
   return <div>Server time: {time}</div>
 }
 ```
@@ -214,8 +237,6 @@ function PeopleComponent() {
 ```
 
 Loaders simplify your data fetching logic dramatically. Check out more information in the [Loader documentation](https://tanstack.com/router/latest/docs/framework/react/guide/data-loading#loader-parameters).
-
-
 
 # Learn More
 

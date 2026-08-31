@@ -1,0 +1,496 @@
+/* =========================================================
+   anhpt.dev — Combined Sprite Sheet
+   File: sprites.css
+   Source atlas: /sprites/anhpt-sprite-sheet.png
+   Atlas dimensions: 1536 × 1024
+   ========================================================= */
+
+:root {
+  --anhpt-sprite-sheet: url("/assets/sprites/base-sprites.png");
+}
+
+.sprite {
+  --x: 0;
+  --y: 0;
+  --w: 32;
+  --h: 32;
+
+  display: inline-block;
+  width: calc(var(--w) * 1px);
+  height: calc(var(--h) * 1px);
+  background-image: var(--anhpt-sprite-sheet);
+  background-repeat: no-repeat;
+  background-size: 1536px 1024px;
+  background-position: calc(var(--x) * -1px) calc(var(--y) * -1px);
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  flex: 0 0 auto;
+}
+
+/* =========================================================
+   ANH CHARACTER
+   ========================================================= */
+
+.anh {
+  --w: 64;
+  --h: 128;
+  transform-origin: bottom center;
+}
+
+/* Front / walk down */
+.anh-down-1 { --x: 37;  --y: 74; }
+.anh-down-2 { --x: 100; --y: 74; }
+.anh-down-3 { --x: 162; --y: 74; }
+.anh-down-4 { --x: 224; --y: 74; }
+.anh-down-5 { --x: 286; --y: 74; }
+.anh-down-6 { --x: 348; --y: 74; }
+.anh-down-7 { --x: 410; --y: 74; }
+.anh-down-8 { --x: 472; --y: 74; }
+
+/* Back / walk up */
+.anh-up-1 { --x: 579; --y: 76; }
+.anh-up-2 { --x: 641; --y: 76; }
+.anh-up-3 { --x: 703; --y: 76; }
+.anh-up-4 { --x: 765; --y: 76; }
+.anh-up-5 { --x: 827; --y: 76; }
+.anh-up-6 { --x: 889; --y: 76; }
+.anh-up-7 { --x: 951; --y: 76; }
+
+/* Walk left */
+.anh-left {
+  --w: 78;
+  --h: 112;
+}
+.anh-left-1 { --x: 1050; --y: 77; }
+.anh-left-2 { --x: 1120; --y: 77; }
+.anh-left-3 { --x: 1190; --y: 77; }
+.anh-left-4 { --x: 1260; --y: 77; }
+.anh-left-5 { --x: 1330; --y: 77; }
+.anh-left-6 { --x: 1400; --y: 77; }
+
+/* Walk right */
+.anh-right {
+  --w: 78;
+  --h: 112;
+}
+.anh-right-1 { --x: 28;  --y: 233; }
+.anh-right-2 { --x: 98;  --y: 233; }
+.anh-right-3 { --x: 168; --y: 233; }
+.anh-right-4 { --x: 238; --y: 233; }
+.anh-right-5 { --x: 308; --y: 233; }
+.anh-right-6 { --x: 378; --y: 233; }
+
+/* Character animations */
+.anh-walk-down {
+  --w: 64;
+  --h: 128;
+  animation: anh-walk-down 720ms steps(1) infinite;
+}
+.anh-walk-up {
+  --w: 64;
+  --h: 128;
+  animation: anh-walk-up 700ms steps(1) infinite;
+}
+.anh-walk-left {
+  --w: 78;
+  --h: 112;
+  animation: anh-walk-left 620ms steps(1) infinite;
+}
+.anh-walk-right {
+  --w: 78;
+  --h: 112;
+  animation: anh-walk-right 620ms steps(1) infinite;
+}
+
+@keyframes anh-walk-down {
+  0% { background-position: -37px -74px; }
+  12.5% { background-position: -100px -74px; }
+  25% { background-position: -162px -74px; }
+  37.5% { background-position: -224px -74px; }
+  50% { background-position: -286px -74px; }
+  62.5% { background-position: -348px -74px; }
+  75% { background-position: -410px -74px; }
+  87.5%, 100% { background-position: -472px -74px; }
+}
+
+@keyframes anh-walk-up {
+  0% { background-position: -579px -76px; }
+  16.6% { background-position: -641px -76px; }
+  33.3% { background-position: -703px -76px; }
+  50% { background-position: -765px -76px; }
+  66.6% { background-position: -827px -76px; }
+  83.3% { background-position: -889px -76px; }
+  100% { background-position: -951px -76px; }
+}
+
+@keyframes anh-walk-left {
+  0% { background-position: -1050px -77px; }
+  20% { background-position: -1120px -77px; }
+  40% { background-position: -1190px -77px; }
+  60% { background-position: -1260px -77px; }
+  80% { background-position: -1330px -77px; }
+  100% { background-position: -1400px -77px; }
+}
+
+@keyframes anh-walk-right {
+  0% { background-position: -28px -233px; }
+  20% { background-position: -98px -233px; }
+  40% { background-position: -168px -233px; }
+  60% { background-position: -238px -233px; }
+  80% { background-position: -308px -233px; }
+  100% { background-position: -378px -233px; }
+}
+
+/* Bicycle */
+.anh-bike {
+  --w: 85;
+  --h: 105;
+}
+.anh-bike-1 { --x: 479; --y: 233; }
+.anh-bike-2 { --x: 553; --y: 233; }
+.anh-bike-3 { --x: 627; --y: 233; }
+
+.anh-bike-animated {
+  --w: 85;
+  --h: 105;
+  animation: anh-bike 360ms steps(1) infinite;
+}
+
+@keyframes anh-bike {
+  0% { background-position: -479px -233px; }
+  33% { background-position: -553px -233px; }
+  66%, 100% { background-position: -627px -233px; }
+}
+
+/* Expressions */
+.anh-expression {
+  --w: 58;
+  --h: 80;
+}
+.anh-expression-neutral    { --x: 712; --y: 235; }
+.anh-expression-happy      { --x: 775; --y: 235; }
+.anh-expression-thinking   { --x: 838; --y: 235; }
+.anh-expression-surprised  { --x: 901; --y: 235; }
+.anh-expression-determined { --x: 964; --y: 235; }
+
+/* Poses */
+.anh-pose {
+  --w: 110;
+  --h: 130;
+}
+.anh-pose-thumbs-up   { --x: 1071; --y: 229; }
+.anh-pose-teaching    { --x: 1160; --y: 229; }
+.anh-pose-thinking    { --x: 1247; --y: 229; }
+.anh-pose-coding      { --x: 1340; --y: 229; }
+.anh-pose-celebrating { --x: 1442; --y: 229; }
+
+/* Anh items */
+.anh-item {
+  --w: 48;
+  --h: 48;
+}
+.anh-item-backpack { --x: 1082; --y: 386; }
+.anh-item-side-bag { --x: 1143; --y: 386; }
+.anh-item-watch    { --x: 1205; --y: 386; }
+.anh-item-ball     { --x: 1264; --y: 386; }
+.anh-item-laptop   { --x: 1323; --y: 386; --w: 63; }
+.anh-item-camera   { --x: 1398; --y: 386; }
+.anh-item-coffee   { --x: 1462; --y: 386; }
+
+/* =========================================================
+   NPC CHARACTERS
+   ========================================================= */
+
+.npc {
+  --w: 56;
+  --h: 90;
+}
+.npc-mentor          { --x: 27;  --y: 516; }
+.npc-engineer-male   { --x: 91;  --y: 516; }
+.npc-engineer-female { --x: 155; --y: 516; }
+.npc-ui-designer     { --x: 219; --y: 516; }
+.npc-devops          { --x: 284; --y: 516; }
+.npc-team-lead       { --x: 27;  --y: 610; }
+.npc-trainee         { --x: 91;  --y: 610; }
+.npc-reviewer        { --x: 155; --y: 610; }
+.npc-tester          { --x: 219; --y: 610; }
+.npc-trainer         { --x: 284; --y: 610; }
+
+/* =========================================================
+   ICONS
+   ========================================================= */
+
+.rpg-icon {
+  --w: 32;
+  --h: 32;
+}
+.rpg-icon-home        { --x: 395; --y: 524; }
+.rpg-icon-world-map   { --x: 451; --y: 524; }
+.rpg-icon-courses     { --x: 510; --y: 524; }
+.rpg-icon-guild-hall  { --x: 570; --y: 524; }
+.rpg-icon-badges      { --x: 630; --y: 524; }
+.rpg-icon-secret-base { --x: 690; --y: 524; }
+.rpg-icon-journal     { --x: 395; --y: 584; }
+.rpg-icon-search      { --x: 451; --y: 584; }
+.rpg-icon-settings    { --x: 510; --y: 584; }
+.rpg-icon-backpack    { --x: 570; --y: 584; }
+.rpg-icon-mail        { --x: 630; --y: 584; }
+.rpg-icon-trophy      { --x: 690; --y: 584; }
+.rpg-icon-code        { --x: 395; --y: 647; }
+.rpg-icon-bug         { --x: 451; --y: 647; }
+.rpg-icon-debug       { --x: 510; --y: 647; }
+.rpg-icon-deploy      { --x: 570; --y: 647; }
+.rpg-icon-database    { --x: 630; --y: 647; }
+.rpg-icon-api         { --x: 690; --y: 647; }
+
+/* =========================================================
+   BADGES
+   ========================================================= */
+
+.rpg-badge {
+  --w: 64;
+  --h: 64;
+}
+.rpg-badge-rookie      { --x: 769;  --y: 518; }
+.rpg-badge-hook        { --x: 835;  --y: 518; }
+.rpg-badge-component   { --x: 900;  --y: 518; }
+.rpg-badge-state       { --x: 965;  --y: 518; }
+.rpg-badge-router      { --x: 1030; --y: 518; }
+.rpg-badge-typescript  { --x: 769;  --y: 610; }
+.rpg-badge-ui-engineer { --x: 835;  --y: 610; }
+.rpg-badge-builder     { --x: 900;  --y: 610; }
+.rpg-badge-tester      { --x: 965;  --y: 610; }
+.rpg-badge-performance { --x: 1030; --y: 610; }
+
+/* =========================================================
+   ITEMS & REWARDS
+   ========================================================= */
+
+.rpg-item {
+  --w: 40;
+  --h: 40;
+}
+.rpg-item-exp-potion    { --x: 1130; --y: 527; }
+.rpg-item-code-scroll   { --x: 1185; --y: 527; }
+.rpg-item-gem           { --x: 1243; --y: 527; }
+.rpg-item-gold-coin     { --x: 1300; --y: 527; }
+.rpg-item-chest         { --x: 1357; --y: 527; }
+.rpg-item-key           { --x: 1130; --y: 610; }
+.rpg-item-backpack      { --x: 1185; --y: 610; }
+.rpg-item-book          { --x: 1243; --y: 610; }
+.rpg-item-star-fragment { --x: 1300; --y: 610; }
+.rpg-item-ticket        { --x: 1357; --y: 610; }
+
+/* =========================================================
+   ENVIRONMENT TILES
+   ========================================================= */
+
+.rpg-tile {
+  --w: 32;
+  --h: 32;
+}
+.rpg-tile-grass        { --x: 28;  --y: 753; }
+.rpg-tile-dirt         { --x: 77;  --y: 753; }
+.rpg-tile-sand         { --x: 126; --y: 753; }
+.rpg-tile-stone        { --x: 175; --y: 753; }
+.rpg-tile-water        { --x: 224; --y: 753; }
+.rpg-tile-bridge       { --x: 273; --y: 753; }
+.rpg-tile-flower       { --x: 322; --y: 753; }
+.rpg-tile-flower-field { --x: 371; --y: 753; }
+.rpg-tile-tree         { --x: 28;  --y: 805; }
+.rpg-tile-bush         { --x: 77;  --y: 805; }
+.rpg-tile-flowers      { --x: 126; --y: 805; }
+.rpg-tile-tall-grass   { --x: 175; --y: 805; }
+.rpg-tile-rock         { --x: 224; --y: 805; }
+.rpg-tile-mountain     { --x: 273; --y: 805; }
+.rpg-tile-sign         { --x: 322; --y: 805; }
+.rpg-tile-lamp         { --x: 371; --y: 805; }
+.rpg-tile-brick-wall   { --x: 28;  --y: 858; }
+.rpg-tile-stone-wall   { --x: 77;  --y: 858; }
+.rpg-tile-window       { --x: 126; --y: 858; }
+.rpg-tile-bookshelf    { --x: 175; --y: 858; }
+.rpg-tile-window-alt   { --x: 224; --y: 858; }
+.rpg-tile-door         { --x: 273; --y: 858; }
+.rpg-tile-desk         { --x: 322; --y: 858; }
+.rpg-tile-plant        { --x: 371; --y: 858; }
+
+/* =========================================================
+   OBJECTS & DECORATIONS
+   ========================================================= */
+
+.rpg-object {
+  --w: 64;
+  --h: 64;
+}
+.rpg-object-pc-setup       { --x: 450; --y: 753; }
+.rpg-object-whiteboard     { --x: 531; --y: 753; }
+.rpg-object-bulletin-board { --x: 612; --y: 753; }
+.rpg-object-bookshelf      { --x: 693; --y: 753; }
+.rpg-object-plant          { --x: 755; --y: 753; }
+.rpg-object-sofa           { --x: 450; --y: 836; }
+.rpg-object-table          { --x: 531; --y: 836; }
+.rpg-object-chair          { --x: 612; --y: 836; }
+.rpg-object-presentation   { --x: 693; --y: 836; }
+.rpg-object-server-rack    { --x: 755; --y: 836; }
+
+/* =========================================================
+   TECH & CODE
+   ========================================================= */
+
+.rpg-tech {
+  --w: 96;
+  --h: 64;
+}
+.rpg-tech-code-window { --x: 815;  --y: 753; }
+.rpg-tech-terminal    { --x: 923;  --y: 753; }
+.rpg-tech-browser     { --x: 1030; --y: 753; }
+
+.rpg-tech-logo {
+  --w: 52;
+  --h: 52;
+}
+.rpg-tech-react      { --x: 815;  --y: 836; }
+.rpg-tech-javascript { --x: 878;  --y: 836; }
+.rpg-tech-typescript { --x: 941;  --y: 836; }
+.rpg-tech-spring     { --x: 1004; --y: 836; }
+
+/* =========================================================
+   UI FRAMES
+   ========================================================= */
+
+.rpg-frame-dialog {
+  --x: 1138;
+  --y: 774;
+  --w: 128;
+  --h: 64;
+}
+.rpg-frame-panel-large {
+  --x: 1207;
+  --y: 774;
+  --w: 78;
+  --h: 64;
+}
+.rpg-frame-panel-small {
+  --x: 1289;
+  --y: 774;
+  --w: 57;
+  --h: 64;
+}
+.rpg-frame-notification {
+  --x: 1352;
+  --y: 774;
+  --w: 70;
+  --h: 64;
+}
+
+/* =========================================================
+   RPG MAP ELEMENTS
+   ========================================================= */
+
+.rpg-map {
+  --w: 48;
+  --h: 48;
+}
+.rpg-map-signpost   { --x: 55;  --y: 949; }
+.rpg-map-teleport   { --x: 130; --y: 949; }
+.rpg-map-treasure   { --x: 204; --y: 949; }
+.rpg-map-heal-point { --x: 278; --y: 949; }
+.rpg-map-save-point { --x: 352; --y: 949; }
+
+/* =========================================================
+   EMOTIONS & SPEECH
+   ========================================================= */
+
+.rpg-emotion {
+  --w: 48;
+  --h: 48;
+}
+.rpg-emotion-happy      { --x: 614; --y: 949; }
+.rpg-emotion-thinking   { --x: 684; --y: 949; }
+.rpg-emotion-excited    { --x: 754; --y: 949; }
+.rpg-emotion-surprised  { --x: 824; --y: 949; }
+.rpg-emotion-confused   { --x: 894; --y: 949; }
+
+.rpg-emotion-speech {
+  --x: 976;
+  --y: 949;
+  --w: 64;
+  --h: 48;
+}
+.rpg-emotion-exclamation {
+  --x: 1097;
+  --y: 949;
+  --w: 64;
+  --h: 48;
+}
+.rpg-emotion-question {
+  --x: 1204;
+  --y: 949;
+  --w: 64;
+  --h: 48;
+}
+
+/* =========================================================
+   REUSABLE EFFECTS
+   ========================================================= */
+
+.sprite-float {
+  animation: sprite-float 1.5s ease-in-out infinite;
+}
+.sprite-bounce {
+  animation: sprite-bounce 700ms ease-in-out infinite alternate;
+}
+.sprite-pop {
+  animation: sprite-pop 280ms ease-out both;
+}
+.sprite-pulse {
+  animation: sprite-pulse 1s ease-in-out infinite alternate;
+}
+
+@keyframes sprite-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+@keyframes sprite-bounce {
+  from { transform: translateY(0); }
+  to { transform: translateY(-5px); }
+}
+
+@keyframes sprite-pop {
+  from {
+    opacity: 0;
+    transform: scale(.7);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes sprite-pulse {
+  from { filter: brightness(1); }
+  to { filter: brightness(1.25); }
+}
+
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .anh-walk-down,
+  .anh-walk-up,
+  .anh-walk-left,
+  .anh-walk-right,
+  .anh-bike-animated,
+  .sprite-float,
+  .sprite-bounce,
+  .sprite-pop,
+  .sprite-pulse {
+    animation: none;
+  }
+}
