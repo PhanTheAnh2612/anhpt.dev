@@ -49,6 +49,43 @@ Keep your notes nearby.
     })
   })
 
+  it.each([
+    ['backtick', '````', 'markdown example'],
+    ['tilde', '~~~~~', 'text example'],
+  ])(
+    'ignores directive-like comments inside %s fences with info strings',
+    (_kind, fence, info) => {
+      const document = parseContentMarkdown(
+        [
+          '<!-- ::start:warning -->',
+          `${fence}${info}`,
+          '<!-- ::start:note -->',
+          '<!-- ::end:note -->',
+          '<!-- ::end:warning -->',
+          '<!-- ::end:success -->',
+          fence,
+          '',
+          'Outside code.',
+          '<!-- ::end:warning -->',
+        ].join('\n'),
+      )
+
+      expect(document.children).toEqual([
+        expect.objectContaining({
+          children: expect.arrayContaining([
+            expect.objectContaining({
+              type: 'code',
+              value:
+                '<!-- ::start:note -->\n<!-- ::end:note -->\n<!-- ::end:warning -->\n<!-- ::end:success -->',
+            }),
+          ]),
+          name: 'warning',
+          type: 'component',
+        }),
+      ])
+    },
+  )
+
   it('parses every registered directive through a mapped component tag', () => {
     const sources = {
       'trainer-tip':

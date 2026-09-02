@@ -2,13 +2,25 @@ import { render, screen, within } from '@testing-library/react'
 import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { renderToString } from 'react-dom/server'
-import { describe, expect, expectTypeOf, it } from 'vitest'
+import { describe, expect, expectTypeOf, it, vi } from 'vitest'
 import { getContent } from '../../../lib/content'
 import type { ContentEntry } from '../../../lib/content'
 import { directiveContract } from '../../../lib/markdown-extensions'
 import { markdownComponents } from './content-directives'
 import { MarkdownContent } from './markdown-content'
 import type { MarkdownContentProps } from './markdown-content'
+
+vi.mock('../../../generated/sprite-manifest', () => ({
+  spriteManifest: {
+    'trainer-idle': {
+      atlas: 'character',
+      durationMs: 480,
+      fallback: 0,
+      frames: [{ height: 24, width: 16, x: 0, y: 0 }],
+      loop: true,
+    },
+  },
+}))
 
 describe('MarkdownContent', () => {
   it('accepts exactly one supported content input shape', () => {
@@ -101,25 +113,33 @@ Outer note closing.
     )
   })
 
-  it('renders directives and highlighted code during server rendering', () => {
+  it('renders every directive and highlighted code during server rendering', () => {
+    const directiveAttributes: Record<string, string> = {
+      'trainer-tip': 'pose="teach"',
+      badge: 'icon="trainer-idle"',
+      challenge: 'difficulty="beginner"',
+      quest: 'difficulty="beginner" reward="trainer-idle"',
+      reward: 'icon="trainer-idle"',
+    }
+    const directiveSource = Object.keys(directiveContract)
+      .map((name) =>
+        [
+          `<!-- ::start:${name}${directiveAttributes[name] ? ` ${directiveAttributes[name]}` : ''} -->`,
+          `${name} server content.`,
+          `<!-- ::end:${name} -->`,
+        ].join('\n'),
+      )
+      .join('\n\n')
     const html = renderToString(
       <MarkdownContent
-        source={`<!-- ::start:quest difficulty="beginner" -->
-Server quest.
-
-<!-- ::start:note -->
-Nested server note.
-<!-- ::end:note -->
-<!-- ::end:quest -->
-
-\`\`\`ts
-const serverAnswer = 42
-\`\`\``}
+        source={`${directiveSource}\n\n\`\`\`ts\nconst serverAnswer = 42\n\`\`\``}
       />,
     )
 
-    expect(html).toContain('aria-label="Quest"')
-    expect(html).toContain('aria-label="Note"')
+    for (const name of Object.keys(directiveContract)) {
+      expect(html).toContain(`data-directive="${name}"`)
+      expect(html).toContain(`${name} server content.`)
+    }
     expect(html).toContain('th-keyword')
   })
 

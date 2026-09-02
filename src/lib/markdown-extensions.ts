@@ -42,6 +42,10 @@ type BlockDirectiveMarker = {
   line: number
   name: string
 }
+type CodeFence = {
+  marker: '`' | '~'
+  size: number
+}
 
 export type MarkdownSourceContext = {
   sourceLabel?: string
@@ -122,12 +126,50 @@ const markerError = (
   message: string,
 ) => new Error(`${sourceLabel}:${marker.line}:${marker.column}: ${message}`)
 
+const parseFenceStart = (line: string): CodeFence | undefined => {
+  const match = line.match(/^ {0,3}(`{3,}|~{3,})(.*)$/)
+  const fence = match?.[1]
+  if (!fence) {
+    return undefined
+  }
+
+  return {
+    marker: fence[0] as CodeFence['marker'],
+    size: fence.length,
+  }
+}
+
+const isFenceEnd = (line: string, fence: CodeFence) => {
+  const match = line.match(/^ {0,3}(`{3,}|~{3,})\s*$/)
+  const closingFence = match?.[1]
+
+  return (
+    closingFence !== undefined &&
+    closingFence[0] === fence.marker &&
+    closingFence.length >= fence.size
+  )
+}
+
 const validateDirectiveBoundaries = (source: string, sourceLabel: string) => {
   const stack: BlockDirectiveMarker[] = []
   const lines = source.split(/\r?\n/)
+  let fence: CodeFence | undefined
 
   for (let index = 0; index < lines.length; index++) {
     const line = lines[index] ?? ''
+    if (fence) {
+      if (isFenceEnd(line, fence)) {
+        fence = undefined
+      }
+      continue
+    }
+
+    const openingFence = parseFenceStart(line)
+    if (openingFence) {
+      fence = openingFence
+      continue
+    }
+
     const marker = { column: line.indexOf('<!--') + 1, line: index + 1 }
     const end = parseEndComment(line)
 
@@ -204,9 +246,25 @@ const findSameNameNestedEnd = (
 ) => {
   let depth = 1
   let hasSameNameNesting = false
+  let hasCodeFence = false
+  let fence: CodeFence | undefined
 
   for (let index = start + 1; index < lines.length; index++) {
     const line = lines[index] ?? ''
+    if (fence) {
+      if (isFenceEnd(line, fence)) {
+        fence = undefined
+      }
+      continue
+    }
+
+    const openingFence = parseFenceStart(line)
+    if (openingFence) {
+      hasCodeFence = true
+      fence = openingFence
+      continue
+    }
+
     const nestedStart = parseComponentComment(line)
     if (nestedStart?.block && nestedStart.name === name) {
       depth++
@@ -217,7 +275,7 @@ const findSameNameNestedEnd = (
     if (parseEndComment(line)?.name === name) {
       depth--
       if (depth === 0) {
-        return { end: index, hasSameNameNesting }
+        return { end: index, hasCodeFence, hasSameNameNesting }
       }
     }
   }
@@ -238,7 +296,10 @@ export const contentDirectiveExtension: MarkdownExtension = {
       context.index,
       start.name,
     )
-    if (!nestedBlock?.hasSameNameNesting) {
+    if (
+      !nestedBlock ||
+      (!nestedBlock.hasSameNameNesting && !nestedBlock.hasCodeFence)
+    ) {
       return commentComponentExtension.parseBlock?.(context)
     }
 
