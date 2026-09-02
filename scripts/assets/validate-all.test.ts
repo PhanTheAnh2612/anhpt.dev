@@ -1,6 +1,7 @@
 import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
+import sharp from 'sharp'
 import { afterEach, describe, expect, it } from 'vitest'
 import { validateAssetCatalog } from './validate-all'
 
@@ -23,6 +24,37 @@ async function createCatalogDirectory() {
   const directory = await mkdtemp(join(tmpdir(), 'anhpt-assets-'))
   temporaryDirectories.push(directory)
   return directory
+}
+
+async function createValidSequenceRecord(directory: string, name: string) {
+  await mkdir(directory, { recursive: true })
+  const frames = ['first.png', 'second.png']
+  await Promise.all(
+    frames.map((frame) =>
+      sharp({
+        create: {
+          width: 64,
+          height: 96,
+          channels: 4,
+          background: { r: 0, g: 0, b: 0, alpha: 0 },
+        },
+      })
+        .png()
+        .toFile(join(directory, frame)),
+    ),
+  )
+  const recordPath = join(directory, 'sequence.json')
+  await writeFile(
+    recordPath,
+    JSON.stringify({
+      name,
+      durationMs: 600,
+      loop: true,
+      fallback: 0,
+      frames: frames.map((path) => ({ path, width: 64, height: 96 })),
+    }),
+  )
+  return recordPath
 }
 
 describe('asset catalog validation', () => {
@@ -70,5 +102,46 @@ describe('asset catalog validation', () => {
     if (!(error instanceof Error)) throw new Error('expected validation error')
     expect(error.message).toContain(sequencePath)
     expect(error.message).toContain('idle: duration must be positive; got 0')
+  })
+
+  it('rejects duplicate sequence names across atlas catalogs', async () => {
+    const directory = await createCatalogDirectory()
+    const characterRecord = await createValidSequenceRecord(
+      join(directory, 'character', 'idle'),
+      'idle',
+    )
+    const contentRecord = await createValidSequenceRecord(
+      join(directory, 'content', 'idle-badge'),
+      'idle',
+    )
+
+    const error = await validateAssetCatalog(directory).catch(
+      (caught: unknown) => caught,
+    )
+
+    expect(error).toBeInstanceOf(Error)
+    if (!(error instanceof Error)) throw new Error('expected validation error')
+    expect(error.message).toContain(characterRecord)
+    expect(error.message).toContain(contentRecord)
+    expect(error.message).toContain('duplicate sequence name "idle"')
+  })
+
+  it('rejects sequence names that cannot produce CSS identifiers', async () => {
+    const directory = await createCatalogDirectory()
+    const recordPath = await createValidSequenceRecord(
+      join(directory, 'character', 'idle-space'),
+      'idle space',
+    )
+
+    const error = await validateAssetCatalog(directory).catch(
+      (caught: unknown) => caught,
+    )
+
+    expect(error).toBeInstanceOf(Error)
+    if (!(error instanceof Error)) throw new Error('expected validation error')
+    expect(error.message).toContain(recordPath)
+    expect(error.message).toContain(
+      'sequence name must match /^[a-z][a-z0-9-]*$/; got "idle space"',
+    )
   })
 })

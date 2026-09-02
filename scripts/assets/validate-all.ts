@@ -11,6 +11,7 @@ import { validateScenePair, validateSequence } from './validation'
 
 export async function validateAssetCatalog(assetsRoot: string): Promise<void> {
   const recordPaths = await findRegisteredRecordPaths(assetsRoot)
+  const sequenceRecordPaths = new Map<string, string>()
 
   for (const recordPath of recordPaths) {
     const record = await loadJsonRecord(recordPath)
@@ -21,6 +22,15 @@ export async function validateAssetCatalog(assetsRoot: string): Promise<void> {
       await validateRegisteredRecord(recordPath, () => validateScenePair(scene))
     } else {
       const sequence = toSequenceSource(record, recordPath, recordDirectory)
+      const conflictingRecordPath = sequenceRecordPaths.get(sequence.name)
+
+      if (conflictingRecordPath) {
+        throw new Error(
+          `${recordPath}: duplicate sequence name "${sequence.name}" conflicts with ${conflictingRecordPath}`,
+        )
+      }
+
+      sequenceRecordPaths.set(sequence.name, recordPath)
       await validateRegisteredRecord(recordPath, () =>
         validateSequence(sequence),
       )

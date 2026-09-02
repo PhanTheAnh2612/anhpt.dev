@@ -21,6 +21,12 @@ export async function validateScenePair(record: SceneSource): Promise<void> {
 }
 
 export async function validateSequence(record: SequenceSource): Promise<void> {
+  if (!/^[a-z][a-z0-9-]*$/.test(record.name)) {
+    throw new Error(
+      `${record.name}: sequence name must match /^[a-z][a-z0-9-]*$/; got "${record.name}"`,
+    )
+  }
+
   if (record.durationMs <= 0) {
     throw new Error(
       `${record.name}: duration must be positive; got ${record.durationMs}`,
