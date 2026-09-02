@@ -33,7 +33,9 @@ export function PixelSprite({
   name,
   scale = 1,
 }: PixelSpriteProps) {
-  const sequence = spriteManifestEntries[name]
+  const sequence = Object.hasOwn(spriteManifestEntries, name)
+    ? spriteManifestEntries[name]
+    : undefined
 
   if (!sequence) {
     throw new RangeError(`Sprite sequence "${name}" is not registered.`)

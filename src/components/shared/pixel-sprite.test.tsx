@@ -77,6 +77,18 @@ describe('pixel sprite runtime components', () => {
     )
   })
 
+  it('rejects inherited sprite sequence names with a useful error', () => {
+    expect(() => render(<PixelSprite frame={0} name="toString" />)).toThrow(
+      'Sprite sequence "toString" is not registered.',
+    )
+  })
+
+  it('rejects inherited animation sequence names with a useful error', () => {
+    expect(() => render(<PixelAnimation name="toString" />)).toThrow(
+      'Sprite sequence "toString" is not registered.',
+    )
+  })
+
   it.each([-1, 1.5, 2])('rejects invalid frame index %s', (frame) => {
     expect(() => render(<PixelSprite frame={frame} name="idle" />)).toThrow(
       `Sprite sequence "idle" does not include frame ${frame}.`,

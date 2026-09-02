@@ -1,5 +1,5 @@
 import type { CSSProperties } from 'react'
-import type { spriteManifest } from '../../generated/sprite-manifest'
+import { spriteManifest } from '../../generated/sprite-manifest'
 
 type ManifestName = keyof typeof spriteManifest
 
@@ -20,6 +20,10 @@ export function PixelAnimation({
   name,
   scale = 1,
 }: PixelAnimationProps) {
+  if (!Object.hasOwn(spriteManifest, name)) {
+    throw new RangeError(`Sprite sequence "${name}" is not registered.`)
+  }
+
   const style = { '--pixel-scale': `${scale}` } as CSSProperties
   const accessibility =
     label !== undefined
