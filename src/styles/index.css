@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import '../generated/sprite-atlases.css';
 @import 'base-sprites.css';
 
 :root {
@@ -561,6 +562,20 @@ h2 {
   image-rendering: pixelated;
   overflow: hidden;
   width: var(--sprite-width);
+}
+.pixel-sprite,
+.pixel-animation {
+  display: block;
+  flex: 0 0 auto;
+  image-rendering: pixelated;
+  zoom: var(--pixel-scale, 1);
+}
+.pixel-sprite {
+  background-image: var(--pixel-atlas);
+  background-position: var(--pixel-x) var(--pixel-y);
+  background-repeat: no-repeat;
+  height: var(--pixel-frame-height);
+  width: var(--pixel-frame-width);
 }
 .guild-console {
   background: #063026;
