@@ -31,6 +31,10 @@ export async function validateScenePair(record: SceneSource): Promise<void> {
   validateSceneArea(record.name, 'focalArea.desktop', record.focalArea.desktop)
   validateSceneArea(record.name, 'focalArea.mobile', record.focalArea.mobile)
 
+  if (Object.keys(record.safeZones).length === 0) {
+    throw new Error(`${record.name}: safeZones must include at least one zone`)
+  }
+
   for (const [safeZoneName, safeZone] of Object.entries(record.safeZones)) {
     validateIdentifier(record.name, 'safe zone name', safeZoneName)
     validateSceneArea(
@@ -42,6 +46,12 @@ export async function validateScenePair(record: SceneSource): Promise<void> {
       record.name,
       `safeZones.${safeZoneName}.mobile`,
       safeZone.mobile,
+    )
+  }
+
+  if (Object.keys(record.anchors).length === 0) {
+    throw new Error(
+      `${record.name}: anchors must include at least one recommended anchor`,
     )
   }
 
@@ -83,9 +93,9 @@ export async function validateSequence(record: SequenceSource): Promise<void> {
     )
   }
 
-  if (record.durationMs <= 0) {
+  if (!Number.isFinite(record.durationMs) || record.durationMs <= 0) {
     throw new Error(
-      `${record.name}: duration must be positive; got ${record.durationMs}`,
+      `${record.name}: duration must be finite and positive; got ${record.durationMs}`,
     )
   }
 
@@ -242,9 +252,9 @@ async function validateSceneVariant(
     )
   }
 
-  if (metadata.channels === 4) {
+  if (metadata.hasAlpha) {
     const stats = await sharp(path).ensureAlpha().stats()
-    const alphaMinimum = stats.channels[3]?.min
+    const alphaMinimum = stats.channels.at(-1)?.min
 
     if (alphaMinimum !== 255) {
       throw new Error(

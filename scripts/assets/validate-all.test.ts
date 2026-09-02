@@ -198,7 +198,29 @@ describe('asset catalog validation', () => {
     expect(error).toBeInstanceOf(Error)
     if (!(error instanceof Error)) throw new Error('expected validation error')
     expect(error.message).toContain(sequencePath)
-    expect(error.message).toContain('idle: duration must be positive; got 0')
+    expect(error.message).toContain(
+      'idle: duration must be finite and positive; got 0',
+    )
+  })
+
+  it('includes the record path for nonfinite JSON sequence durations', async () => {
+    const directory = await createCatalogDirectory()
+    const recordPath = await createValidSequenceRecord(
+      join(directory, 'character', 'idle'),
+      'idle',
+    )
+    const record = await readFile(recordPath, 'utf8')
+    await writeFile(
+      recordPath,
+      record.replace('"durationMs":600', '"durationMs":1e999'),
+    )
+
+    const error = await catalogError(directory)
+
+    expect(error.message).toContain(recordPath)
+    expect(error.message).toContain(
+      'idle: duration must be finite and positive; got Infinity',
+    )
   })
 
   it('rejects duplicate sequence names across atlas catalogs', async () => {
@@ -455,6 +477,36 @@ describe('asset catalog validation', () => {
     expect(error.message).toContain(recordPath)
     expect(error.message).toContain(
       'safeZones.overlay.desktop must stay within 0-100% bounds',
+    )
+  })
+
+  it('rejects a registered scene without safe zones', async () => {
+    const directory = await createCatalogDirectory()
+    const recordPath = await createValidSceneRecord(
+      join(directory, 'scenes', 'home'),
+      'home',
+      { safeZones: {} },
+    )
+
+    const error = await catalogError(directory)
+
+    expect(error.message).toContain(recordPath)
+    expect(error.message).toContain('safeZones must include at least one zone')
+  })
+
+  it('rejects a registered scene without recommended anchors', async () => {
+    const directory = await createCatalogDirectory()
+    const recordPath = await createValidSceneRecord(
+      join(directory, 'scenes', 'home'),
+      'home',
+      { anchors: {} },
+    )
+
+    const error = await catalogError(directory)
+
+    expect(error.message).toContain(recordPath)
+    expect(error.message).toContain(
+      'anchors must include at least one recommended anchor',
     )
   })
 

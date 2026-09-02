@@ -204,6 +204,25 @@ describe('asset validation', () => {
     ).rejects.toThrow('coast: desktop scene alpha minimum must be 255; got 128')
   })
 
+  it('rejects a grayscale-plus-alpha scene with transparency', async () => {
+    const { desktop, mobile } = await createValidScenePair('mist')
+    await sharp({
+      create: {
+        width: 1536,
+        height: 1024,
+        channels: 4,
+        background: { r: 6, g: 6, b: 6, alpha: 0.5 },
+      },
+    })
+      .toColourspace('b-w')
+      .png()
+      .toFile(desktop)
+
+    await expect(
+      validateScenePair(createSceneRecord('mist', desktop, mobile)),
+    ).rejects.toThrow('mist: desktop scene alpha minimum must be 255; got 128')
+  })
+
   it('accepts opaque three-channel scene variants', async () => {
     const { desktop, mobile } = await createValidScenePair('guild')
 
@@ -313,7 +332,9 @@ describe('asset validation', () => {
         anchor: bottomCenterAnchor,
         frames: frames.map((frame) => ({ ...frame, width: 63 })),
       }),
-    ).rejects.toThrow('read: frame first.png must be 63x96; got 64x96')
+    ).rejects.toThrow(
+      /read: frame (first|second)\.png must be 63x96; got 64x96/,
+    )
   })
 
   it('rejects a sequence with an invalid fallback index', async () => {
@@ -345,7 +366,26 @@ describe('asset validation', () => {
         anchor: bottomCenterAnchor,
         frames,
       }),
-    ).rejects.toThrow('run-loading: duration must be positive; got 0')
+    ).rejects.toThrow(
+      'run-loading: duration must be finite and positive; got 0',
+    )
+  })
+
+  it('rejects a sequence with a nonfinite duration', async () => {
+    const frames = await createValidSequenceFrames()
+
+    await expect(
+      validateSequence({
+        name: 'talk',
+        durationMs: Infinity,
+        loop: true,
+        fallback: 0,
+        anchor: bottomCenterAnchor,
+        frames,
+      }),
+    ).rejects.toThrow(
+      'talk: duration must be finite and positive; got Infinity',
+    )
   })
 
   it('accepts a structurally valid sequence', async () => {
