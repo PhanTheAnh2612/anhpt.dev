@@ -81,6 +81,54 @@ async function createValidScenePair(name: string) {
   return { desktop, mobile }
 }
 
+function createSceneRecord(name: string, desktop: string, mobile: string) {
+  return {
+    name,
+    desktop,
+    mobile,
+    desktopDimensions: { width: 1536, height: 1024 },
+    mobileDimensions: { width: 1024, height: 1280 },
+    focalArea: {
+      desktop: {
+        xPercent: 25,
+        yPercent: 20,
+        widthPercent: 50,
+        heightPercent: 60,
+      },
+      mobile: {
+        xPercent: 10,
+        yPercent: 20,
+        widthPercent: 80,
+        heightPercent: 60,
+      },
+    },
+    safeZones: {
+      overlay: {
+        desktop: {
+          xPercent: 5,
+          yPercent: 5,
+          widthPercent: 25,
+          heightPercent: 20,
+        },
+        mobile: {
+          xPercent: 5,
+          yPercent: 5,
+          widthPercent: 50,
+          heightPercent: 20,
+        },
+      },
+    },
+    anchors: {
+      anh: {
+        desktop: { xPercent: 50, yPercent: 85, scale: 1 },
+        mobile: { xPercent: 50, yPercent: 82, scale: 1 },
+      },
+    },
+  }
+}
+
+const bottomCenterAnchor = { xPercent: 50, yPercent: 100 }
+
 async function createValidSequenceFrames() {
   const directory = await createTemporaryDirectory()
   const first = join(directory, 'first.png')
@@ -88,8 +136,8 @@ async function createValidSequenceFrames() {
   await createSprite(first)
   await createSprite(second)
   return [
-    { path: first, width: 64, height: 96 },
-    { path: second, width: 64, height: 96 },
+    { path: first, width: 64, height: 96, anchor: bottomCenterAnchor },
+    { path: second, width: 64, height: 96, anchor: bottomCenterAnchor },
   ]
 }
 
@@ -110,7 +158,7 @@ describe('asset validation', () => {
       .toFile(mobile)
 
     await expect(
-      validateScenePair({ name: 'home', desktop, mobile, anchors: {} }),
+      validateScenePair(createSceneRecord('home', desktop, mobile)),
     ).rejects.toThrow('home: desktop scene must be 1536x1024')
   })
 
@@ -121,9 +169,10 @@ describe('asset validation', () => {
         durationMs: 600,
         loop: true,
         fallback: 0,
+        anchor: bottomCenterAnchor,
         frames: [
-          { path: 'a.png', width: 64, height: 96 },
-          { path: 'b.png', width: 65, height: 96 },
+          { path: 'a.png', width: 64, height: 96, anchor: bottomCenterAnchor },
+          { path: 'b.png', width: 65, height: 96, anchor: bottomCenterAnchor },
         ],
       }),
     ).rejects.toThrow('idle: frames must have the same dimensions; got 65x96')
@@ -137,7 +186,7 @@ describe('asset validation', () => {
     await createPng(mobile, { channels: 3, width: 1024, height: 1279 })
 
     await expect(
-      validateScenePair({ name: 'home', desktop, mobile, anchors: {} }),
+      validateScenePair(createSceneRecord('home', desktop, mobile)),
     ).rejects.toThrow('home: mobile scene must be 1024x1280; got 1024x1279')
   })
 
@@ -151,7 +200,7 @@ describe('asset validation', () => {
     })
 
     await expect(
-      validateScenePair({ name: 'coast', desktop, mobile, anchors: {} }),
+      validateScenePair(createSceneRecord('coast', desktop, mobile)),
     ).rejects.toThrow('coast: desktop scene alpha minimum must be 255; got 128')
   })
 
@@ -159,7 +208,7 @@ describe('asset validation', () => {
     const { desktop, mobile } = await createValidScenePair('guild')
 
     await expect(
-      validateScenePair({ name: 'guild', desktop, mobile, anchors: {} }),
+      validateScenePair(createSceneRecord('guild', desktop, mobile)),
     ).resolves.toBeUndefined()
   })
 
@@ -172,6 +221,7 @@ describe('asset validation', () => {
         durationMs: 600,
         loop: true,
         fallback: 0,
+        anchor: bottomCenterAnchor,
         frames: [first],
       }),
     ).rejects.toThrow(
@@ -191,7 +241,11 @@ describe('asset validation', () => {
         durationMs: 600,
         loop: true,
         fallback: 0,
-        frames: [{ path: jpg, width: 64, height: 96 }, frames[1]],
+        anchor: bottomCenterAnchor,
+        frames: [
+          { path: jpg, width: 64, height: 96, anchor: bottomCenterAnchor },
+          frames[1],
+        ],
       }),
     ).rejects.toThrow('talk: frame must be a PNG; got first.jpg')
   })
@@ -208,7 +262,11 @@ describe('asset validation', () => {
         durationMs: 600,
         loop: true,
         fallback: 0,
-        frames: [{ path: opaque, width: 64, height: 96 }, second],
+        anchor: bottomCenterAnchor,
+        frames: [
+          { path: opaque, width: 64, height: 96, anchor: bottomCenterAnchor },
+          second,
+        ],
       }),
     ).rejects.toThrow(
       'point: frame opaque.png must include an alpha channel; got 3',
@@ -227,7 +285,16 @@ describe('asset validation', () => {
         durationMs: 600,
         loop: true,
         fallback: 0,
-        frames: [{ path: edgeToEdge, width: 64, height: 96 }, second],
+        anchor: bottomCenterAnchor,
+        frames: [
+          {
+            path: edgeToEdge,
+            width: 64,
+            height: 96,
+            anchor: bottomCenterAnchor,
+          },
+          second,
+        ],
       }),
     ).rejects.toThrow(
       'think: frame edge-to-edge.png must have a transparent margin',
@@ -243,6 +310,7 @@ describe('asset validation', () => {
         durationMs: 600,
         loop: true,
         fallback: 0,
+        anchor: bottomCenterAnchor,
         frames: frames.map((frame) => ({ ...frame, width: 63 })),
       }),
     ).rejects.toThrow('read: frame first.png must be 63x96; got 64x96')
@@ -257,6 +325,7 @@ describe('asset validation', () => {
         durationMs: 600,
         loop: true,
         fallback: 2,
+        anchor: bottomCenterAnchor,
         frames,
       }),
     ).rejects.toThrow(
@@ -273,6 +342,7 @@ describe('asset validation', () => {
         durationMs: 0,
         loop: true,
         fallback: 0,
+        anchor: bottomCenterAnchor,
         frames,
       }),
     ).rejects.toThrow('run-loading: duration must be positive; got 0')
@@ -287,6 +357,7 @@ describe('asset validation', () => {
         durationMs: 600,
         loop: true,
         fallback: 0,
+        anchor: bottomCenterAnchor,
         frames,
       }),
     ).resolves.toBeUndefined()

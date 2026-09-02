@@ -3,14 +3,19 @@ import { isAbsolute, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import type {
   FrameSource,
+  NormalizedAnchor,
+  SceneArea,
   SceneAnchor,
+  SceneDimensions,
   SceneSource,
+  SceneVariants,
   SequenceSource,
 } from './contracts'
 import { validateScenePair, validateSequence } from './validation'
 
 export async function validateAssetCatalog(assetsRoot: string): Promise<void> {
   const recordPaths = await findRegisteredRecordPaths(assetsRoot)
+  const sceneRecordPaths = new Map<string, string>()
   const sequenceRecordPaths = new Map<string, string>()
 
   for (const recordPath of recordPaths) {
@@ -19,6 +24,15 @@ export async function validateAssetCatalog(assetsRoot: string): Promise<void> {
 
     if (recordPath.endsWith('.scene.json')) {
       const scene = toSceneSource(record, recordPath, recordDirectory)
+      const conflictingRecordPath = sceneRecordPaths.get(scene.name)
+
+      if (conflictingRecordPath) {
+        throw new Error(
+          `${recordPath}: duplicate scene name "${scene.name}" conflicts with ${conflictingRecordPath}`,
+        )
+      }
+
+      sceneRecordPaths.set(scene.name, recordPath)
       await validateRegisteredRecord(recordPath, () => validateScenePair(scene))
     } else {
       const sequence = toSequenceSource(record, recordPath, recordDirectory)
@@ -87,7 +101,7 @@ function toSceneSource(
 ): SceneSource {
   if (!isRecord(value) || !isSceneSource(value)) {
     throw new Error(
-      `${recordPath.split(/[\\/]/).at(-1)}: scene record requires desktop, mobile, and anchors`,
+      `${recordPath}: scene record requires desktop, mobile, and anchors; also declared dimensions, focalArea, and safeZones`,
     )
   }
 
@@ -105,7 +119,7 @@ function toSequenceSource(
 ): SequenceSource {
   if (!isRecord(value) || !isSequenceSource(value)) {
     throw new Error(
-      `${recordPath.split(/[\\/]/).at(-1)}: sequence record requires name, durationMs, loop, fallback, and frames`,
+      `${recordPath}: sequence record requires name, durationMs, loop, fallback, anchor, and frames with frame anchors`,
     )
   }
 
@@ -131,6 +145,13 @@ function isSceneSource(value: Record<string, unknown>): value is SceneSource {
     typeof value.name === 'string' &&
     typeof value.desktop === 'string' &&
     typeof value.mobile === 'string' &&
+    isSceneDimensions(value.desktopDimensions) &&
+    isSceneDimensions(value.mobileDimensions) &&
+    isSceneVariants(value.focalArea, isSceneArea) &&
+    isRecord(value.safeZones) &&
+    Object.values(value.safeZones).every((safeZone) =>
+      isSceneVariants(safeZone, isSceneArea),
+    ) &&
     isRecord(value.anchors) &&
     Object.values(value.anchors).every(isSceneAnchorPair)
   )
@@ -145,6 +166,31 @@ function isSceneAnchorPair(value: unknown): value is {
     isSceneAnchor(value.desktop) &&
     isSceneAnchor(value.mobile)
   )
+}
+
+function isSceneDimensions(value: unknown): value is SceneDimensions {
+  return (
+    isRecord(value) &&
+    typeof value.width === 'number' &&
+    typeof value.height === 'number'
+  )
+}
+
+function isSceneArea(value: unknown): value is SceneArea {
+  return (
+    isRecord(value) &&
+    typeof value.xPercent === 'number' &&
+    typeof value.yPercent === 'number' &&
+    typeof value.widthPercent === 'number' &&
+    typeof value.heightPercent === 'number'
+  )
+}
+
+function isSceneVariants<T>(
+  value: unknown,
+  isVariant: (candidate: unknown) => candidate is T,
+): value is SceneVariants<T> {
+  return isRecord(value) && isVariant(value.desktop) && isVariant(value.mobile)
 }
 
 function isSceneAnchor(value: unknown): value is SceneAnchor {
@@ -164,6 +210,7 @@ function isSequenceSource(
     typeof value.durationMs === 'number' &&
     typeof value.loop === 'boolean' &&
     typeof value.fallback === 'number' &&
+    isNormalizedAnchor(value.anchor) &&
     Array.isArray(value.frames) &&
     value.frames.every(isFrameSource)
   )
@@ -174,7 +221,16 @@ function isFrameSource(value: unknown): value is FrameSource {
     isRecord(value) &&
     typeof value.path === 'string' &&
     typeof value.width === 'number' &&
-    typeof value.height === 'number'
+    typeof value.height === 'number' &&
+    isNormalizedAnchor(value.anchor)
+  )
+}
+
+function isNormalizedAnchor(value: unknown): value is NormalizedAnchor {
+  return (
+    isRecord(value) &&
+    typeof value.xPercent === 'number' &&
+    typeof value.yPercent === 'number'
   )
 }
 

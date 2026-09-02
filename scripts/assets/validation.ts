@@ -1,11 +1,64 @@
 import sharp from 'sharp'
 import { basename, extname } from 'node:path'
-import type { SceneSource, SequenceSource } from './contracts'
+import type {
+  NormalizedAnchor,
+  SceneAnchor,
+  SceneArea,
+  SceneDimensions,
+  SceneSource,
+  SequenceSource,
+} from './contracts'
 
 const desktopSceneSize = { width: 1536, height: 1024 }
 const mobileSceneSize = { width: 1024, height: 1280 }
+const safeIdentifier = /^[a-z][a-z0-9-]*$/
+const maximumSceneScale = 4
 
 export async function validateScenePair(record: SceneSource): Promise<void> {
+  validateIdentifier(record.name, 'scene name')
+  validateSceneDimensions(
+    record.name,
+    'desktop',
+    record.desktopDimensions,
+    desktopSceneSize,
+  )
+  validateSceneDimensions(
+    record.name,
+    'mobile',
+    record.mobileDimensions,
+    mobileSceneSize,
+  )
+  validateSceneArea(record.name, 'focalArea.desktop', record.focalArea.desktop)
+  validateSceneArea(record.name, 'focalArea.mobile', record.focalArea.mobile)
+
+  for (const [safeZoneName, safeZone] of Object.entries(record.safeZones)) {
+    validateIdentifier(record.name, 'safe zone name', safeZoneName)
+    validateSceneArea(
+      record.name,
+      `safeZones.${safeZoneName}.desktop`,
+      safeZone.desktop,
+    )
+    validateSceneArea(
+      record.name,
+      `safeZones.${safeZoneName}.mobile`,
+      safeZone.mobile,
+    )
+  }
+
+  for (const [anchorName, anchor] of Object.entries(record.anchors)) {
+    validateIdentifier(record.name, 'anchor name', anchorName)
+    validateSceneAnchor(
+      record.name,
+      `anchors.${anchorName}.desktop`,
+      anchor.desktop,
+    )
+    validateSceneAnchor(
+      record.name,
+      `anchors.${anchorName}.mobile`,
+      anchor.mobile,
+    )
+  }
+
   await validateSceneVariant(
     record.name,
     'desktop',
@@ -21,9 +74,12 @@ export async function validateScenePair(record: SceneSource): Promise<void> {
 }
 
 export async function validateSequence(record: SequenceSource): Promise<void> {
-  if (!/^[a-z][a-z0-9-]*$/.test(record.name)) {
+  validateIdentifier(record.name, 'sequence name')
+  validateNormalizedAnchor(record.name, 'sequence anchor', record.anchor)
+
+  if (record.anchor.xPercent !== 50 || record.anchor.yPercent !== 100) {
     throw new Error(
-      `${record.name}: sequence name must match /^[a-z][a-z0-9-]*$/; got "${record.name}"`,
+      `${record.name}: sequence anchor must be bottom-center (50,100); got (${record.anchor.xPercent},${record.anchor.yPercent})`,
     )
   }
 
@@ -62,9 +118,111 @@ export async function validateSequence(record: SequenceSource): Promise<void> {
     }
   }
 
+  for (const frame of record.frames) {
+    validateNormalizedAnchor(
+      record.name,
+      `frame ${basename(frame.path)} anchor`,
+      frame.anchor,
+    )
+
+    if (
+      frame.anchor.xPercent !== record.anchor.xPercent ||
+      frame.anchor.yPercent !== record.anchor.yPercent
+    ) {
+      throw new Error(
+        `${record.name}: frame ${basename(frame.path)} anchor must equal sequence anchor (${record.anchor.xPercent},${record.anchor.yPercent}); got (${frame.anchor.xPercent},${frame.anchor.yPercent})`,
+      )
+    }
+  }
+
   await Promise.all(
     record.frames.map((frame) => validateFrame(record.name, frame)),
   )
+}
+
+function validateIdentifier(
+  recordName: string,
+  label: string,
+  value = recordName,
+) {
+  if (!safeIdentifier.test(value)) {
+    throw new Error(
+      `${recordName}: ${label} must match /^[a-z][a-z0-9-]*$/; got "${value}"`,
+    )
+  }
+}
+
+function validateSceneDimensions(
+  name: string,
+  variant: 'desktop' | 'mobile',
+  dimensions: SceneDimensions,
+  expectedDimensions: SceneDimensions,
+) {
+  if (
+    dimensions.width !== expectedDimensions.width ||
+    dimensions.height !== expectedDimensions.height
+  ) {
+    throw new Error(
+      `${name}: ${variant} declared dimensions must be ${expectedDimensions.width}x${expectedDimensions.height}; got ${dimensions.width}x${dimensions.height}`,
+    )
+  }
+}
+
+function validateSceneArea(name: string, label: string, area: SceneArea) {
+  validatePercentage(name, `${label}.xPercent`, area.xPercent)
+  validatePercentage(name, `${label}.yPercent`, area.yPercent)
+  validatePositivePercentage(name, `${label}.widthPercent`, area.widthPercent)
+  validatePositivePercentage(name, `${label}.heightPercent`, area.heightPercent)
+
+  if (
+    area.xPercent + area.widthPercent > 100 ||
+    area.yPercent + area.heightPercent > 100
+  ) {
+    throw new Error(`${name}: ${label} must stay within 0-100% bounds`)
+  }
+}
+
+function validateSceneAnchor(name: string, label: string, anchor: SceneAnchor) {
+  validateNormalizedAnchor(name, label, anchor)
+
+  if (
+    !Number.isFinite(anchor.scale) ||
+    anchor.scale <= 0 ||
+    anchor.scale > maximumSceneScale
+  ) {
+    throw new Error(
+      `${name}: ${label}.scale must be finite and between 0 and ${maximumSceneScale}; got ${anchor.scale}`,
+    )
+  }
+}
+
+function validateNormalizedAnchor(
+  name: string,
+  label: string,
+  anchor: NormalizedAnchor,
+) {
+  validatePercentage(name, `${label}.xPercent`, anchor.xPercent)
+  validatePercentage(name, `${label}.yPercent`, anchor.yPercent)
+}
+
+function validatePercentage(name: string, label: string, value: number) {
+  if (!Number.isFinite(value) || value < 0 || value > 100) {
+    throw new Error(
+      `${name}: ${label} must be finite and between 0 and 100; got ${value}`,
+    )
+  }
+}
+
+function validatePositivePercentage(
+  name: string,
+  label: string,
+  value: number,
+) {
+  if (!Number.isFinite(value) || value <= 0 || value > 100) {
+    throw new Error(
+      `${name}: ${label} must be finite and greater than 0 up to 100; got ${value}`,
+    )
+  }
 }
 
 async function validateSceneVariant(
