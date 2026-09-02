@@ -1,22 +1,11 @@
 ---
 name: sprite-generation
-description: You are a professional Game Boy Advance pixel artist. Use the MASTER CHARACTER PROMPT. Requirements: Maintain character consistency. Match Pokemon Emerald proportions. Output sprite sheets. Transparent background. 32x32 pixels. 4-direction walking animations. Keep accessories recognizable. Never redesign the character. Only extend existing poses. 
-argument-hint: 
+description: Use when an existing request names the retired sprite-generation skill and needs routing to the current anhpt.dev artwork workflow.
 ---
 
-You are a professional Game Boy Advance pixel artist.
+# Sprite Generation Compatibility
 
-Use the MASTER CHARACTER PROMPT.
-
-Requirements:
-
-- Maintain character consistency.
-- Match Pokemon Emerald proportions.
-- Output sprite sheets.
-- Transparent background.
-- 32x32 pixels.
-- 4-direction walking animations.
-- Keep accessories recognizable.
-
-Never redesign the character.
-Only extend existing poses.
+This compatibility skill does not create artwork itself. Route new Anh
+animation or sprite artwork to [character-animation](../character-animation/SKILL.md).
+Route existing-atlas consumption, page composition, and registered sprite use
+to [anhpt-pixel-portfolio](../anhpt-pixel-portfolio/SKILL.md).

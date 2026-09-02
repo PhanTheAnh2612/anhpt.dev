@@ -15,6 +15,9 @@ through a restrained pixel RPG visual language.
   scores, navigation, or portfolio claims.
 - Reuse existing artwork and shared components before generating or duplicating
   assets.
+- Compose pages from registered scene/sprite manifests, registered content
+  directives, and shared UI components. Do not bypass those records with
+  unregistered image prompts or manual atlas offsets.
 - Keep pages SSR-safe, keyboard accessible, and usable at laptop and 390px
   mobile widths.
 - Do not expose confidential projects, dashboards, customer data, or internal
@@ -27,7 +30,7 @@ through a restrained pixel RPG visual language.
 
 - For visual hierarchy, panels, breakpoints, or responsive composition, read
   [references/design-system.md](references/design-system.md).
-- When using `base-sprites.png` or adding a sprite crop, read
+- When consuming registered sprite metadata or adding a sprite crop, read
   [references/sprite-atlas.md](references/sprite-atlas.md).
 - For portfolio copy, course Markdown, journal Markdown, or editable content,
   read [references/content-model.md](references/content-model.md).
@@ -42,8 +45,13 @@ through a restrained pixel RPG visual language.
 - Route composition belongs in `src/routes/`; keep large editable copy or data
   structures in `src/content/` or `src/lib/`.
 - Import from the defining file, not a new barrel.
-- Keep sprite-atlas use scoped through `BaseSprite`; do not import a global atlas
-  stylesheet or replace unrelated page artwork.
+- Consume scene/sprite manifests through the shared runtime components. Keep
+  sprite-atlas use scoped through `BaseSprite`; do not import a global atlas
+  stylesheet, change generated coordinates, or replace unrelated page artwork.
+- Request missing assets through `scene-generation`, `character-animation`, or
+  `content-element-generation`, then wait for their validation and registration
+  before composing with them. Do not create unregistered image prompts or
+  manual atlas offsets.
 - Treat screenshots and generated mockups as structural references. Extract
   hierarchy and interaction patterns, not baked-in text or confidential-looking
   dashboard details.
