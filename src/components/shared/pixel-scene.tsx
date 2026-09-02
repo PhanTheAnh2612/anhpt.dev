@@ -39,7 +39,7 @@ export function PixelScene<TName extends SceneName>({
     <figure className={`pixel-scene ${className}`.trim()}>
       <picture className="pixel-scene__picture">
         <source media="(max-width: 560px)" srcSet={scene.mobile.src} />
-        <img alt="" role="img" src={scene.desktop.src} />
+        <img alt="" src={scene.desktop.src} />
       </picture>
       {Object.entries(overlays).flatMap(([anchorName, overlay]) => {
         if (

@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
-import { PixelScene } from './pixel-scene'
+import { PixelScene, type PixelSceneProps, type SceneName } from './pixel-scene'
 
 vi.mock('../../generated/scene-manifest', () => ({
   sceneManifest: {
@@ -17,16 +17,22 @@ vi.mock('../../generated/scene-manifest', () => ({
   },
 }))
 
+// The production manifest is intentionally empty today and will become a
+// literal-name catalog once approved scene art is generated. This test-only
+// fixture exercises the mocked runtime contract without widening public types.
+const fixtureSceneProps = {
+  name: 'fixture',
+  overlays: { character: <span>Anh</span> },
+} as unknown as PixelSceneProps<SceneName>
+
 describe('PixelScene', () => {
   it('renders responsive scene variants and positions registered overlays', () => {
-    render(
-      <PixelScene name="fixture" overlays={{ character: <span>Anh</span> }} />,
-    )
+    const { container } = render(<PixelScene {...fixtureSceneProps} />)
+    const image = container.querySelector('img')
 
-    expect(screen.getByRole('img')).toHaveAttribute(
-      'src',
-      '/assets/scenes/fixture.desktop.png',
-    )
+    expect(image).toHaveAttribute('alt', '')
+    expect(image).toHaveAttribute('src', '/assets/scenes/fixture.desktop.png')
+    expect(screen.queryByRole('img')).toBeNull()
     expect(document.querySelector('source')).toHaveAttribute(
       'media',
       '(max-width: 560px)',
