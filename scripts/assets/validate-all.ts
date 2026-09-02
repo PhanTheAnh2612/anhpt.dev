@@ -17,14 +17,26 @@ export async function validateAssetCatalog(assetsRoot: string): Promise<void> {
     const recordDirectory = resolve(recordPath, '..')
 
     if (recordPath.endsWith('.scene.json')) {
-      await validateScenePair(
-        toSceneSource(record, recordPath, recordDirectory),
-      )
+      const scene = toSceneSource(record, recordPath, recordDirectory)
+      await validateRegisteredRecord(recordPath, () => validateScenePair(scene))
     } else {
-      await validateSequence(
-        toSequenceSource(record, recordPath, recordDirectory),
+      const sequence = toSequenceSource(record, recordPath, recordDirectory)
+      await validateRegisteredRecord(recordPath, () =>
+        validateSequence(sequence),
       )
     }
+  }
+}
+
+async function validateRegisteredRecord(
+  recordPath: string,
+  validate: () => Promise<void>,
+): Promise<void> {
+  try {
+    await validate()
+  } catch (error) {
+    const detail = error instanceof Error ? error.message : String(error)
+    throw new Error(`${recordPath}: ${detail}`, { cause: error })
   }
 }
 

@@ -42,4 +42,33 @@ describe('asset catalog validation', () => {
       'home.scene.json: scene record requires desktop, mobile, and anchors',
     )
   })
+
+  it('includes the registered record path when semantic validation fails', async () => {
+    const directory = await createCatalogDirectory()
+    const sequenceDirectory = join(directory, 'character', 'idle')
+    const sequencePath = join(sequenceDirectory, 'sequence.json')
+    await mkdir(sequenceDirectory, { recursive: true })
+    await writeFile(
+      sequencePath,
+      JSON.stringify({
+        name: 'idle',
+        durationMs: 0,
+        loop: true,
+        fallback: 0,
+        frames: [
+          { path: 'first.png', width: 64, height: 96 },
+          { path: 'second.png', width: 64, height: 96 },
+        ],
+      }),
+    )
+
+    const error = await validateAssetCatalog(directory).catch(
+      (caught: unknown) => caught,
+    )
+
+    expect(error).toBeInstanceOf(Error)
+    if (!(error instanceof Error)) throw new Error('expected validation error')
+    expect(error.message).toContain(sequencePath)
+    expect(error.message).toContain('idle: duration must be positive; got 0')
+  })
 })
