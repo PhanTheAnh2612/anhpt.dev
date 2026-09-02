@@ -1,8 +1,6 @@
-import { createTanStackMarkdownHighlighter } from '@tanstack/highlight/markdown'
-import { renderHtml } from '@tanstack/markdown/html'
-import { parseMarkdown } from '@tanstack/markdown/parser'
-import { highlighter } from './highlighter'
+import type { MarkdownDocument } from '@tanstack/markdown'
 import { isCourseCategory } from './learning-path'
+import { parseContentMarkdown } from './markdown-extensions'
 
 import type { CourseCategory } from './learning-path'
 
@@ -12,6 +10,7 @@ export type ContentEntry = {
   category: CourseCategory | ''
   date: string
   description: string
+  document: MarkdownDocument
   kind: ContentKind
   order: number
   slug: string
@@ -35,8 +34,8 @@ const readList = (source: string, field: string) =>
     .map((value) => value.trim().replace(/^['"]|['"]$/g, ''))
     .filter(Boolean)
 const toEntry = (path: string, source: string): ContentEntry => {
-  const parsed = parseMarkdown(source, { frontmatter: true, headingIds: true })
-  const frontmatter = parsed.frontmatter ?? ''
+  const document = parseContentMarkdown(source)
+  const frontmatter = document.frontmatter ?? ''
   const slug = path.split('/').at(-1)?.replace(/\.md$/, '') ?? ''
   const category = readField(frontmatter, 'category')
   return {
@@ -44,6 +43,7 @@ const toEntry = (path: string, source: string): ContentEntry => {
     category: isCourseCategory(category) ? category : '',
     date: readField(frontmatter, 'date'),
     description: readField(frontmatter, 'description'),
+    document,
     kind: path.includes('/courses/') ? 'course' : 'journal',
     order: Number(readField(frontmatter, 'order') || '0'),
     slug,
@@ -58,9 +58,3 @@ export const getContent = (kind: ContentKind, slug: string) =>
   content.find((entry) => entry.kind === kind && entry.slug === slug)
 export const getContentByKind = (kind: ContentKind) =>
   content.filter((entry) => entry.kind === kind)
-export const renderContent = (entry: ContentEntry) =>
-  renderHtml(entry.body, {
-    codeLineNumbers: true,
-    highlighter: createTanStackMarkdownHighlighter(highlighter),
-    headingAnchors: { ariaHidden: true, content: '#', tabIndex: -1 },
-  })
