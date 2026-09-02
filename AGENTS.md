@@ -102,6 +102,8 @@ tanstackIntent:
 
 ## Project skills
 
+- Before generating or reviewing anhpt.dev imagery, read
+  `.agents/skills/anhpt-art-direction/SKILL.md` and the asset-type skill it routes to.
 - For any anhpt.dev pixel-RPG portfolio page, responsive visual composition,
   editable portfolio content, Journey/Guild Hall pattern, or base sprite-atlas
   work, read and follow
