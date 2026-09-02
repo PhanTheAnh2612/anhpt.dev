@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, within } from '@testing-library/react'
 import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { describe, expect, expectTypeOf, it } from 'vitest'
@@ -46,6 +46,31 @@ Keep your notes nearby.
       'Complete this route.Keep your notes nearby.',
     )
     expect(screen.getByRole('note', { name: 'Note' })).toBeInTheDocument()
+  })
+
+  it('preserves same-name nested directive content without rendering an end marker', () => {
+    const { container } = render(
+      <MarkdownContent
+        source={`<!-- ::start:note -->
+Outer note opening.
+
+<!-- ::start:note -->
+Inner note detail.
+<!-- ::end:note -->
+
+Outer note closing.
+<!-- ::end:note -->`}
+      />,
+    )
+
+    const notes = within(container).getAllByRole('note', { name: 'Note' })
+
+    expect(notes).toHaveLength(2)
+    expect(notes[0]).toHaveTextContent(
+      'Outer note opening.Inner note detail.Outer note closing.',
+    )
+    expect(notes[1]).toHaveTextContent('Inner note detail.')
+    expect(container).not.toHaveTextContent('::end:note')
   })
 
   it('keeps raw HTML as text', () => {
