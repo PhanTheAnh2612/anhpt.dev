@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
-import { PixelScene, type PixelSceneProps, type SceneName } from './pixel-scene'
+import { PixelScene } from './pixel-scene'
+import type { PixelSceneProps, SceneName } from './pixel-scene'
 
 vi.mock('../../generated/scene-manifest', () => ({
   sceneManifest: {

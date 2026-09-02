@@ -1,8 +1,14 @@
 @import 'tailwindcss';
 @import '../generated/sprite-atlases.css';
 @import 'base-sprites.css';
+@import '@fontsource/press-start-2p';
+@import '@fontsource/pixelify-sans';
+@import '@fontsource/vt323';
 
 :root {
+  --font-display: 'Press Start 2P', ui-monospace, monospace;
+  --font-content: 'Pixelify Sans', system-ui, sans-serif;
+  --font-terminal: 'VT323', ui-monospace, monospace;
   --ink: #14211d;
   --emerald-950: #061f1b;
   --emerald-900: #07352d;
@@ -32,8 +38,20 @@ body {
     var(--emerald-950) 42rem
   );
   color: var(--cream);
-  font-family: 'Courier New', ui-monospace, monospace;
+  font-family: var(--font-content);
+  font-size: 1rem;
   image-rendering: pixelated;
+  line-height: 1.6;
+}
+h1,
+h2,
+.menu-title,
+.panel-label {
+  font-family: var(--font-display);
+}
+.terminal,
+.secret-notes {
+  font-family: var(--font-terminal);
 }
 a {
   color: inherit;

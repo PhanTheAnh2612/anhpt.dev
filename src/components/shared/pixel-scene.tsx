@@ -66,7 +66,7 @@ export function PixelScene<TName extends SceneName>({
             key={anchorName}
             style={style}
           >
-            {overlay}
+            {overlay as ReactNode}
           </div>
         )
       })}
