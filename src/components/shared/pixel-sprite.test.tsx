@@ -46,6 +46,14 @@ describe('pixel sprite runtime components', () => {
     ).toBeTruthy()
   })
 
+  it('treats an empty animation label as an accessible label', () => {
+    const { container } = render(<PixelAnimation name="idle" label="" />)
+    const sprite = container.firstElementChild
+
+    expect(sprite).toHaveAttribute('aria-label', '')
+    expect(sprite).not.toHaveAttribute('aria-hidden')
+  })
+
   it('renders an explicit sequence frame with scaled dimensions', () => {
     const { container } = render(
       <PixelSprite className="hero-sprite" frame={1} name="idle" scale={2} />,
@@ -61,5 +69,25 @@ describe('pixel sprite runtime components', () => {
       '--pixel-x': '-16px',
       '--pixel-y': '0px',
     })
+  })
+
+  it('rejects a missing sprite sequence with a useful error', () => {
+    expect(() => render(<PixelSprite frame={0} name="missing" />)).toThrow(
+      'Sprite sequence "missing" is not registered.',
+    )
+  })
+
+  it.each([-1, 1.5, 2])('rejects invalid frame index %s', (frame) => {
+    expect(() => render(<PixelSprite frame={frame} name="idle" />)).toThrow(
+      `Sprite sequence "idle" does not include frame ${frame}.`,
+    )
+  })
+
+  it('treats an empty sprite label as an accessible label', () => {
+    const { container } = render(<PixelSprite frame={0} name="idle" label="" />)
+    const sprite = container.firstElementChild
+
+    expect(sprite).toHaveAttribute('aria-label', '')
+    expect(sprite).not.toHaveAttribute('aria-hidden')
   })
 })

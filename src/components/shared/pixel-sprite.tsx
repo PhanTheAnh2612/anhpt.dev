@@ -10,8 +10,9 @@ type RuntimeSpriteSequence = Pick<SpriteSequence, 'atlas'> & {
   frames: readonly Readonly<SpriteFrame>[]
 }
 
-const spriteManifestEntries: Readonly<Record<string, RuntimeSpriteSequence>> =
-  spriteManifest
+const spriteManifestEntries: Readonly<
+  Partial<Record<string, RuntimeSpriteSequence>>
+> = spriteManifest
 
 export type PixelSpriteName = [ManifestName] extends [never]
   ? string
@@ -33,6 +34,21 @@ export function PixelSprite({
   scale = 1,
 }: PixelSpriteProps) {
   const sequence = spriteManifestEntries[name]
+
+  if (!sequence) {
+    throw new RangeError(`Sprite sequence "${name}" is not registered.`)
+  }
+
+  if (
+    !Number.isInteger(frame) ||
+    frame < 0 ||
+    frame >= sequence.frames.length
+  ) {
+    throw new RangeError(
+      `Sprite sequence "${name}" does not include frame ${frame}.`,
+    )
+  }
+
   const sprite = sequence.frames[frame]
 
   const style = {
@@ -43,9 +59,10 @@ export function PixelSprite({
     '--pixel-x': `${-sprite.x}px`,
     '--pixel-y': `${-sprite.y}px`,
   } as CSSProperties
-  const accessibility = label
-    ? { 'aria-label': label, role: 'img' }
-    : { 'aria-hidden': true }
+  const accessibility =
+    label !== undefined
+      ? { 'aria-label': label, role: 'img' }
+      : { 'aria-hidden': true }
 
   return (
     <span

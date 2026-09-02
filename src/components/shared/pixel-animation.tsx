@@ -21,9 +21,10 @@ export function PixelAnimation({
   scale = 1,
 }: PixelAnimationProps) {
   const style = { '--pixel-scale': `${scale}` } as CSSProperties
-  const accessibility = label
-    ? { 'aria-label': label, role: 'img' }
-    : { 'aria-hidden': true }
+  const accessibility =
+    label !== undefined
+      ? { 'aria-label': label, role: 'img' }
+      : { 'aria-hidden': true }
 
   return (
     <span
