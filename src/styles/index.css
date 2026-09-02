@@ -577,6 +577,27 @@ h2 {
   height: var(--pixel-frame-height);
   width: var(--pixel-frame-width);
 }
+.pixel-scene {
+  margin: 0;
+  overflow: hidden;
+  position: relative;
+}
+.pixel-scene__picture {
+  display: block;
+}
+.pixel-scene__picture img {
+  height: auto;
+  image-rendering: pixelated;
+  width: 100%;
+}
+.pixel-scene__overlay {
+  left: var(--anchor-x);
+  position: absolute;
+  top: var(--anchor-y);
+  transform: translate(-50%, -50%) scale(var(--anchor-scale));
+  transform-origin: center;
+  z-index: 1;
+}
 .guild-console {
   background: #063026;
   border: 3px solid #07120f;
@@ -1227,6 +1248,11 @@ h2 {
   }
 }
 @media (max-width: 560px) {
+  .pixel-scene__overlay {
+    left: var(--anchor-mobile-x);
+    top: var(--anchor-mobile-y);
+    transform: translate(-50%, -50%) scale(var(--anchor-mobile-scale));
+  }
   .page-shell {
     padding-inline: 0.65rem;
   }
