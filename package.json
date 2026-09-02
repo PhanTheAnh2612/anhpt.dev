@@ -2,13 +2,14 @@
   "name": "anhpt-dev",
   "private": true,
   "type": "module",
+  "packageManager": "pnpm@10.15.0",
   "imports": {
     "#/*": "./src/*"
   },
   "scripts": {
     "dev": "vite dev --port 3000",
     "generate-routes": "tsr generate",
-    "build": "vite build",
+    "build": "pnpm assets:validate && pnpm assets:build && vite build",
     "preview": "vite preview",
     "lint": "eslint",
     "format": "prettier --write . && eslint --fix",
@@ -16,6 +17,7 @@
     "test": "vitest run",
     "test:assets": "vitest run scripts/assets",
     "assets:validate": "tsx scripts/assets/validate-all.ts",
+    "assets:build": "tsx scripts/assets/pack-atlases.ts && tsx scripts/assets/generate-scenes.ts",
     "deploy": "pnpm run build && wrangler deploy"
   },
   "dependencies": {
