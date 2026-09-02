@@ -15,6 +15,7 @@
     "check": "prettier --check .",
     "test": "vitest run",
     "test:assets": "vitest run scripts/assets",
+    "assets:validate": "tsx scripts/assets/validate-all.ts",
     "deploy": "pnpm run build && wrangler deploy"
   },
   "dependencies": {
@@ -44,6 +45,7 @@
     "eslint": "^9.20.0",
     "prettier": "^3.8.1",
     "sharp": "^0.35.4",
+    "tsx": "latest",
     "typescript": "^6.0.2",
     "vite": "^8.0.0",
     "vitest": "^4.1.11",
