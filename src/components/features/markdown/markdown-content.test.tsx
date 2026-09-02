@@ -1,9 +1,12 @@
 import { render, screen, within } from '@testing-library/react'
 import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
+import { renderToString } from 'react-dom/server'
 import { describe, expect, expectTypeOf, it } from 'vitest'
 import { getContent } from '../../../lib/content'
 import type { ContentEntry } from '../../../lib/content'
+import { directiveContract } from '../../../lib/markdown-extensions'
+import { markdownComponents } from './content-directives'
 import { MarkdownContent } from './markdown-content'
 import type { MarkdownContentProps } from './markdown-content'
 
@@ -88,6 +91,44 @@ Outer note closing.
     )
 
     expect(container.querySelector('.th-keyword')).toHaveTextContent('const')
+  })
+
+  it('keeps every directive contract entry mapped to React semantics', () => {
+    expect(Object.keys(markdownComponents).sort()).toEqual(
+      Object.keys(directiveContract)
+        .map((name) => `content-${name}`)
+        .sort(),
+    )
+  })
+
+  it('renders directives and highlighted code during server rendering', () => {
+    const html = renderToString(
+      <MarkdownContent
+        source={`<!-- ::start:quest difficulty="beginner" -->
+Server quest.
+
+<!-- ::start:note -->
+Nested server note.
+<!-- ::end:note -->
+<!-- ::end:quest -->
+
+\`\`\`ts
+const serverAnswer = 42
+\`\`\``}
+      />,
+    )
+
+    expect(html).toContain('aria-label="Quest"')
+    expect(html).toContain('aria-label="Note"')
+    expect(html).toContain('th-keyword')
+  })
+
+  it('uses a stable source label for malformed direct Markdown input', () => {
+    expect(() =>
+      render(<MarkdownContent source={'<!-- ::start:note -->'} />),
+    ).toThrow(
+      '<MarkdownContent source>:1:1: directive boundary: missing closing directive "note"',
+    )
   })
 
   it('renders the serializable parsed document stored on a content entry', () => {

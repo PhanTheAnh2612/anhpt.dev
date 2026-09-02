@@ -34,7 +34,7 @@ const readList = (source: string, field: string) =>
     .map((value) => value.trim().replace(/^['"]|['"]$/g, ''))
     .filter(Boolean)
 const toEntry = (path: string, source: string): ContentEntry => {
-  const document = parseContentMarkdown(source)
+  const document = parseContentMarkdown(source, { sourceLabel: path })
   const frontmatter = document.frontmatter ?? ''
   const slug = path.split('/').at(-1)?.replace(/\.md$/, '') ?? ''
   const category = readField(frontmatter, 'category')

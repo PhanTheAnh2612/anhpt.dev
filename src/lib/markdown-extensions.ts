@@ -37,6 +37,17 @@ export const directiveContract = {
 
 type AttributeRule = readonly string[] | typeof spriteName
 type DirectiveName = keyof typeof directiveContract
+type BlockDirectiveMarker = {
+  column: number
+  line: number
+  name: string
+}
+
+export type MarkdownSourceContext = {
+  sourceLabel?: string
+}
+
+const defaultSourceLabel = '<MarkdownContent source>'
 
 const isDirectiveName = (name: string): name is DirectiveName =>
   Object.hasOwn(directiveContract, name)
@@ -91,11 +102,100 @@ const commentComponentExtension = commentComponentsExtension({
   transformComponent,
 })
 
-const isEndComment = (line: string, name: string) =>
-  new RegExp(
-    `^ {0,3}<!--\\s*::end:${name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s*-->\\s*$`,
-    'i',
-  ).test(line)
+const parseEndComment = (line: string) => {
+  const match = line.match(
+    /^ {0,3}<!--\s*::end:([A-Za-z][\w-]*)(.*?)\s*-->\s*$/i,
+  )
+  if (!match) {
+    return undefined
+  }
+
+  return {
+    name: match[1].toLowerCase(),
+    valid: !match[2].trim(),
+  }
+}
+
+const markerError = (
+  sourceLabel: string,
+  marker: Pick<BlockDirectiveMarker, 'column' | 'line'>,
+  message: string,
+) => new Error(`${sourceLabel}:${marker.line}:${marker.column}: ${message}`)
+
+const validateDirectiveBoundaries = (source: string, sourceLabel: string) => {
+  const stack: BlockDirectiveMarker[] = []
+  const lines = source.split(/\r?\n/)
+
+  for (let index = 0; index < lines.length; index++) {
+    const line = lines[index] ?? ''
+    const marker = { column: line.indexOf('<!--') + 1, line: index + 1 }
+    const end = parseEndComment(line)
+
+    if (end) {
+      if (!end.valid) {
+        throw markerError(
+          sourceLabel,
+          marker,
+          `directive boundary: malformed closing directive "${end.name}"`,
+        )
+      }
+
+      const opening = stack.at(-1)
+      if (!opening) {
+        throw markerError(
+          sourceLabel,
+          marker,
+          `directive boundary: stray closing directive "${end.name}"`,
+        )
+      }
+      if (opening.name !== end.name) {
+        throw markerError(
+          sourceLabel,
+          marker,
+          `directive boundary: mismatched closing directive "${end.name}"; expected "${opening.name}"`,
+        )
+      }
+
+      stack.pop()
+      continue
+    }
+
+    const component = parseComponentComment(line)
+    if (!component) {
+      if (/^ {0,3}<!--\s*::/.test(line)) {
+        throw markerError(
+          sourceLabel,
+          marker,
+          'directive boundary: malformed directive marker',
+        )
+      }
+      continue
+    }
+
+    try {
+      validateDirective(component.name, component.attributes)
+    } catch (error) {
+      throw markerError(
+        sourceLabel,
+        marker,
+        error instanceof Error ? error.message : String(error),
+      )
+    }
+
+    if (component.block) {
+      stack.push({ ...marker, name: component.name })
+    }
+  }
+
+  const opening = stack.at(-1)
+  if (opening) {
+    throw markerError(
+      sourceLabel,
+      opening,
+      `directive boundary: missing closing directive "${opening.name}"`,
+    )
+  }
+}
 
 const findSameNameNestedEnd = (
   lines: string[],
@@ -114,7 +214,7 @@ const findSameNameNestedEnd = (
       continue
     }
 
-    if (isEndComment(line, name)) {
+    if (parseEndComment(line)?.name === name) {
       depth--
       if (depth === 0) {
         return { end: index, hasSameNameNesting }
@@ -154,9 +254,15 @@ export const contentDirectiveExtension: MarkdownExtension = {
   },
 }
 
-export const parseContentMarkdown = (source: string): MarkdownDocument =>
-  parseMarkdown(source, {
+export const parseContentMarkdown = (
+  source: string,
+  context: MarkdownSourceContext = {},
+): MarkdownDocument => {
+  validateDirectiveBoundaries(source, context.sourceLabel ?? defaultSourceLabel)
+
+  return parseMarkdown(source, {
     extensions: [contentDirectiveExtension],
     frontmatter: true,
     headingIds: true,
   })
+}
