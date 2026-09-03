@@ -3,10 +3,13 @@ import { join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { format, resolveConfig as resolvePrettierConfig } from 'prettier'
 import type { SceneSource } from './contracts'
+import { validateAssetCatalog } from './validate-all'
 
 export type SceneManifestEntry = {
-  desktop: { src: string }
-  mobile: { src: string }
+  desktop: { src: string } & SceneSource['desktopDimensions']
+  mobile: { src: string } & SceneSource['mobileDimensions']
+  focalArea: SceneSource['focalArea']
+  safeZones: SceneSource['safeZones']
   anchors: SceneSource['anchors']
 }
 
@@ -18,8 +21,16 @@ export async function generateSceneManifest(
     scenes.map((scene) => [
       scene.name,
       {
-        desktop: { src: `/assets/scenes/${scene.name}.desktop.png` },
-        mobile: { src: `/assets/scenes/${scene.name}.mobile.png` },
+        desktop: {
+          src: `/assets/scenes/${scene.name}.desktop.png`,
+          ...scene.desktopDimensions,
+        },
+        mobile: {
+          src: `/assets/scenes/${scene.name}.mobile.png`,
+          ...scene.mobileDimensions,
+        },
+        focalArea: scene.focalArea,
+        safeZones: scene.safeZones,
         anchors: scene.anchors,
       },
     ]),
@@ -29,13 +40,9 @@ export async function generateSceneManifest(
     outputFile,
     await format(
       [
-        "import type { SceneSource } from '../../scripts/assets/contracts'",
+        "import type { SceneManifestEntry } from '../../scripts/assets/generate-scenes'",
         '',
-        'export type SceneManifestEntry = {',
-        '  desktop: { src: string }',
-        '  mobile: { src: string }',
-        "  anchors: SceneSource['anchors']",
-        '}',
+        "export type { SceneManifestEntry } from '../../scripts/assets/generate-scenes'",
         '',
         `export const sceneManifest = ${JSON.stringify(manifest, null, 2)} as const satisfies Record<string, SceneManifestEntry>`,
         '',
@@ -100,6 +107,7 @@ async function publishScenes(scenes: SceneSource[], projectRoot: string) {
 
 async function buildScenes() {
   const root = resolve(process.cwd())
+  await validateAssetCatalog(resolve(root, 'assets-src'))
   const scenes = await loadScenes(resolve(root, 'assets-src/scenes'))
   await publishScenes(scenes, root)
   await generateSceneManifest(

@@ -38,8 +38,18 @@ export function PixelScene<TName extends SceneName>({
   return (
     <figure className={`pixel-scene ${className}`.trim()}>
       <picture className="pixel-scene__picture">
-        <source media="(max-width: 560px)" srcSet={scene.mobile.src} />
-        <img alt="" src={scene.desktop.src} />
+        <source
+          media="(max-width: 560px)"
+          srcSet={scene.mobile.src}
+          width={scene.mobile.width}
+          height={scene.mobile.height}
+        />
+        <img
+          alt=""
+          src={scene.desktop.src}
+          width={scene.desktop.width}
+          height={scene.desktop.height}
+        />
       </picture>
       {Object.entries(overlays).flatMap(([anchorName, overlay]) => {
         if (

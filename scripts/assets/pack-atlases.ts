@@ -3,7 +3,8 @@ import { join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { format, resolveConfig as resolvePrettierConfig } from 'prettier'
 import sharp from 'sharp'
-import type { SequenceSource } from './contracts'
+import type { NormalizedAnchor, SequenceSource } from './contracts'
+import { validateAssetCatalog } from './validate-all'
 
 export type SpriteAtlasName = 'character' | 'content' | 'world'
 
@@ -12,6 +13,7 @@ export type SpriteFrame = {
   y: number
   width: number
   height: number
+  anchor: NormalizedAnchor
 }
 
 export type SpriteSequence = {
@@ -19,6 +21,7 @@ export type SpriteSequence = {
   durationMs: number
   loop: boolean
   fallback: number
+  anchor: NormalizedAnchor
   frames: SpriteFrame[]
 }
 
@@ -59,7 +62,13 @@ export async function packAtlas(
 
     for (const frame of row.sequence.frames) {
       composites.push({ input: frame.path, left: x, top: y })
-      frames.push({ x, y, width: frame.width, height: frame.height })
+      frames.push({
+        x,
+        y,
+        width: frame.width,
+        height: frame.height,
+        anchor: frame.anchor,
+      })
       x += frame.width
     }
 
@@ -68,6 +77,7 @@ export async function packAtlas(
       durationMs: row.sequence.durationMs,
       loop: row.sequence.loop,
       fallback: row.sequence.fallback,
+      anchor: row.sequence.anchor,
       frames,
     }
     y += row.height
@@ -136,9 +146,21 @@ function spriteManifestSource(manifests: SpriteAtlasManifest[]) {
   const sequences = Object.fromEntries(
     manifests.flatMap((manifest) => Object.entries(manifest.sequences)),
   )
+  const atlases = Object.fromEntries(
+    manifests.map((manifest) => [
+      manifest.name,
+      {
+        src: `/assets/atlases/${manifest.name}.png`,
+        width: manifest.width,
+        height: manifest.height,
+      },
+    ]),
+  )
 
   return [
     "import type { SpriteSequence } from '../../scripts/assets/pack-atlases'",
+    '',
+    `export const spriteAtlases = ${JSON.stringify(atlases, null, 2)} as const`,
     '',
     `export const spriteManifest = ${JSON.stringify(sequences, null, 2)} as const satisfies Record<string, SpriteSequence>`,
     '',
@@ -163,9 +185,14 @@ function spriteCssSource(manifests: SpriteAtlasManifest[]) {
 function sequenceCss(name: string, sequence: SpriteSequence) {
   const [firstFrame] = sequence.frames
   const animation = sequence.loop ? 'infinite' : '1 forwards'
+  const endFrame = sequence.loop
+    ? firstFrame
+    : sequence.frames[sequence.frames.length - 1]
 
   return [
     `.pixel-animation--${name} {`,
+    `  --pixel-anchor-x: ${sequence.anchor.xPercent}%;`,
+    `  --pixel-anchor-y: ${sequence.anchor.yPercent}%;`,
     `  width: ${firstFrame.width}px;`,
     `  height: ${firstFrame.height}px;`,
     `  background-image: url('/assets/atlases/${sequence.atlas}.png');`,
@@ -181,7 +208,7 @@ function sequenceCss(name: string, sequence: SpriteSequence) {
       '  }',
     ]),
     '  100% {',
-    `    background-position: ${backgroundPosition(firstFrame)};`,
+    `    background-position: ${backgroundPosition(endFrame)};`,
     '  }',
     '}',
     '',
@@ -213,6 +240,7 @@ function backgroundPosition(frame: SpriteFrame) {
 
 async function buildAtlases() {
   const root = resolve(process.cwd())
+  await validateAssetCatalog(resolve(root, 'assets-src'))
   const atlasNames: SpriteAtlasName[] = ['character', 'content', 'world']
   const outputDirectory = resolve(root, 'public/assets/atlases')
   const manifests = await Promise.all(

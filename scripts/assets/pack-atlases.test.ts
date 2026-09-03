@@ -48,9 +48,20 @@ describe('atlas packing', () => {
       durationMs: 600,
       loop: true,
       fallback: 0,
+      anchor: { xPercent: 50, yPercent: 100 },
       frames: [
-        { path: firstFrame, width: 64, height: 96 },
-        { path: secondFrame, width: 64, height: 96 },
+        {
+          path: firstFrame,
+          width: 64,
+          height: 96,
+          anchor: { xPercent: 50, yPercent: 100 },
+        },
+        {
+          path: secondFrame,
+          width: 64,
+          height: 96,
+          anchor: { xPercent: 50, yPercent: 100 },
+        },
       ],
     }
 
@@ -65,9 +76,22 @@ describe('atlas packing', () => {
       durationMs: 600,
       loop: true,
       fallback: 0,
+      anchor: { xPercent: 50, yPercent: 100 },
       frames: [
-        { x: 0, y: 0, width: 64, height: 96 },
-        { x: 64, y: 0, width: 64, height: 96 },
+        {
+          x: 0,
+          y: 0,
+          width: 64,
+          height: 96,
+          anchor: { xPercent: 50, yPercent: 100 },
+        },
+        {
+          x: 64,
+          y: 0,
+          width: 64,
+          height: 96,
+          anchor: { xPercent: 50, yPercent: 100 },
+        },
       ],
     })
   })

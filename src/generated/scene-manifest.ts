@@ -1,10 +1,6 @@
-import type { SceneSource } from '../../scripts/assets/contracts'
+import type { SceneManifestEntry } from '../../scripts/assets/generate-scenes'
 
-export type SceneManifestEntry = {
-  desktop: { src: string }
-  mobile: { src: string }
-  anchors: SceneSource['anchors']
-}
+export type { SceneManifestEntry } from '../../scripts/assets/generate-scenes'
 
 export const sceneManifest = {} as const satisfies Record<
   string,

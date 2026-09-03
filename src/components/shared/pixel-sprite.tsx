@@ -55,6 +55,8 @@ export function PixelSprite({
 
   const style = {
     '--pixel-atlas': `url('/assets/atlases/${sequence.atlas}.png')`,
+    '--pixel-anchor-x': `${sprite.anchor.xPercent}%`,
+    '--pixel-anchor-y': `${sprite.anchor.yPercent}%`,
     '--pixel-frame-height': `${sprite.height}px`,
     '--pixel-frame-width': `${sprite.width}px`,
     '--pixel-scale': `${scale}`,

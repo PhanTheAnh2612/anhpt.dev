@@ -586,6 +586,7 @@ h2 {
   display: block;
   flex: 0 0 auto;
   image-rendering: pixelated;
+  transform-origin: var(--pixel-anchor-x, 50%) var(--pixel-anchor-y, 100%);
   zoom: var(--pixel-scale, 1);
 }
 .pixel-sprite {
@@ -604,6 +605,7 @@ h2 {
   display: block;
 }
 .pixel-scene__picture img {
+  display: block;
   height: auto;
   image-rendering: pixelated;
   width: 100%;
@@ -612,8 +614,8 @@ h2 {
   left: var(--anchor-x);
   position: absolute;
   top: var(--anchor-y);
-  transform: translate(-50%, -50%) scale(var(--anchor-scale));
-  transform-origin: center;
+  transform: translate(-50%, -100%) scale(var(--anchor-scale));
+  transform-origin: 50% 100%;
   z-index: 1;
 }
 .guild-console {
@@ -1269,7 +1271,7 @@ h2 {
   .pixel-scene__overlay {
     left: var(--anchor-mobile-x);
     top: var(--anchor-mobile-y);
-    transform: translate(-50%, -50%) scale(var(--anchor-mobile-scale));
+    transform: translate(-50%, -100%) scale(var(--anchor-mobile-scale));
   }
   .page-shell {
     padding-inline: 0.65rem;

@@ -10,9 +10,22 @@ vi.mock('../../generated/sprite-manifest', () => ({
       durationMs: 480,
       loop: true,
       fallback: 0,
+      anchor: { xPercent: 50, yPercent: 100 },
       frames: [
-        { x: 0, y: 0, width: 16, height: 24 },
-        { x: 16, y: 0, width: 16, height: 24 },
+        {
+          x: 0,
+          y: 0,
+          width: 16,
+          height: 24,
+          anchor: { xPercent: 50, yPercent: 100 },
+        },
+        {
+          x: 16,
+          y: 0,
+          width: 16,
+          height: 24,
+          anchor: { xPercent: 50, yPercent: 100 },
+        },
       ],
     },
     'run-loading': {
@@ -20,9 +33,22 @@ vi.mock('../../generated/sprite-manifest', () => ({
       durationMs: 240,
       loop: true,
       fallback: 1,
+      anchor: { xPercent: 50, yPercent: 100 },
       frames: [
-        { x: 0, y: 24, width: 12, height: 12 },
-        { x: 12, y: 24, width: 12, height: 12 },
+        {
+          x: 0,
+          y: 24,
+          width: 12,
+          height: 12,
+          anchor: { xPercent: 50, yPercent: 100 },
+        },
+        {
+          x: 12,
+          y: 24,
+          width: 12,
+          height: 12,
+          anchor: { xPercent: 50, yPercent: 100 },
+        },
       ],
     },
   },
@@ -68,6 +94,8 @@ describe('pixel sprite runtime components', () => {
       '--pixel-scale': '2',
       '--pixel-x': '-16px',
       '--pixel-y': '0px',
+      '--pixel-anchor-x': '50%',
+      '--pixel-anchor-y': '100%',
     })
   })
 
