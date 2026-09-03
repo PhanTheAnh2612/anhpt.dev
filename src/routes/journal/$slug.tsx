@@ -3,7 +3,11 @@ import { MarkdownContent } from '../../components/features/markdown/markdown-con
 import { getContent } from '../../lib/content'
 
 export const Route = createFileRoute('/journal/$slug')({
-  loader: ({ params }) => getContent('journal', params.slug) ?? notFound(),
+  loader: ({ params }) => {
+    const entry = getContent('journal', params.slug)
+    if (!entry) throw notFound()
+    return entry
+  },
   component: Entry,
 })
 function Entry() {

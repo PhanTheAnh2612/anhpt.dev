@@ -1,0 +1,455 @@
+.portfolio-home__console,
+.portfolio-base__stage,
+.portfolio-not-found__stage {
+  border: 3px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--emerald-950);
+  overflow: hidden;
+  position: relative;
+}
+.portfolio-home__console {
+  background: var(--emerald-900);
+}
+.portfolio-home__menu {
+  background: var(--cream);
+  border: 3px solid var(--ink);
+  box-shadow: 5px 5px 0 var(--emerald-950);
+  color: var(--ink);
+  max-width: 25rem;
+  padding: clamp(1rem, 2.6vw, 2rem);
+  position: absolute;
+  right: 5%;
+  top: 12%;
+  width: 39%;
+}
+.portfolio-home__menu h1 {
+  font-size: clamp(1.3rem, 2.7vw, 2.1rem);
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+.portfolio-home__menu p {
+  font-size: 1.1rem;
+}
+.portfolio-home__menu .eyebrow {
+  color: var(--emerald-800);
+  font-size: 0.68rem;
+}
+.portfolio-home__menu nav {
+  display: grid;
+  gap: 0.5rem;
+  margin-block: 1.3rem;
+}
+.portfolio-home__menu .menu-choice {
+  font-size: 0.8rem;
+  margin: 0;
+  min-height: 2.75rem;
+}
+.portfolio-home__dialogue {
+  align-items: center;
+  background: var(--cream);
+  border: 3px solid var(--ink);
+  bottom: 4%;
+  color: var(--ink);
+  display: flex;
+  gap: 1.1rem;
+  left: 4%;
+  padding: 1rem 1.4rem;
+  position: absolute;
+  right: 4%;
+}
+.portfolio-home__dialogue p {
+  font-size: 1.2rem;
+  margin: 0;
+}
+.portfolio-home__dialogue > :last-child {
+  color: var(--red);
+  margin-left: auto;
+}
+.portfolio-journey .world-map-viewport:focus-visible {
+  outline: 4px solid var(--gold);
+  outline-offset: -4px;
+}
+.portfolio-journey .portfolio-world-scene,
+.portfolio-journey .portfolio-world-scene .pixel-scene__picture,
+.portfolio-journey .portfolio-world-scene img {
+  height: 100%;
+  width: 100%;
+}
+.portfolio-journey .portfolio-world-scene {
+  inset: 0;
+  position: absolute;
+}
+.portfolio-journey .portfolio-world-scene img {
+  object-fit: cover;
+  object-position: center;
+}
+.portfolio-base__notes {
+  background: var(--cream);
+  border: 3px solid var(--ink);
+  box-shadow: 5px 5px 0 var(--emerald-950);
+  color: var(--ink);
+  font-family: var(--font-terminal);
+  font-size: 1.3rem;
+  left: 4%;
+  line-height: 1.4;
+  max-width: 23rem;
+  padding: 1.25rem;
+  position: absolute;
+  top: 10%;
+  width: 38%;
+}
+.portfolio-base__notes h2 {
+  font-family: var(--font-terminal);
+  font-size: 1.35rem;
+  margin: 0 0 0.8rem;
+  text-transform: uppercase;
+}
+.portfolio-base__discovery {
+  font-size: 1.75rem;
+  line-height: 1.15;
+}
+.portfolio-guild .guild-console__heading h1 {
+  font-size: clamp(1.1rem, 2.8vw, 2rem);
+  line-height: 1.6;
+}
+.portfolio-guild__sigil,
+.portfolio-guild__medal {
+  align-items: center;
+  background: var(--emerald-800);
+  border: 3px solid var(--gold);
+  color: var(--gold);
+  display: inline-flex;
+  flex-shrink: 0;
+  font-family: var(--font-display);
+  height: 3rem;
+  justify-content: center;
+  width: 3rem;
+}
+.portfolio-guild .guild-dialogue {
+  border-width: 0 0 3px;
+  box-shadow: none;
+  display: block;
+  padding: 1rem 1.4rem;
+  position: static;
+  width: 100%;
+}
+.portfolio-guild .guild-dialogue p:last-child {
+  font-size: 1.05rem;
+  line-height: 1.5;
+}
+.portfolio-guild .guild-dialogue::after {
+  display: none;
+}
+.portfolio-guild__caption {
+  color: var(--cream);
+  font-size: 0.85rem;
+  margin: 0;
+  padding: 0.8rem 1rem;
+}
+.portfolio-guild .ranger-profile dt,
+.portfolio-guild .stat-level {
+  font-size: 0.68rem;
+}
+.portfolio-guild .ranger-profile dd,
+.portfolio-guild .ranger-stat-panel li,
+.portfolio-guild .guild-brief p,
+.portfolio-guild .guild-brief li,
+.portfolio-guild .guild-strengths p,
+.portfolio-guild .guild-confidentiality p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+.portfolio-guild .guild-brief h2,
+.portfolio-guild .guild-strengths h2,
+.portfolio-guild .guild-confidentiality h2 {
+  font-size: 0.7rem;
+  line-height: 1.7;
+}
+.portfolio-guild .ranger-profile__identity {
+  grid-template-columns: auto minmax(0, 1fr);
+}
+.portfolio-guild .guild-medal {
+  align-items: start;
+}
+.portfolio-guild__medal {
+  font-size: 2rem;
+  height: 4rem;
+  width: 4rem;
+}
+.portfolio-disclaimer {
+  color: var(--gold);
+  font-size: 1rem;
+}
+.portfolio-badge-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.portfolio-badge {
+  background: var(--cream);
+  border: 3px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--emerald-950);
+  color: var(--ink);
+  padding: 1.5rem 1.15rem;
+  text-align: center;
+}
+.portfolio-badge h2 {
+  font-size: 0.8rem;
+  line-height: 1.8;
+}
+.portfolio-badge > p:last-child {
+  font-size: 1.05rem;
+}
+.portfolio-badge__emblem {
+  align-items: center;
+  background: var(--emerald-800);
+  border: 5px double var(--gold);
+  box-shadow: 4px 4px 0 var(--ink);
+  color: var(--gold);
+  display: flex;
+  font-family: var(--font-display);
+  height: 5rem;
+  justify-content: center;
+  margin: 0 auto 1.3rem;
+  width: 5rem;
+}
+.portfolio-badge__state {
+  color: var(--emerald-800);
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.portfolio-badge--locked .portfolio-badge__emblem {
+  background: var(--ink);
+  border-color: var(--cream);
+  color: var(--cream);
+}
+.portfolio-entry-grid {
+  display: grid;
+  gap: 1.2rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.portfolio-entry {
+  background: var(--cream);
+  border: 3px solid var(--ink);
+  box-shadow: 5px 5px 0 var(--emerald-950);
+  color: var(--ink);
+  padding: 1.5rem;
+}
+.portfolio-entry h2 {
+  font-size: 1rem;
+  line-height: 1.8;
+}
+.portfolio-entry h2 a {
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.35em;
+}
+.portfolio-entry .eyebrow {
+  color: var(--emerald-800);
+}
+.portfolio-entry > p:not(.eyebrow) {
+  font-size: 1.15rem;
+}
+.portfolio-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem 0.8rem;
+  list-style: none;
+  padding: 0;
+}
+.portfolio-tags li {
+  color: var(--emerald-800);
+  font-size: 0.95rem;
+}
+.portfolio-journal .tag-filter [aria-current='page'] .pixel-bubble {
+  background: var(--gold);
+}
+.portfolio-search__form {
+  background: var(--cream);
+  border: 3px solid var(--ink);
+  color: var(--ink);
+  padding: 1.3rem;
+}
+.portfolio-search__form label {
+  display: block;
+  font-size: 1.15rem;
+  margin-bottom: 0.5rem;
+}
+.portfolio-search__form > div {
+  display: flex;
+  gap: 0.75rem;
+}
+.portfolio-search__form input {
+  background: white;
+  border: 2px solid var(--ink);
+  border-radius: 0;
+  color: var(--ink);
+  flex: 1;
+  font: inherit;
+  font-size: 1.1rem;
+  min-width: 0;
+  padding: 0.75rem;
+}
+.portfolio-search__form button {
+  cursor: pointer;
+  font: inherit;
+}
+.portfolio-search__summary {
+  font-size: 1.2rem;
+  overflow-wrap: anywhere;
+}
+.portfolio-empty {
+  background: var(--emerald-900);
+  border: 2px solid var(--gold);
+  font-size: 1.2rem;
+  padding: 1.5rem;
+}
+.portfolio-not-found__dialogue {
+  background: var(--cream);
+  border: 3px solid var(--ink);
+  color: var(--ink);
+  left: 5%;
+  padding: 1.5rem;
+  position: absolute;
+  top: 8%;
+  width: min(34rem, 57%);
+}
+.portfolio-not-found__dialogue h1 {
+  font-size: clamp(1.1rem, 2.3vw, 1.7rem);
+  line-height: 1.7;
+}
+.portfolio-not-found__dialogue .eyebrow {
+  color: var(--red);
+}
+.portfolio-pending {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 60vh;
+}
+@media (max-width: 860px) {
+  .portfolio-home__menu {
+    padding: 1rem;
+    right: 3%;
+    top: 5%;
+    width: 44%;
+  }
+  .portfolio-home__menu .eyebrow {
+    display: none;
+  }
+  .portfolio-home__menu h1 {
+    font-size: 1.2rem;
+    margin: 0 0 0.5rem;
+  }
+  .portfolio-home__menu p {
+    font-size: 0.95rem;
+  }
+  .portfolio-home__menu nav {
+    margin-block: 0.75rem;
+  }
+  .portfolio-home__dialogue {
+    bottom: 3%;
+    padding: 0.8rem;
+  }
+  .portfolio-home__dialogue p {
+    font-size: 1rem;
+  }
+  .portfolio-base__notes {
+    font-size: 1.1rem;
+    padding: 1rem;
+    top: 5%;
+    width: 44%;
+  }
+  .portfolio-base__discovery {
+    font-size: 1.4rem;
+  }
+  .portfolio-badge-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .portfolio-guild .guild-command-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .portfolio-guild .guild-rail {
+    border-left: 0;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 560px) {
+  .portfolio-home__console {
+    display: flex;
+    flex-direction: column;
+  }
+  .portfolio-home__menu {
+    border-width: 3px 0;
+    box-shadow: none;
+    max-width: none;
+    padding: 1.25rem;
+    position: static;
+    width: 100%;
+  }
+  .portfolio-home__menu h1 {
+    font-size: 1.65rem;
+  }
+  .portfolio-home__menu p {
+    font-size: 1.1rem;
+  }
+  .portfolio-home__menu .eyebrow {
+    display: block;
+  }
+  .portfolio-home__dialogue {
+    align-items: start;
+    border: 0;
+    flex-wrap: wrap;
+    padding: 1.2rem;
+    position: static;
+  }
+  .portfolio-home__dialogue p {
+    flex-basis: 100%;
+    font-size: 1.15rem;
+  }
+  .portfolio-base__notes,
+  .portfolio-not-found__dialogue {
+    border-width: 3px 0 0;
+    box-shadow: none;
+    font-size: 1.3rem;
+    max-width: none;
+    padding: 1.25rem;
+    position: static;
+    width: 100%;
+  }
+  .portfolio-base__discovery {
+    font-size: 1.7rem;
+  }
+  .portfolio-entry-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .portfolio-badge {
+    padding: 1.2rem 0.7rem;
+  }
+  .portfolio-badge h2 {
+    font-size: 0.65rem;
+    overflow-wrap: anywhere;
+  }
+  .portfolio-search__form > div {
+    flex-direction: column;
+  }
+  .portfolio-search__form button {
+    min-height: 2.75rem;
+  }
+  .portfolio-guild .guild-rail {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .portfolio-guild .ranger-profile dd {
+    font-size: 1rem;
+  }
+  .portfolio-guild .guild-console__heading {
+    gap: 0.6rem;
+    padding: 1rem 0.75rem;
+  }
+  .portfolio-guild .guild-console__heading h1 {
+    font-size: 1rem;
+  }
+  .portfolio-guild .guild-medal {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

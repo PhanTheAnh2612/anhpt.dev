@@ -4,6 +4,7 @@
 @import '@fontsource/press-start-2p';
 @import '@fontsource/pixelify-sans';
 @import '@fontsource/vt323';
+@import './portfolio-pages.css';
 
 :root {
   --font-display: 'Press Start 2P', ui-monospace, monospace;
