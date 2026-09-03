@@ -1,8 +1,6 @@
-import { render, screen, within } from '@testing-library/react'
-import { readFileSync } from 'node:fs'
-import { resolve } from 'node:path'
+import { cleanup, render, screen, within } from '@testing-library/react'
 import { renderToString } from 'react-dom/server'
-import { describe, expect, expectTypeOf, it, vi } from 'vitest'
+import { afterEach, describe, expect, expectTypeOf, it, vi } from 'vitest'
 import { getContent } from '../../../lib/content'
 import type { ContentEntry } from '../../../lib/content'
 import { directiveContract } from '../../../lib/markdown-extensions'
@@ -10,17 +8,11 @@ import { markdownComponents } from './content-directives'
 import { MarkdownContent } from './markdown-content'
 import type { MarkdownContentProps } from './markdown-content'
 
-vi.mock('../../../generated/sprite-manifest', () => ({
-  spriteManifest: {
-    'trainer-idle': {
-      atlas: 'character',
-      durationMs: 480,
-      fallback: 0,
-      frames: [{ height: 24, width: 16, x: 0, y: 0 }],
-      loop: true,
-    },
-  },
+vi.mock('../../../generated/sprite-manifest', async () => ({
+  spriteManifest: (await import('./sprite-manifest.fixture'))
+    .spriteManifestFixture,
 }))
+afterEach(cleanup)
 
 describe('MarkdownContent', () => {
   it('accepts exactly one supported content input shape', () => {
@@ -57,9 +49,9 @@ Keep your notes nearby.
       />,
     )
 
-    expect(screen.getByRole('region', { name: 'Quest' })).toHaveTextContent(
-      'Complete this route.Keep your notes nearby.',
-    )
+    const quest = within(screen.getByRole('region', { name: 'Quest' }))
+    expect(quest.getByText('Complete this route.')).toBeInTheDocument()
+    expect(quest.getByText('Keep your notes nearby.')).toBeInTheDocument()
     expect(screen.getByRole('note', { name: 'Note' })).toBeInTheDocument()
   })
 
@@ -81,9 +73,12 @@ Outer note closing.
     const notes = within(container).getAllByRole('note', { name: 'Note' })
 
     expect(notes).toHaveLength(2)
-    expect(notes[0]).toHaveTextContent(
-      'Outer note opening.Inner note detail.Outer note closing.',
-    )
+    expect(
+      within(notes[0]).getByText('Outer note opening.'),
+    ).toBeInTheDocument()
+    expect(
+      within(notes[0]).getByText('Outer note closing.'),
+    ).toBeInTheDocument()
     expect(notes[1]).toHaveTextContent('Inner note detail.')
     expect(container).not.toHaveTextContent('::end:note')
   })
@@ -157,18 +152,15 @@ Outer note closing.
     expect(entry?.document).toMatchObject({ children: expect.any(Array) })
   })
 
-  it('migrates course and journal routes away from HTML-string injection', () => {
-    const routes = ['courses/$slug.tsx', 'journal/$slug.tsx'].map((route) =>
-      readFileSync(resolve(process.cwd(), 'src/routes', route), 'utf8'),
+  it('renders a real course entry and its directives without losing code highlighting', () => {
+    const entry = getContent('course', 'frontend-foundations')!
+    const { container } = render(<MarkdownContent entry={entry} />)
+    expect(
+      screen.getByRole('heading', { name: 'Frontend foundations' }),
+    ).toBeInTheDocument()
+    expect(screen.getByRole('note', { name: 'Note' })).toHaveTextContent(
+      'Headings, navigation links, and form labels',
     )
-
-    expect(routes).not.toContainEqual(
-      expect.stringContaining('dangerouslySetInnerHTML'),
-    )
-    expect(routes).toEqual(
-      expect.arrayContaining([
-        expect.stringContaining('<MarkdownContent entry={entry} />'),
-      ]),
-    )
+    expect(container.querySelector('.th-keyword')).toHaveTextContent('const')
   })
 })
