@@ -131,17 +131,6 @@ export function CourseOverview({
           <section className="learning-panel learning-panel--dark">
             <p className="eyebrow">YOUR PACE, YOUR PATH</p>
             <h2>Route progress</h2>
-            <p className="learning-progress-count">
-              {courseProgress.completed}/{lessons.length}{' '}
-              <span>recorded completions</span>
-            </p>
-            {lessons.length > 0 && (
-              <progress
-                aria-label="Recorded lesson completions"
-                value={courseProgress.completed}
-                max={lessons.length}
-              />
-            )}
             <p>{courseProgress.notice}</p>
           </section>
           <section className="learning-panel learning-panel--reward">

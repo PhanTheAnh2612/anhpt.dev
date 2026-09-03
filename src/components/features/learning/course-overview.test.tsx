@@ -46,12 +46,8 @@ describe('CourseOverview', () => {
     )
     expect(links[1]).toHaveAttribute('href', '/courses/later?category=react')
     expect(screen.queryByText('Frontend foundations')).not.toBeInTheDocument()
-    expect(
-      screen.getByLabelText('Recorded lesson completions'),
-    ).toHaveAttribute('value', '0')
-    expect(
-      screen.getByLabelText('Recorded lesson completions'),
-    ).toHaveAttribute('max', '2')
+    expect(screen.queryByRole('progressbar')).not.toBeInTheDocument()
+    expect(screen.queryByText(/recorded completions/i)).not.toBeInTheDocument()
     expect(screen.getByText(/progress is not tracked/i)).toBeInTheDocument()
     expect(
       screen

@@ -15,10 +15,13 @@ import { Route as CoursesRouteImport } from './routes/courses'
 import { Route as GuildHallRouteImport } from './routes/guild-hall'
 import { Route as JournalRouteImport } from './routes/journal'
 import { Route as JourneyRouteImport } from './routes/journey'
+import { Route as SearchRouteImport } from './routes/search'
 import { Route as SecretBaseRouteImport } from './routes/secret-base'
 import { Route as CoursesIndexRouteImport } from './routes/courses.index'
 import { Route as CoursesSlugRouteImport } from './routes/courses/$slug'
+import { Route as JournalIndexRouteImport } from './routes/journal.index'
 import { Route as JournalSlugRouteImport } from './routes/journal/$slug'
+import { Route as CoursesSlugMasteryRouteImport } from './routes/courses/$slug_.mastery'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -50,6 +53,11 @@ const JourneyRoute = JourneyRouteImport.update({
   path: '/journey',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SearchRoute = SearchRouteImport.update({
+  id: '/search',
+  path: '/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SecretBaseRoute = SecretBaseRouteImport.update({
   id: '/secret-base',
   path: '/secret-base',
@@ -65,10 +73,20 @@ const CoursesSlugRoute = CoursesSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => CoursesRoute,
 } as any)
+const JournalIndexRoute = JournalIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => JournalRoute,
+} as any)
 const JournalSlugRoute = JournalSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
   getParentRoute: () => JournalRoute,
+} as any)
+const CoursesSlugMasteryRoute = CoursesSlugMasteryRouteImport.update({
+  id: '/$slug_/mastery',
+  path: '/$slug/mastery',
+  getParentRoute: () => CoursesRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -78,21 +96,26 @@ export interface FileRoutesByFullPath {
   '/guild-hall': typeof GuildHallRoute
   '/journal': typeof JournalRouteWithChildren
   '/journey': typeof JourneyRoute
+  '/search': typeof SearchRoute
   '/secret-base': typeof SecretBaseRoute
   '/courses/$slug': typeof CoursesSlugRoute
   '/journal/$slug': typeof JournalSlugRoute
   '/courses/': typeof CoursesIndexRoute
+  '/journal/': typeof JournalIndexRoute
+  '/courses/$slug/mastery': typeof CoursesSlugMasteryRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/badges': typeof BadgesRoute
   '/guild-hall': typeof GuildHallRoute
-  '/journal': typeof JournalRouteWithChildren
   '/journey': typeof JourneyRoute
+  '/search': typeof SearchRoute
   '/secret-base': typeof SecretBaseRoute
   '/courses/$slug': typeof CoursesSlugRoute
   '/journal/$slug': typeof JournalSlugRoute
   '/courses': typeof CoursesIndexRoute
+  '/journal': typeof JournalIndexRoute
+  '/courses/$slug/mastery': typeof CoursesSlugMasteryRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -102,10 +125,13 @@ export interface FileRoutesById {
   '/guild-hall': typeof GuildHallRoute
   '/journal': typeof JournalRouteWithChildren
   '/journey': typeof JourneyRoute
+  '/search': typeof SearchRoute
   '/secret-base': typeof SecretBaseRoute
   '/courses/$slug': typeof CoursesSlugRoute
   '/journal/$slug': typeof JournalSlugRoute
   '/courses/': typeof CoursesIndexRoute
+  '/journal/': typeof JournalIndexRoute
+  '/courses/$slug_/mastery': typeof CoursesSlugMasteryRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -116,21 +142,26 @@ export interface FileRouteTypes {
     | '/guild-hall'
     | '/journal'
     | '/journey'
+    | '/search'
     | '/secret-base'
     | '/courses/$slug'
     | '/journal/$slug'
     | '/courses/'
+    | '/journal/'
+    | '/courses/$slug/mastery'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/badges'
     | '/guild-hall'
-    | '/journal'
     | '/journey'
+    | '/search'
     | '/secret-base'
     | '/courses/$slug'
     | '/journal/$slug'
     | '/courses'
+    | '/journal'
+    | '/courses/$slug/mastery'
   id:
     | '__root__'
     | '/'
@@ -139,10 +170,13 @@ export interface FileRouteTypes {
     | '/guild-hall'
     | '/journal'
     | '/journey'
+    | '/search'
     | '/secret-base'
     | '/courses/$slug'
     | '/journal/$slug'
     | '/courses/'
+    | '/journal/'
+    | '/courses/$slug_/mastery'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -152,6 +186,7 @@ export interface RootRouteChildren {
   GuildHallRoute: typeof GuildHallRoute
   JournalRoute: typeof JournalRouteWithChildren
   JourneyRoute: typeof JourneyRoute
+  SearchRoute: typeof SearchRoute
   SecretBaseRoute: typeof SecretBaseRoute
 }
 
@@ -199,6 +234,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof JourneyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/search': {
+      id: '/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof SearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/secret-base': {
       id: '/secret-base'
       path: '/secret-base'
@@ -220,6 +262,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CoursesSlugRouteImport
       parentRoute: typeof CoursesRoute
     }
+    '/journal/': {
+      id: '/journal/'
+      path: '/'
+      fullPath: '/journal/'
+      preLoaderRoute: typeof JournalIndexRouteImport
+      parentRoute: typeof JournalRoute
+    }
     '/journal/$slug': {
       id: '/journal/$slug'
       path: '/$slug'
@@ -227,17 +276,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof JournalSlugRouteImport
       parentRoute: typeof JournalRoute
     }
+    '/courses/$slug_/mastery': {
+      id: '/courses/$slug_/mastery'
+      path: '/$slug/mastery'
+      fullPath: '/courses/$slug/mastery'
+      preLoaderRoute: typeof CoursesSlugMasteryRouteImport
+      parentRoute: typeof CoursesRoute
+    }
   }
 }
 
 interface CoursesRouteChildren {
   CoursesSlugRoute: typeof CoursesSlugRoute
   CoursesIndexRoute: typeof CoursesIndexRoute
+  CoursesSlugMasteryRoute: typeof CoursesSlugMasteryRoute
 }
 
 const CoursesRouteChildren: CoursesRouteChildren = {
   CoursesSlugRoute: CoursesSlugRoute,
   CoursesIndexRoute: CoursesIndexRoute,
+  CoursesSlugMasteryRoute: CoursesSlugMasteryRoute,
 }
 
 const CoursesRouteWithChildren =
@@ -245,10 +303,12 @@ const CoursesRouteWithChildren =
 
 interface JournalRouteChildren {
   JournalSlugRoute: typeof JournalSlugRoute
+  JournalIndexRoute: typeof JournalIndexRoute
 }
 
 const JournalRouteChildren: JournalRouteChildren = {
   JournalSlugRoute: JournalSlugRoute,
+  JournalIndexRoute: JournalIndexRoute,
 }
 
 const JournalRouteWithChildren =
@@ -261,17 +321,9 @@ const rootRouteChildren: RootRouteChildren = {
   GuildHallRoute: GuildHallRoute,
   JournalRoute: JournalRouteWithChildren,
   JourneyRoute: JourneyRoute,
+  SearchRoute: SearchRoute,
   SecretBaseRoute: SecretBaseRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-  }
-}

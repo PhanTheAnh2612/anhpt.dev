@@ -231,7 +231,37 @@ describe('asset validation', () => {
     ).resolves.toBeUndefined()
   })
 
-  it('rejects a sequence with fewer than two frames', async () => {
+  it('accepts a single-frame static sequence', async () => {
+    const [first] = await createValidSequenceFrames()
+
+    await expect(
+      validateSequence({
+        name: 'badge',
+        durationMs: 600,
+        loop: false,
+        fallback: 0,
+        anchor: bottomCenterAnchor,
+        frames: [first],
+      }),
+    ).resolves.toBeUndefined()
+  })
+
+  it('rejects an empty static sequence', async () => {
+    await expect(
+      validateSequence({
+        name: 'badge',
+        durationMs: 600,
+        loop: false,
+        fallback: 0,
+        anchor: bottomCenterAnchor,
+        frames: [],
+      }),
+    ).rejects.toThrow(
+      'badge: static sequences require at least one frame; got 0',
+    )
+  })
+
+  it('rejects a looping sequence with fewer than two frames', async () => {
     const [first] = await createValidSequenceFrames()
 
     await expect(

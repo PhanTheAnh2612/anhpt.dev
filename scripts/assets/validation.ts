@@ -99,7 +99,13 @@ export async function validateSequence(record: SequenceSource): Promise<void> {
     )
   }
 
-  if (record.frames.length < 2) {
+  if (record.frames.length < 1 && !record.loop) {
+    throw new Error(
+      `${record.name}: static sequences require at least one frame; got ${record.frames.length}`,
+    )
+  }
+
+  if (record.frames.length < 2 && record.loop) {
     throw new Error(
       `${record.name}: animated sequences require at least two frames; got ${record.frames.length}`,
     )
