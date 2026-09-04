@@ -15,6 +15,11 @@ export default [
     },
   },
   {
-    ignores: ['app/**', 'eslint.config.js', 'prettier.config.js'],
+    ignores: [
+      '.worktrees/**',
+      'app/**',
+      'eslint.config.js',
+      'prettier.config.js',
+    ],
   },
 ]
