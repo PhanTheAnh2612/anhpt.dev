@@ -1,6 +1,5 @@
 import {
   HeadContent,
-  Link,
   Scripts,
   createRootRouteWithContext,
 } from '@tanstack/react-router'
@@ -12,6 +11,10 @@ import TanStackQueryDevtools from '../integrations/tanstack-query/devtools'
 import appCss from '../styles/index.css?url'
 
 import type { QueryClient } from '@tanstack/react-query'
+import {
+  NotFound,
+  RoutePending,
+} from '../components/features/discovery/not-found'
 import { SiteNavigation } from '../components/features/site-shell/site-navigation'
 
 interface MyRouterContext {
@@ -41,32 +44,8 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
   }),
   shellComponent: RootDocument,
   notFoundComponent: NotFound,
+  pendingComponent: RoutePending,
 })
-
-function NotFound() {
-  return (
-    <main className="page-shell not-found-page">
-      <section className="dialogue-box not-found-dialogue">
-        <div className="avatar-crop" aria-hidden="true">
-          <img src="/assets/art/anh-front-idle-v3.png" alt="" />
-        </div>
-        <div>
-          <p className="eyebrow">A WILD 404 APPEARED!</p>
-          <h1>This route is not on the map.</h1>
-          <p>The trail ends here, but your learning journey does not.</p>
-          <div className="hero-actions">
-            <Link className="pixel-button" to="/journey">
-              Back to world map
-            </Link>
-            <Link className="text-link" to="/">
-              Return home →
-            </Link>
-          </div>
-        </div>
-      </section>
-    </main>
-  )
-}
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (

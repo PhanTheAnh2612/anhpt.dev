@@ -14,9 +14,18 @@ Start with the browser, semantic HTML, CSS, JavaScript, and TypeScript. Framewor
 
 Build the smallest accessible version first, then add visual detail and interaction.
 
+<!-- ::start:note -->
+
+Headings, navigation links, and form labels should still make sense when the decorative artwork is unavailable.
+<!-- ::end:note -->
+
+<!-- ::start:code-example -->
+
 ```ts title="focus.ts"
 const foundation = ['html', 'css', 'javascript', 'typescript']
 ```
+
+<!-- ::end:code-example -->
 
 ## Finish line
 

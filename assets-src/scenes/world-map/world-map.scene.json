@@ -1,0 +1,57 @@
+{
+  "name": "world-map",
+  "desktop": "desktop/world-map.desktop.png",
+  "mobile": "mobile/world-map.mobile.png",
+  "desktopDimensions": {
+    "width": 1536,
+    "height": 1024
+  },
+  "mobileDimensions": {
+    "width": 1024,
+    "height": 1280
+  },
+  "focalArea": {
+    "desktop": {
+      "xPercent": 5,
+      "yPercent": 5,
+      "widthPercent": 90,
+      "heightPercent": 90
+    },
+    "mobile": {
+      "xPercent": 5,
+      "yPercent": 26,
+      "widthPercent": 90,
+      "heightPercent": 47
+    }
+  },
+  "safeZones": {
+    "ocean": {
+      "desktop": {
+        "xPercent": 4,
+        "yPercent": 4,
+        "widthPercent": 16,
+        "heightPercent": 12
+      },
+      "mobile": {
+        "xPercent": 0,
+        "yPercent": 0,
+        "widthPercent": 100,
+        "heightPercent": 22
+      }
+    }
+  },
+  "anchors": {
+    "character": {
+      "desktop": {
+        "xPercent": 50,
+        "yPercent": 85,
+        "scale": 1
+      },
+      "mobile": {
+        "xPercent": 50,
+        "yPercent": 68,
+        "scale": 1
+      }
+    }
+  }
+}

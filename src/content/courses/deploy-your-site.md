@@ -14,10 +14,19 @@ Turn the local project into a public site with repeatable builds, HTTPS, DNS, an
 
 Push the project to GitHub and make sure a clean checkout can install and build successfully.
 
+<!-- ::start:terminal -->
+
 ```sh title="verify.sh"
 pnpm install --frozen-lockfile
 pnpm run build
 ```
+
+<!-- ::end:terminal -->
+
+<!-- ::start:warning -->
+
+Keep secrets out of the repository and the browser bundle. Supply private deployment configuration through your hosting environment.
+<!-- ::end:warning -->
 
 ## Finish line
 

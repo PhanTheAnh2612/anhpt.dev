@@ -1,0 +1,21 @@
+{
+  "name": "point",
+  "durationMs": 800,
+  "loop": true,
+  "fallback": 0,
+  "anchor": { "xPercent": 50, "yPercent": 100 },
+  "frames": [
+    {
+      "path": "point-1.png",
+      "width": 96,
+      "height": 96,
+      "anchor": { "xPercent": 50, "yPercent": 100 }
+    },
+    {
+      "path": "point-2.png",
+      "width": 96,
+      "height": 96,
+      "anchor": { "xPercent": 50, "yPercent": 100 }
+    }
+  ]
+}

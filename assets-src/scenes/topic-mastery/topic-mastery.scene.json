@@ -1,0 +1,43 @@
+{
+  "name": "topic-mastery",
+  "desktop": "desktop/topic-mastery.desktop.png",
+  "mobile": "mobile/topic-mastery.mobile.png",
+  "desktopDimensions": { "width": 1536, "height": 1024 },
+  "mobileDimensions": { "width": 1024, "height": 1280 },
+  "focalArea": {
+    "desktop": {
+      "xPercent": 5,
+      "yPercent": 6,
+      "widthPercent": 90,
+      "heightPercent": 87
+    },
+    "mobile": {
+      "xPercent": 5,
+      "yPercent": 5,
+      "widthPercent": 90,
+      "heightPercent": 90
+    }
+  },
+  "safeZones": {
+    "training-field": {
+      "desktop": {
+        "xPercent": 15,
+        "yPercent": 45,
+        "widthPercent": 47,
+        "heightPercent": 25
+      },
+      "mobile": {
+        "xPercent": 8,
+        "yPercent": 45,
+        "widthPercent": 50,
+        "heightPercent": 24
+      }
+    }
+  },
+  "anchors": {
+    "character": {
+      "desktop": { "xPercent": 72, "yPercent": 84, "scale": 2 },
+      "mobile": { "xPercent": 72, "yPercent": 86, "scale": 2 }
+    }
+  }
+}

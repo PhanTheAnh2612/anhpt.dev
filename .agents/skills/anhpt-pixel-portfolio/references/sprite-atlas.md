@@ -1,47 +1,44 @@
-# Base sprite atlas
+# Registered sprite atlases
 
 ## Source of truth
 
-- Atlas: `public/assets/sprites/base-sprites.png`
-- Dimensions: 1536×1024 RGB PNG
-- Consumer: `src/components/shared/base-sprite.tsx`
+- Reviewed source frames and metadata: `assets-src/character/` and
+  `assets-src/content/`
+- Production atlases: `public/assets/atlases/character.png` and
+  `public/assets/atlases/content.png`
+- Generated registry: `src/generated/sprite-manifest.ts`
+- Generated layout rules: `src/generated/sprite-atlases.css`
+- Consumers: `PixelSprite` and `PixelAnimation` in
+  `src/components/shared/pixel-sprite.tsx`
 
-The atlas is a labeled sheet with an opaque light background. Consume it with
-CSS background crops. Do not render the complete sheet, and do not assume it
-has transparency.
+The asset pipeline validates approved source records and packs production
+atlases deterministically. It owns every frame rectangle, atlas dimension, CSS
+offset, and animation keyframe. Never edit generated coordinates or add
+page-local background-position rules.
 
-## Current crop registry
+## Consuming a registered sprite
 
-`BaseSprite` currently exposes:
+Use `PixelSprite` for an explicit static frame and `PixelAnimation` for a
+registered sequence. The generated manifest makes sprite names type-safe and
+the runtime rejects unknown names or invalid frame indices. Supply a meaningful
+`label` only when the artwork conveys content; otherwise the renderer keeps it
+decorative with `aria-hidden`.
 
-| Name           |    x |   y | width | height | Intended use                     |
-| -------------- | ---: | --: | ----: | -----: | -------------------------------- |
-| `anhFront`     |   34 |  67 |    70 |    128 | Dialogue/profile character       |
-| `anhThumbsUp`  | 1072 | 236 |    72 |    116 | Positive CTA or completion state |
-| `guildHall`    |  558 | 510 |    56 |     58 | Guild Hall route/panel identity  |
-| `qualityBadge` |  824 | 500 |    68 |     76 | Quality achievement              |
+Scale through the component's `scale` prop. Keep layout, borders, and panel
+backgrounds in the owning component's CSS rather than changing the generated
+atlas stylesheet.
 
-Coordinates use the original 1536×1024 image. Scaling must multiply the crop,
-sheet size, and negative background position together. Keep this calculation in
-`BaseSprite` rather than repeating inline CSS in routes.
+## Adding or changing artwork
 
-## Adding a crop
+1. Request new character frames through `character-animation` or semantic
+   content art through `content-element-generation`.
+2. Review and register the accepted source images and metadata under
+   `assets-src/`.
+3. Run `pnpm assets:validate`.
+4. Run `pnpm assets:build` to regenerate atlases, manifests, and CSS.
+5. Render the registered name through the shared runtime component and inspect
+   every used scale on laptop and mobile.
 
-1. Inspect the atlas at original resolution.
-2. Choose a tight crop that excludes section labels, grid borders, and adjacent
-   frames.
-3. Add one named entry to the `sprites` registry in `base-sprite.tsx`.
-4. Render it through `BaseSprite`; never add page-specific background-position
-   CSS.
-5. Visually inspect at every scale used. Reject the crop if atlas labels or
-   neighboring sprites bleed into the box.
-
-Use `image-rendering: pixelated`. A cream or muted panel background is suitable
-when the crop retains the atlas's opaque light pixels.
-
-## Boundary with sprite generation
-
-This reference covers consuming the existing atlas. Use the separate
-`sprite-generation` skill only when the user explicitly requests new sprite
-art or new animation frames. Do not regenerate assets merely to build a page
-that the current atlas supports.
+Image generation produces source artwork only. It must never compose the
+production atlas or assign final coordinates. The obsolete labeled base sprite
+sheet and `BaseSprite` crop component are not part of the runtime.

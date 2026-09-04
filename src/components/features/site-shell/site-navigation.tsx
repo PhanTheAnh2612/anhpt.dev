@@ -7,6 +7,7 @@ const navigation = [
   ['Badges', '/badges'],
   ['Secret Base', '/secret-base'],
   ['Journal', '/journal'],
+  ['Search', '/search'],
 ] as const
 
 export function SiteNavigation() {

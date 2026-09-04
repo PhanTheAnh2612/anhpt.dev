@@ -1,0 +1,21 @@
+{
+  "name": "content-warning",
+  "durationMs": 1000,
+  "loop": false,
+  "fallback": 0,
+  "anchor": {
+    "xPercent": 50,
+    "yPercent": 100
+  },
+  "frames": [
+    {
+      "path": "icon.png",
+      "width": 32,
+      "height": 32,
+      "anchor": {
+        "xPercent": 50,
+        "yPercent": 100
+      }
+    }
+  ]
+}

@@ -1,8 +1,13 @@
 import { Link, createFileRoute, notFound } from '@tanstack/react-router'
-import { getContent, renderContent } from '../../lib/content'
+import { MarkdownContent } from '../../components/features/markdown/markdown-content'
+import { getContent } from '../../lib/content'
 
 export const Route = createFileRoute('/journal/$slug')({
-  loader: ({ params }) => getContent('journal', params.slug) ?? notFound(),
+  loader: ({ params }) => {
+    const entry = getContent('journal', params.slug)
+    if (!entry) throw notFound()
+    return entry
+  },
   component: Entry,
 })
 function Entry() {
@@ -16,10 +21,9 @@ function Entry() {
         <p className="eyebrow">{entry.date}</p>
         <h1>{entry.title}</h1>
         <p className="article-description">{entry.description}</p>
-        <div
-          className="markdown-renderer"
-          dangerouslySetInnerHTML={{ __html: renderContent(entry) }}
-        />
+        <div className="markdown-renderer">
+          <MarkdownContent entry={entry} />
+        </div>
       </article>
     </main>
   )

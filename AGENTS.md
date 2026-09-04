@@ -102,10 +102,20 @@ tanstackIntent:
 
 ## Project skills
 
+- Before generating or reviewing anhpt.dev imagery, read
+  `.agents/skills/anhpt-art-direction/SKILL.md` and the asset-type skill it routes to.
+- Use `.agents/skills/scene-generation/SKILL.md` for environment-only desktop
+  and mobile scene pairs.
+- Use `.agents/skills/character-animation/SKILL.md` for Anh animation
+  sequences and character-state extensions.
+- Use `.agents/skills/content-element-generation/SKILL.md` for registered
+  Markdown/content decorations and compact topic icons.
+- Use `.agents/skills/asset-atlas-pipeline/SKILL.md` for accepted-asset
+  validation, deterministic atlas packing, manifest generation, and animation
+  previews.
 - For any anhpt.dev pixel-RPG portfolio page, responsive visual composition,
   editable portfolio content, Journey/Guild Hall pattern, or base sprite-atlas
   work, read and follow
   `.agents/skills/anhpt-pixel-portfolio/SKILL.md` before editing.
-- Use `.agents/skills/sprite-generation/SKILL.md` only when the request is to
-  create or extend sprite artwork. Existing-atlas consumption belongs to the
-  pixel portfolio skill above.
+- `.agents/skills/sprite-generation/SKILL.md` is a compatibility router for
+  legacy requests; use the focused skills above for new artwork.
