@@ -4,8 +4,10 @@
 
 - `src/components/shared/pixel-bubble.tsx`: icon-and-label bubble for map markers
   and Journal tag controls.
-- `src/components/shared/base-sprite.tsx`: scoped crop renderer for the base
-  sprite atlas.
+- `src/components/shared/pixel-scene.tsx`: responsive registered scene renderer
+  with typed overlay anchors.
+- `src/components/shared/pixel-sprite.tsx`: registered static-frame and
+  generated step-animation renderers.
 
 Reuse these before creating page-local equivalents.
 

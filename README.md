@@ -17,6 +17,26 @@ No runtime secret is required for the static Markdown site. CI deployment uses G
 
 Add both at GitHub → repository **Settings** → **Secrets and variables** → **Actions**. The deployment workflow runs after a push to `main`.
 
+## Visual assets
+
+Reviewed source artwork and its metadata live under `assets-src/`. Page code
+renders only registered assets through `PixelScene`, `PixelSprite`, and
+`PixelAnimation`; do not hard-code atlas offsets or reference unregistered
+source images.
+
+Validate source records, then regenerate production scenes, atlases, manifests,
+and CSS with:
+
+```bash
+pnpm assets:validate
+pnpm assets:build
+```
+
+Generated files in `public/assets/atlases`, `public/assets/scenes`, and
+`src/generated` are committed deployment inputs. Do not edit them manually.
+Run `pnpm test:assets` when changing the asset pipeline or its records. The
+regular production build performs validation and generation automatically.
+
 ## Markdown content model
 
 Courses belong to exactly one Journey category. Use a singular `category`

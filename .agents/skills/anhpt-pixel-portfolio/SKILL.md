@@ -1,6 +1,6 @@
 ---
 name: anhpt-pixel-portfolio
-description: Build or revise anhpt.dev pages and shared components using its Emerald-inspired pixel RPG portfolio system, editable content model, responsive layouts, and base sprite atlas. Use for Journey, Courses, Journal, Guild Hall, badges, character panels, or new pages that must match this site. Do not use for unrelated React applications.
+description: Build or revise anhpt.dev pages and shared components using its Emerald-inspired pixel RPG portfolio system, editable content model, responsive layouts, and registered scene and sprite assets. Use for Journey, Courses, Journal, Guild Hall, badges, character panels, or new pages that must match this site. Do not use for unrelated React applications.
 ---
 
 # anhpt.dev Pixel Portfolio
@@ -45,9 +45,9 @@ through a restrained pixel RPG visual language.
 - Route composition belongs in `src/routes/`; keep large editable copy or data
   structures in `src/content/` or `src/lib/`.
 - Import from the defining file, not a new barrel.
-- Consume scene/sprite manifests through the shared runtime components. Keep
-  sprite-atlas use scoped through `BaseSprite`; do not import a global atlas
-  stylesheet, change generated coordinates, or replace unrelated page artwork.
+- Consume scene/sprite manifests through `PixelScene`, `PixelSprite`, and
+  `PixelAnimation`. Do not read atlas coordinates in page code, edit generated
+  manifests or CSS by hand, or replace unrelated page artwork.
 - Request missing assets through `scene-generation`, `character-animation`, or
   `content-element-generation`, then wait for their validation and registration
   before composing with them. Do not create unregistered image prompts or
