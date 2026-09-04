@@ -100,18 +100,21 @@ describe('pixel sprite runtime components', () => {
   })
 
   it('rejects a missing sprite sequence with a useful error', () => {
+    // @ts-expect-error Exercise the guard for untyped callers with an invalid name.
     expect(() => render(<PixelSprite frame={0} name="missing" />)).toThrow(
       'Sprite sequence "missing" is not registered.',
     )
   })
 
   it('rejects inherited sprite sequence names with a useful error', () => {
+    // @ts-expect-error Exercise the guard for untyped callers with an inherited name.
     expect(() => render(<PixelSprite frame={0} name="toString" />)).toThrow(
       'Sprite sequence "toString" is not registered.',
     )
   })
 
   it('rejects inherited animation sequence names with a useful error', () => {
+    // @ts-expect-error Exercise the guard for untyped callers with an inherited name.
     expect(() => render(<PixelAnimation name="toString" />)).toThrow(
       'Sprite sequence "toString" is not registered.',
     )

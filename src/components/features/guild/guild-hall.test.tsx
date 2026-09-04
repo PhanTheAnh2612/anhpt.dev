@@ -14,4 +14,10 @@ it('preserves approved professional evidence and confidentiality disclosure as t
   expect(
     screen.getByRole('heading', { name: /engineering impact/i }),
   ).toBeInTheDocument()
+  expect(
+    screen
+      .getByRole('heading', { name: guildProfile.achievement.title })
+      .closest('section')
+      ?.querySelector('.pixel-sprite'),
+  ).toHaveAttribute('aria-hidden', 'true')
 })

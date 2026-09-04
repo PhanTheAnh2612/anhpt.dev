@@ -23,6 +23,9 @@ it('exposes badge names and availability in text without claiming persisted prog
     screen.getByRole('heading', { name: 'Rookie Compass' }),
   ).toBeInTheDocument()
   expect(screen.getByText('Locked')).toBeInTheDocument()
+  expect(
+    screen.getByRole('article').querySelector('.pixel-sprite'),
+  ).toHaveAttribute('aria-hidden', 'true')
 })
 it('filters journal articles by exact tag and provides empty-state recovery', async () => {
   const entries = getContentByKind('journal')

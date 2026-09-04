@@ -1,0 +1,102 @@
+{
+  "name": "idle",
+  "durationMs": 3000,
+  "loop": true,
+  "fallback": 0,
+  "anchor": {
+    "xPercent": 50,
+    "yPercent": 100
+  },
+  "frames": [
+    {
+      "path": "open.png",
+      "width": 64,
+      "height": 96,
+      "anchor": {
+        "xPercent": 50,
+        "yPercent": 100
+      }
+    },
+    {
+      "path": "open.png",
+      "width": 64,
+      "height": 96,
+      "anchor": {
+        "xPercent": 50,
+        "yPercent": 100
+      }
+    },
+    {
+      "path": "open.png",
+      "width": 64,
+      "height": 96,
+      "anchor": {
+        "xPercent": 50,
+        "yPercent": 100
+      }
+    },
+    {
+      "path": "open.png",
+      "width": 64,
+      "height": 96,
+      "anchor": {
+        "xPercent": 50,
+        "yPercent": 100
+      }
+    },
+    {
+      "path": "open.png",
+      "width": 64,
+      "height": 96,
+      "anchor": {
+        "xPercent": 50,
+        "yPercent": 100
+      }
+    },
+    {
+      "path": "open.png",
+      "width": 64,
+      "height": 96,
+      "anchor": {
+        "xPercent": 50,
+        "yPercent": 100
+      }
+    },
+    {
+      "path": "open.png",
+      "width": 64,
+      "height": 96,
+      "anchor": {
+        "xPercent": 50,
+        "yPercent": 100
+      }
+    },
+    {
+      "path": "open.png",
+      "width": 64,
+      "height": 96,
+      "anchor": {
+        "xPercent": 50,
+        "yPercent": 100
+      }
+    },
+    {
+      "path": "open.png",
+      "width": 64,
+      "height": 96,
+      "anchor": {
+        "xPercent": 50,
+        "yPercent": 100
+      }
+    },
+    {
+      "path": "../blink/closed.png",
+      "width": 64,
+      "height": 96,
+      "anchor": {
+        "xPercent": 50,
+        "yPercent": 100
+      }
+    }
+  ]
+}

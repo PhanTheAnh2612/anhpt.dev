@@ -1,5 +1,6 @@
 import type { Badge } from '../../../content/badges'
 import { portfolioPages } from '../../../content/portfolio-pages'
+import { PixelSprite } from '../../shared/pixel-sprite'
 
 export function BadgeCase({ badges }: { badges: ReadonlyArray<Badge> }) {
   const copy = portfolioPages.badges
@@ -15,13 +16,19 @@ export function BadgeCase({ badges }: { badges: ReadonlyArray<Badge> }) {
         className="portfolio-badge-grid"
         aria-label="Learning milestones"
       >
-        {badges.map((badge, index) => (
+        {badges.map((badge) => (
           <article
             className={`portfolio-badge portfolio-badge--${badge.state.toLowerCase()}`}
             key={badge.name}
           >
             <div className="portfolio-badge__emblem" aria-hidden="true">
-              <span>{String(index + 1).padStart(2, '0')}</span>
+              <PixelSprite
+                name={
+                  badge.state === 'Locked' ? 'content-locked' : 'content-badge'
+                }
+                frame={0}
+                scale={1.5}
+              />
             </div>
             <p className="portfolio-badge__state">{badge.state}</p>
             <h2>{badge.name}</h2>

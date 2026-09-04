@@ -1,5 +1,6 @@
 import { PixelScene } from '../../shared/pixel-scene'
 import { PixelAnimation } from '../../shared/pixel-animation'
+import { PixelSprite } from '../../shared/pixel-sprite'
 import type { guildProfile } from '../../../content/guild-profile'
 
 export function GuildHall({ profile }: { profile: typeof guildProfile }) {
@@ -107,9 +108,12 @@ export function GuildHall({ profile }: { profile: typeof guildProfile }) {
             </ul>
           </section>
           <section className="guild-medal" aria-labelledby="medal-title">
-            <span className="portfolio-guild__medal" aria-hidden="true">
-              ★
-            </span>
+            <PixelSprite
+              className="portfolio-guild__medal"
+              name="content-badge"
+              frame={0}
+              scale={1.5}
+            />
             <div className="guild-medal__copy">
               <p className="panel-label">Elite Achievement</p>
               <h2 id="medal-title">{profile.achievement.title}</h2>

@@ -1,0 +1,21 @@
+{
+  "name": "think",
+  "durationMs": 1000,
+  "loop": false,
+  "fallback": 0,
+  "anchor": {
+    "xPercent": 50,
+    "yPercent": 100
+  },
+  "frames": [
+    {
+      "path": "pose.png",
+      "width": 64,
+      "height": 96,
+      "anchor": {
+        "xPercent": 50,
+        "yPercent": 100
+      }
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "name": "guild-hall",
+  "desktop": "desktop/guild-hall.desktop.png",
+  "mobile": "mobile/guild-hall.mobile.png",
+  "desktopDimensions": { "width": 1536, "height": 1024 },
+  "mobileDimensions": { "width": 1024, "height": 1280 },
+  "focalArea": {
+    "desktop": {
+      "xPercent": 6,
+      "yPercent": 4,
+      "widthPercent": 88,
+      "heightPercent": 90
+    },
+    "mobile": {
+      "xPercent": 4,
+      "yPercent": 3,
+      "widthPercent": 92,
+      "heightPercent": 93
+    }
+  },
+  "safeZones": {
+    "central-floor": {
+      "desktop": {
+        "xPercent": 40,
+        "yPercent": 55,
+        "widthPercent": 43,
+        "heightPercent": 21
+      },
+      "mobile": {
+        "xPercent": 21,
+        "yPercent": 56,
+        "widthPercent": 58,
+        "heightPercent": 20
+      }
+    }
+  },
+  "anchors": {
+    "character": {
+      "desktop": { "xPercent": 51, "yPercent": 72, "scale": 2 },
+      "mobile": { "xPercent": 50, "yPercent": 76, "scale": 2 }
+    }
+  }
+}

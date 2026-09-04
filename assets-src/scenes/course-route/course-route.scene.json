@@ -1,0 +1,43 @@
+{
+  "name": "course-route",
+  "desktop": "desktop/course-route.desktop.png",
+  "mobile": "mobile/course-route.mobile.png",
+  "desktopDimensions": { "width": 1536, "height": 1024 },
+  "mobileDimensions": { "width": 1024, "height": 1280 },
+  "focalArea": {
+    "desktop": {
+      "xPercent": 17,
+      "yPercent": 11,
+      "widthPercent": 79,
+      "heightPercent": 83
+    },
+    "mobile": {
+      "xPercent": 4,
+      "yPercent": 7,
+      "widthPercent": 92,
+      "heightPercent": 87
+    }
+  },
+  "safeZones": {
+    "clearing": {
+      "desktop": {
+        "xPercent": 61,
+        "yPercent": 57,
+        "widthPercent": 34,
+        "heightPercent": 20
+      },
+      "mobile": {
+        "xPercent": 58,
+        "yPercent": 58,
+        "widthPercent": 38,
+        "heightPercent": 20
+      }
+    }
+  },
+  "anchors": {
+    "character": {
+      "desktop": { "xPercent": 24, "yPercent": 86, "scale": 2 },
+      "mobile": { "xPercent": 15, "yPercent": 87, "scale": 2 }
+    }
+  }
+}

@@ -1,0 +1,522 @@
+.pixel-animation--blink {
+  --pixel-anchor-x: 50%;
+  --pixel-anchor-y: 100%;
+  width: 64px;
+  height: 96px;
+  background-image: url('/assets/atlases/character.png');
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+  animation: pixel-animation-blink 3000ms steps(1, end) infinite;
+}
+
+@keyframes pixel-animation-blink {
+  0% {
+    background-position: 0px 0px;
+  }
+  10% {
+    background-position: -64px 0px;
+  }
+  20% {
+    background-position: -128px 0px;
+  }
+  30% {
+    background-position: -192px 0px;
+  }
+  40% {
+    background-position: -256px 0px;
+  }
+  50% {
+    background-position: -320px 0px;
+  }
+  60% {
+    background-position: -384px 0px;
+  }
+  70% {
+    background-position: -448px 0px;
+  }
+  80% {
+    background-position: -512px 0px;
+  }
+  90% {
+    background-position: -576px 0px;
+  }
+  100% {
+    background-position: 0px 0px;
+  }
+}
+
+.pixel-animation--idle {
+  --pixel-anchor-x: 50%;
+  --pixel-anchor-y: 100%;
+  width: 64px;
+  height: 96px;
+  background-image: url('/assets/atlases/character.png');
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+  animation: pixel-animation-idle 3000ms steps(1, end) infinite;
+}
+
+@keyframes pixel-animation-idle {
+  0% {
+    background-position: 0px -96px;
+  }
+  10% {
+    background-position: -64px -96px;
+  }
+  20% {
+    background-position: -128px -96px;
+  }
+  30% {
+    background-position: -192px -96px;
+  }
+  40% {
+    background-position: -256px -96px;
+  }
+  50% {
+    background-position: -320px -96px;
+  }
+  60% {
+    background-position: -384px -96px;
+  }
+  70% {
+    background-position: -448px -96px;
+  }
+  80% {
+    background-position: -512px -96px;
+  }
+  90% {
+    background-position: -576px -96px;
+  }
+  100% {
+    background-position: 0px -96px;
+  }
+}
+
+.pixel-animation--point {
+  --pixel-anchor-x: 50%;
+  --pixel-anchor-y: 100%;
+  width: 96px;
+  height: 96px;
+  background-image: url('/assets/atlases/character.png');
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+  animation: pixel-animation-point 800ms steps(1, end) infinite;
+}
+
+@keyframes pixel-animation-point {
+  0% {
+    background-position: 0px -192px;
+  }
+  50% {
+    background-position: -96px -192px;
+  }
+  100% {
+    background-position: 0px -192px;
+  }
+}
+
+.pixel-animation--question {
+  --pixel-anchor-x: 50%;
+  --pixel-anchor-y: 100%;
+  width: 64px;
+  height: 96px;
+  background-image: url('/assets/atlases/character.png');
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+  animation: pixel-animation-question 1000ms steps(1, end) 1 forwards;
+}
+
+@keyframes pixel-animation-question {
+  0% {
+    background-position: 0px -288px;
+  }
+  100% {
+    background-position: 0px -288px;
+  }
+}
+
+.pixel-animation--run-loading {
+  --pixel-anchor-x: 50%;
+  --pixel-anchor-y: 100%;
+  width: 96px;
+  height: 96px;
+  background-image: url('/assets/atlases/character.png');
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+  animation: pixel-animation-run-loading 360ms steps(1, end) infinite;
+}
+
+@keyframes pixel-animation-run-loading {
+  0% {
+    background-position: 0px -384px;
+  }
+  50% {
+    background-position: -96px -384px;
+  }
+  100% {
+    background-position: 0px -384px;
+  }
+}
+
+.pixel-animation--teach {
+  --pixel-anchor-x: 50%;
+  --pixel-anchor-y: 100%;
+  width: 96px;
+  height: 96px;
+  background-image: url('/assets/atlases/character.png');
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+  animation: pixel-animation-teach 900ms steps(1, end) infinite;
+}
+
+@keyframes pixel-animation-teach {
+  0% {
+    background-position: 0px -480px;
+  }
+  50% {
+    background-position: -96px -480px;
+  }
+  100% {
+    background-position: 0px -480px;
+  }
+}
+
+.pixel-animation--think {
+  --pixel-anchor-x: 50%;
+  --pixel-anchor-y: 100%;
+  width: 64px;
+  height: 96px;
+  background-image: url('/assets/atlases/character.png');
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+  animation: pixel-animation-think 1000ms steps(1, end) 1 forwards;
+}
+
+@keyframes pixel-animation-think {
+  0% {
+    background-position: 0px -576px;
+  }
+  100% {
+    background-position: 0px -576px;
+  }
+}
+
+.pixel-animation--content-architecture {
+  --pixel-anchor-x: 50%;
+  --pixel-anchor-y: 100%;
+  width: 32px;
+  height: 32px;
+  background-image: url('/assets/atlases/content.png');
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+  animation: pixel-animation-content-architecture 1000ms steps(1, end) 1
+    forwards;
+}
+
+@keyframes pixel-animation-content-architecture {
+  0% {
+    background-position: 0px 0px;
+  }
+  100% {
+    background-position: 0px 0px;
+  }
+}
+
+.pixel-animation--content-badge {
+  --pixel-anchor-x: 50%;
+  --pixel-anchor-y: 100%;
+  width: 32px;
+  height: 32px;
+  background-image: url('/assets/atlases/content.png');
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+  animation: pixel-animation-content-badge 1000ms steps(1, end) 1 forwards;
+}
+
+@keyframes pixel-animation-content-badge {
+  0% {
+    background-position: 0px -32px;
+  }
+  100% {
+    background-position: 0px -32px;
+  }
+}
+
+.pixel-animation--content-current {
+  --pixel-anchor-x: 50%;
+  --pixel-anchor-y: 100%;
+  width: 32px;
+  height: 32px;
+  background-image: url('/assets/atlases/content.png');
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+  animation: pixel-animation-content-current 1000ms steps(1, end) 1 forwards;
+}
+
+@keyframes pixel-animation-content-current {
+  0% {
+    background-position: 0px -64px;
+  }
+  100% {
+    background-position: 0px -64px;
+  }
+}
+
+.pixel-animation--content-locked {
+  --pixel-anchor-x: 50%;
+  --pixel-anchor-y: 100%;
+  width: 32px;
+  height: 32px;
+  background-image: url('/assets/atlases/content.png');
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+  animation: pixel-animation-content-locked 1000ms steps(1, end) 1 forwards;
+}
+
+@keyframes pixel-animation-content-locked {
+  0% {
+    background-position: 0px -96px;
+  }
+  100% {
+    background-position: 0px -96px;
+  }
+}
+
+.pixel-animation--content-note {
+  --pixel-anchor-x: 50%;
+  --pixel-anchor-y: 100%;
+  width: 32px;
+  height: 32px;
+  background-image: url('/assets/atlases/content.png');
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+  animation: pixel-animation-content-note 1000ms steps(1, end) 1 forwards;
+}
+
+@keyframes pixel-animation-content-note {
+  0% {
+    background-position: 0px -128px;
+  }
+  100% {
+    background-position: 0px -128px;
+  }
+}
+
+.pixel-animation--content-quest {
+  --pixel-anchor-x: 50%;
+  --pixel-anchor-y: 100%;
+  width: 32px;
+  height: 32px;
+  background-image: url('/assets/atlases/content.png');
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+  animation: pixel-animation-content-quest 1000ms steps(1, end) 1 forwards;
+}
+
+@keyframes pixel-animation-content-quest {
+  0% {
+    background-position: 0px -160px;
+  }
+  100% {
+    background-position: 0px -160px;
+  }
+}
+
+.pixel-animation--content-remember {
+  --pixel-anchor-x: 50%;
+  --pixel-anchor-y: 100%;
+  width: 32px;
+  height: 32px;
+  background-image: url('/assets/atlases/content.png');
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+  animation: pixel-animation-content-remember 1000ms steps(1, end) 1 forwards;
+}
+
+@keyframes pixel-animation-content-remember {
+  0% {
+    background-position: 0px -192px;
+  }
+  100% {
+    background-position: 0px -192px;
+  }
+}
+
+.pixel-animation--content-resource {
+  --pixel-anchor-x: 50%;
+  --pixel-anchor-y: 100%;
+  width: 32px;
+  height: 32px;
+  background-image: url('/assets/atlases/content.png');
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+  animation: pixel-animation-content-resource 1000ms steps(1, end) 1 forwards;
+}
+
+@keyframes pixel-animation-content-resource {
+  0% {
+    background-position: 0px -224px;
+  }
+  100% {
+    background-position: 0px -224px;
+  }
+}
+
+.pixel-animation--content-reward {
+  --pixel-anchor-x: 50%;
+  --pixel-anchor-y: 100%;
+  width: 32px;
+  height: 32px;
+  background-image: url('/assets/atlases/content.png');
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+  animation: pixel-animation-content-reward 1000ms steps(1, end) 1 forwards;
+}
+
+@keyframes pixel-animation-content-reward {
+  0% {
+    background-position: 0px -256px;
+  }
+  100% {
+    background-position: 0px -256px;
+  }
+}
+
+.pixel-animation--content-success {
+  --pixel-anchor-x: 50%;
+  --pixel-anchor-y: 100%;
+  width: 32px;
+  height: 32px;
+  background-image: url('/assets/atlases/content.png');
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+  animation: pixel-animation-content-success 1000ms steps(1, end) 1 forwards;
+}
+
+@keyframes pixel-animation-content-success {
+  0% {
+    background-position: 0px -288px;
+  }
+  100% {
+    background-position: 0px -288px;
+  }
+}
+
+.pixel-animation--content-terminal {
+  --pixel-anchor-x: 50%;
+  --pixel-anchor-y: 100%;
+  width: 32px;
+  height: 32px;
+  background-image: url('/assets/atlases/content.png');
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+  animation: pixel-animation-content-terminal 1000ms steps(1, end) 1 forwards;
+}
+
+@keyframes pixel-animation-content-terminal {
+  0% {
+    background-position: 0px -320px;
+  }
+  100% {
+    background-position: 0px -320px;
+  }
+}
+
+.pixel-animation--content-warning {
+  --pixel-anchor-x: 50%;
+  --pixel-anchor-y: 100%;
+  width: 32px;
+  height: 32px;
+  background-image: url('/assets/atlases/content.png');
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+  animation: pixel-animation-content-warning 1000ms steps(1, end) 1 forwards;
+}
+
+@keyframes pixel-animation-content-warning {
+  0% {
+    background-position: 0px -352px;
+  }
+  100% {
+    background-position: 0px -352px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pixel-animation--blink {
+    animation: none;
+    background-position: 0px 0px;
+  }
+  .pixel-animation--idle {
+    animation: none;
+    background-position: 0px -96px;
+  }
+  .pixel-animation--point {
+    animation: none;
+    background-position: 0px -192px;
+  }
+  .pixel-animation--question {
+    animation: none;
+    background-position: 0px -288px;
+  }
+  .pixel-animation--run-loading {
+    animation: none;
+    background-position: 0px -384px;
+  }
+  .pixel-animation--teach {
+    animation: none;
+    background-position: 0px -480px;
+  }
+  .pixel-animation--think {
+    animation: none;
+    background-position: 0px -576px;
+  }
+  .pixel-animation--content-architecture {
+    animation: none;
+    background-position: 0px 0px;
+  }
+  .pixel-animation--content-badge {
+    animation: none;
+    background-position: 0px -32px;
+  }
+  .pixel-animation--content-current {
+    animation: none;
+    background-position: 0px -64px;
+  }
+  .pixel-animation--content-locked {
+    animation: none;
+    background-position: 0px -96px;
+  }
+  .pixel-animation--content-note {
+    animation: none;
+    background-position: 0px -128px;
+  }
+  .pixel-animation--content-quest {
+    animation: none;
+    background-position: 0px -160px;
+  }
+  .pixel-animation--content-remember {
+    animation: none;
+    background-position: 0px -192px;
+  }
+  .pixel-animation--content-resource {
+    animation: none;
+    background-position: 0px -224px;
+  }
+  .pixel-animation--content-reward {
+    animation: none;
+    background-position: 0px -256px;
+  }
+  .pixel-animation--content-success {
+    animation: none;
+    background-position: 0px -288px;
+  }
+  .pixel-animation--content-terminal {
+    animation: none;
+    background-position: 0px -320px;
+  }
+  .pixel-animation--content-warning {
+    animation: none;
+    background-position: 0px -352px;
+  }
+}

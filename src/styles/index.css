@@ -1,6 +1,5 @@
 @import 'tailwindcss';
 @import '../generated/sprite-atlases.css';
-@import 'base-sprites.css';
 @import '@fontsource/press-start-2p';
 @import '@fontsource/pixelify-sans';
 @import '@fontsource/vt323';
@@ -571,18 +570,6 @@ h2 {
   color: var(--gold);
   float: right;
 }
-.base-sprite {
-  background-image: url('/assets/sprites/base-sprites.png');
-  background-position: var(--sprite-x) var(--sprite-y);
-  background-repeat: no-repeat;
-  background-size: var(--sprite-sheet-width) var(--sprite-sheet-height);
-  display: block;
-  flex: 0 0 auto;
-  height: var(--sprite-height);
-  image-rendering: pixelated;
-  overflow: hidden;
-  width: var(--sprite-width);
-}
 .pixel-sprite,
 .pixel-animation {
   display: block;
@@ -636,10 +623,6 @@ h2 {
   gap: 0.8rem;
   min-height: 5.5rem;
   padding: 0.55rem 1rem;
-}
-.guild-console__heading .base-sprite {
-  background-color: var(--cream);
-  border: 2px solid var(--gold);
 }
 .guild-console__heading h1 {
   font-size: clamp(1.5rem, 4vw, 3rem);
@@ -738,10 +721,6 @@ h2 {
   gap: 0.5rem;
   grid-template-columns: auto 1fr;
   padding: 0.65rem;
-}
-.ranger-profile__identity .base-sprite {
-  background-color: #ddcfb1;
-  border: 2px solid var(--ink);
 }
 .ranger-profile dl {
   display: grid;
@@ -856,9 +835,8 @@ h2 {
   grid-template-columns: auto 1fr;
   padding: 0.9rem;
 }
-.guild-medal > .base-sprite {
-  background-color: var(--cream);
-  border: 3px solid #694810;
+.portfolio-guild__medal {
+  justify-self: center;
 }
 .guild-medal .panel-label,
 .guild-medal__rank {
@@ -1315,10 +1293,6 @@ h2 {
     top: auto;
     width: 100%;
   }
-  .guild-dialogue .base-sprite {
-    transform: scale(0.82);
-    transform-origin: center;
-  }
   .guild-rail {
     gap: 3px;
     padding: 0;
@@ -1327,16 +1301,9 @@ h2 {
     grid-template-columns: auto 1fr;
     padding: 0.45rem;
   }
-  .ranger-profile__identity .base-sprite {
-    transform: scale(0.72);
-    transform-origin: center;
-  }
   .guild-lower-grid,
   .guild-medal {
     grid-template-columns: 1fr;
-  }
-  .guild-medal > .base-sprite {
-    margin: 0 auto;
   }
   .guild-medal__copy {
     text-align: center;

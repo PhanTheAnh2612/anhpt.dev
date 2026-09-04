@@ -59,9 +59,8 @@ vi.mock('../../generated/scene-manifest', () => ({
   },
 }))
 
-// The production manifest is intentionally empty today and will become a
-// literal-name catalog once approved scene art is generated. This test-only
-// fixture exercises the mocked runtime contract without widening public types.
+// This test-only fixture exercises the mocked runtime contract without
+// widening the generated production catalog's literal-name public types.
 const fixtureSceneProps = {
   name: 'fixture',
   overlays: { character: <span>Anh</span> },
@@ -120,12 +119,14 @@ describe('PixelScene', () => {
   })
 
   it('rejects missing scene names with a useful error', () => {
+    // @ts-expect-error Exercise the guard for untyped callers with an invalid name.
     expect(() => render(<PixelScene name="missing" />)).toThrow(
       'Scene "missing" is not registered.',
     )
   })
 
   it('rejects inherited scene names with a useful error', () => {
+    // @ts-expect-error Exercise the guard for untyped callers with an inherited name.
     expect(() => render(<PixelScene name="toString" />)).toThrow(
       'Scene "toString" is not registered.',
     )

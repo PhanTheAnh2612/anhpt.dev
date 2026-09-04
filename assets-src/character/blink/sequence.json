@@ -1,0 +1,102 @@
+{
+  "name": "blink",
+  "durationMs": 3000,
+  "loop": true,
+  "fallback": 0,
+  "anchor": {
+    "xPercent": 50,
+    "yPercent": 100
+  },
+  "frames": [
+    {
+      "path": "../idle/open.png",
+      "width": 64,
+      "height": 96,
+      "anchor": {
+        "xPercent": 50,
+        "yPercent": 100
+      }
+    },
+    {
+      "path": "../idle/open.png",
+      "width": 64,
+      "height": 96,
+      "anchor": {
+        "xPercent": 50,
+        "yPercent": 100
+      }
+    },
+    {
+      "path": "../idle/open.png",
+      "width": 64,
+      "height": 96,
+      "anchor": {
+        "xPercent": 50,
+        "yPercent": 100
+      }
+    },
+    {
+      "path": "../idle/open.png",
+      "width": 64,
+      "height": 96,
+      "anchor": {
+        "xPercent": 50,
+        "yPercent": 100
+      }
+    },
+    {
+      "path": "../idle/open.png",
+      "width": 64,
+      "height": 96,
+      "anchor": {
+        "xPercent": 50,
+        "yPercent": 100
+      }
+    },
+    {
+      "path": "../idle/open.png",
+      "width": 64,
+      "height": 96,
+      "anchor": {
+        "xPercent": 50,
+        "yPercent": 100
+      }
+    },
+    {
+      "path": "../idle/open.png",
+      "width": 64,
+      "height": 96,
+      "anchor": {
+        "xPercent": 50,
+        "yPercent": 100
+      }
+    },
+    {
+      "path": "../idle/open.png",
+      "width": 64,
+      "height": 96,
+      "anchor": {
+        "xPercent": 50,
+        "yPercent": 100
+      }
+    },
+    {
+      "path": "../idle/open.png",
+      "width": 64,
+      "height": 96,
+      "anchor": {
+        "xPercent": 50,
+        "yPercent": 100
+      }
+    },
+    {
+      "path": "closed.png",
+      "width": 64,
+      "height": 96,
+      "anchor": {
+        "xPercent": 50,
+        "yPercent": 100
+      }
+    }
+  ]
+}

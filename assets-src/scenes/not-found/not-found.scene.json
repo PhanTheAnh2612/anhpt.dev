@@ -1,0 +1,43 @@
+{
+  "name": "not-found",
+  "desktop": "desktop/not-found.desktop.png",
+  "mobile": "mobile/not-found.mobile.png",
+  "desktopDimensions": { "width": 1536, "height": 1024 },
+  "mobileDimensions": { "width": 1024, "height": 1280 },
+  "focalArea": {
+    "desktop": {
+      "xPercent": 4,
+      "yPercent": 14,
+      "widthPercent": 35,
+      "heightPercent": 38
+    },
+    "mobile": {
+      "xPercent": 4,
+      "yPercent": 8,
+      "widthPercent": 39,
+      "heightPercent": 27
+    }
+  },
+  "safeZones": {
+    "ocean": {
+      "desktop": {
+        "xPercent": 65,
+        "yPercent": 29,
+        "widthPercent": 29,
+        "heightPercent": 25
+      },
+      "mobile": {
+        "xPercent": 76,
+        "yPercent": 25,
+        "widthPercent": 21,
+        "heightPercent": 28
+      }
+    }
+  },
+  "anchors": {
+    "character": {
+      "desktop": { "xPercent": 20, "yPercent": 84, "scale": 2.5 },
+      "mobile": { "xPercent": 25, "yPercent": 72, "scale": 2 }
+    }
+  }
+}
