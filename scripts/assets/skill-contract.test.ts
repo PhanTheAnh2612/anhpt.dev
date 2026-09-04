@@ -10,7 +10,9 @@ const skill = (name: string) =>
 describe('visual skill contract', () => {
   it.each(['anhpt-art-direction'])('%s has valid frontmatter', async (name) => {
     const source = await skill(name)
-    expect(source).toMatch(/^---\nname: [a-z0-9-]+\ndescription: .+\n---/)
+    expect(source).toMatch(
+      /^---\r?\nname: [a-z0-9-]+\r?\ndescription: .+\r?\n---/,
+    )
   })
 
   it.each([
