@@ -1,8 +1,7 @@
-# Character think
+# Character think — unified refresh
 
-- Approved raw source: exec-9a4642a3-4710-46e7-b025-404bad40b653.png, retained unchanged in this directory.
-- Prompt direction: Hand on chin, opposite arm folded; preserve Anh's red cap, black glasses, dark-red shirt, white cargo pants, black-orange shoes, backpack, and watch. Exact image-generation prompt remains in the parent task.
-- Reference: approved idle identity; non-idle sources use it for wardrobe/proportion continuity.
-- Extraction: magenta chroma-key including interior gaps and dark magenta edge spill. Alpha is binary. Foreground is cropped and nearest-neighbor fitted to 64x96 with a two-pixel margin, common bottom baseline y=94, anchor (50,100). No artwork redrawing.
-- Sequence: static one-frame loop:false pose, fallback 0; no fabricated duplicate animation.
-- Review: silhouette and identity inspected, with preserved white trousers, transparent surrounding canvas, no checkerboard or labels. Review composite records 4x pixel rendering on emerald. Final application animation/crop review belongs to integration QA.
+- Shared source: `character-master-v3.png`, supplied and explicitly selected by the user as the canonical ten-pose sheet.
+- Cell: row 2, column 5. Hand-to-chin thoughtful pose.
+- Extraction: largest connected alpha silhouette removes neighbouring-cell overlap; nearest-neighbor fit to transparent 192x256, two-pixel bottom margin, bottom-centre anchor (50,100).
+- Sequence: static non-looping pose.
+- Review: expression and pose remain readable at display size with clean alpha and consistent identity.

@@ -1058,6 +1058,162 @@ h2 {
   line-height: 1.65;
   margin-bottom: 1.5rem;
 }
+.project-carousel {
+  background: var(--emerald-950);
+  border: 3px solid #07120f;
+  box-shadow:
+    inset 0 0 0 2px #5d8c6e,
+    5px 5px 0 #020b09;
+}
+.project-carousel__viewport {
+  overflow: hidden;
+}
+.project-carousel__track {
+  display: flex;
+  transition: transform 520ms steps(8, end);
+}
+.project-slide {
+  flex: 0 0 100%;
+  min-height: clamp(38rem, 66vw, 48rem);
+  overflow: hidden;
+  position: relative;
+}
+.project-slide > .pixel-scene,
+.project-slide .pixel-scene__picture,
+.project-slide .pixel-scene__picture img,
+.project-slide__shade {
+  height: 100%;
+  inset: 0;
+  position: absolute;
+  width: 100%;
+}
+.project-slide .pixel-scene__picture img {
+  object-fit: cover;
+}
+.project-slide__shade {
+  background: linear-gradient(
+    90deg,
+    rgba(3, 20, 17, 0.96) 0%,
+    rgba(3, 20, 17, 0.88) 34%,
+    rgba(3, 20, 17, 0.2) 70%,
+    transparent 100%
+  );
+}
+.project-slide__brief {
+  color: var(--cream);
+  display: grid;
+  gap: 0.85rem;
+  max-width: 36rem;
+  padding: clamp(1.5rem, 5vw, 4rem);
+  position: relative;
+  z-index: 1;
+}
+.project-slide__meta {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+.project-slide__meta > span {
+  background: var(--emerald-800);
+  border: 2px solid var(--cream);
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.55rem;
+  line-height: 1.5;
+  padding: 0.45rem 0.55rem;
+  text-transform: uppercase;
+}
+.project-slide__meta .project-slide__status {
+  background: var(--gold);
+  border-color: var(--ink);
+  color: var(--ink);
+}
+.project-slide h2 {
+  font-size: clamp(2rem, 5vw, 4rem);
+  margin: 0.25rem 0 0;
+}
+.project-slide__description,
+.project-slide__note,
+.project-slide li,
+.project-slide__role {
+  font-size: clamp(0.82rem, 1.4vw, 1rem);
+  line-height: 1.55;
+  margin: 0;
+}
+.project-slide__role strong {
+  color: var(--gold);
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.58rem;
+  margin-right: 0.45rem;
+  text-transform: uppercase;
+}
+.project-slide ul {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0;
+  padding-left: 1.15rem;
+}
+.project-slide li::marker {
+  color: var(--gold);
+}
+.project-slide__note {
+  border-left: 3px solid var(--gold);
+  color: #d9e3dc;
+  padding-left: 0.75rem;
+}
+.project-slide .pixel-button {
+  justify-self: start;
+  margin-top: 0.25rem;
+}
+.project-slide .pixel-button:disabled {
+  cursor: not-allowed;
+  filter: grayscale(1);
+  opacity: 0.65;
+  transform: none;
+}
+.project-carousel__controls {
+  align-items: center;
+  border-top: 3px solid #07120f;
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: auto 1fr auto auto;
+  padding: 0.7rem;
+}
+.project-carousel__controls p {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.55rem;
+  margin: 0;
+  text-transform: uppercase;
+}
+.project-carousel__arrow,
+.project-carousel__dots button {
+  background: var(--cream);
+  border: 2px solid #07120f;
+  color: var(--ink);
+  cursor: pointer;
+}
+.project-carousel__arrow {
+  font-size: 1.1rem;
+  height: 2.35rem;
+  width: 2.65rem;
+}
+.project-carousel__dots {
+  display: flex;
+  gap: 0.5rem;
+}
+.project-carousel__dots button {
+  height: 0.85rem;
+  padding: 0;
+  width: 1.8rem;
+}
+.project-carousel__dots button[aria-pressed='true'] {
+  background: var(--gold);
+}
+.project-carousel button:focus-visible,
+.project-carousel a:focus-visible {
+  outline: 3px solid white;
+  outline-offset: 3px;
+}
 .lesson-layout {
   align-items: start;
   display: grid;
@@ -1356,6 +1512,31 @@ h2 {
     right: 4%;
     top: auto;
   }
+  .project-slide {
+    min-height: 46rem;
+  }
+  .project-slide .pixel-scene__picture img {
+    object-position: center;
+  }
+  .project-slide__shade {
+    background: linear-gradient(
+      0deg,
+      rgba(3, 20, 17, 0.98) 0%,
+      rgba(3, 20, 17, 0.9) 58%,
+      rgba(3, 20, 17, 0.15) 100%
+    );
+  }
+  .project-slide__brief {
+    align-content: end;
+    min-height: 46rem;
+    padding: 1.25rem;
+  }
+  .project-carousel__controls {
+    grid-template-columns: auto 1fr auto;
+  }
+  .project-carousel__controls p {
+    display: none;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -1363,5 +1544,8 @@ h2 {
   *::after {
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
+  }
+  .project-carousel__track {
+    transition: none;
   }
 }

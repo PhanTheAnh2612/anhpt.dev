@@ -1,8 +1,8 @@
 .pixel-animation--blink {
   --pixel-anchor-x: 50%;
   --pixel-anchor-y: 100%;
-  width: 64px;
-  height: 96px;
+  width: 192px;
+  height: 256px;
   background-image: url('/assets/atlases/character.png');
   background-repeat: no-repeat;
   image-rendering: pixelated;
@@ -14,31 +14,31 @@
     background-position: 0px 0px;
   }
   10% {
-    background-position: -64px 0px;
-  }
-  20% {
-    background-position: -128px 0px;
-  }
-  30% {
     background-position: -192px 0px;
   }
-  40% {
-    background-position: -256px 0px;
-  }
-  50% {
-    background-position: -320px 0px;
-  }
-  60% {
+  20% {
     background-position: -384px 0px;
   }
+  30% {
+    background-position: -576px 0px;
+  }
+  40% {
+    background-position: -768px 0px;
+  }
+  50% {
+    background-position: -960px 0px;
+  }
+  60% {
+    background-position: -1152px 0px;
+  }
   70% {
-    background-position: -448px 0px;
+    background-position: -1344px 0px;
   }
   80% {
-    background-position: -512px 0px;
+    background-position: -1536px 0px;
   }
   90% {
-    background-position: -576px 0px;
+    background-position: -1728px 0px;
   }
   100% {
     background-position: 0px 0px;
@@ -48,8 +48,8 @@
 .pixel-animation--idle {
   --pixel-anchor-x: 50%;
   --pixel-anchor-y: 100%;
-  width: 64px;
-  height: 96px;
+  width: 192px;
+  height: 256px;
   background-image: url('/assets/atlases/character.png');
   background-repeat: no-repeat;
   image-rendering: pixelated;
@@ -58,45 +58,45 @@
 
 @keyframes pixel-animation-idle {
   0% {
-    background-position: 0px -96px;
+    background-position: 0px -256px;
   }
   10% {
-    background-position: -64px -96px;
+    background-position: -192px -256px;
   }
   20% {
-    background-position: -128px -96px;
+    background-position: -384px -256px;
   }
   30% {
-    background-position: -192px -96px;
+    background-position: -576px -256px;
   }
   40% {
-    background-position: -256px -96px;
+    background-position: -768px -256px;
   }
   50% {
-    background-position: -320px -96px;
+    background-position: -960px -256px;
   }
   60% {
-    background-position: -384px -96px;
+    background-position: -1152px -256px;
   }
   70% {
-    background-position: -448px -96px;
+    background-position: -1344px -256px;
   }
   80% {
-    background-position: -512px -96px;
+    background-position: -1536px -256px;
   }
   90% {
-    background-position: -576px -96px;
+    background-position: -1728px -256px;
   }
   100% {
-    background-position: 0px -96px;
+    background-position: 0px -256px;
   }
 }
 
 .pixel-animation--point {
   --pixel-anchor-x: 50%;
   --pixel-anchor-y: 100%;
-  width: 96px;
-  height: 96px;
+  width: 192px;
+  height: 256px;
   background-image: url('/assets/atlases/character.png');
   background-repeat: no-repeat;
   image-rendering: pixelated;
@@ -105,21 +105,21 @@
 
 @keyframes pixel-animation-point {
   0% {
-    background-position: 0px -192px;
+    background-position: 0px -512px;
   }
   50% {
-    background-position: -96px -192px;
+    background-position: -192px -512px;
   }
   100% {
-    background-position: 0px -192px;
+    background-position: 0px -512px;
   }
 }
 
 .pixel-animation--question {
   --pixel-anchor-x: 50%;
   --pixel-anchor-y: 100%;
-  width: 64px;
-  height: 96px;
+  width: 192px;
+  height: 256px;
   background-image: url('/assets/atlases/character.png');
   background-repeat: no-repeat;
   image-rendering: pixelated;
@@ -128,18 +128,18 @@
 
 @keyframes pixel-animation-question {
   0% {
-    background-position: 0px -288px;
+    background-position: 0px -768px;
   }
   100% {
-    background-position: 0px -288px;
+    background-position: 0px -768px;
   }
 }
 
 .pixel-animation--run-loading {
   --pixel-anchor-x: 50%;
   --pixel-anchor-y: 100%;
-  width: 96px;
-  height: 96px;
+  width: 192px;
+  height: 256px;
   background-image: url('/assets/atlases/character.png');
   background-repeat: no-repeat;
   image-rendering: pixelated;
@@ -148,21 +148,21 @@
 
 @keyframes pixel-animation-run-loading {
   0% {
-    background-position: 0px -384px;
+    background-position: 0px -1024px;
   }
   50% {
-    background-position: -96px -384px;
+    background-position: -192px -1024px;
   }
   100% {
-    background-position: 0px -384px;
+    background-position: 0px -1024px;
   }
 }
 
 .pixel-animation--teach {
   --pixel-anchor-x: 50%;
   --pixel-anchor-y: 100%;
-  width: 96px;
-  height: 96px;
+  width: 192px;
+  height: 256px;
   background-image: url('/assets/atlases/character.png');
   background-repeat: no-repeat;
   image-rendering: pixelated;
@@ -171,21 +171,21 @@
 
 @keyframes pixel-animation-teach {
   0% {
-    background-position: 0px -480px;
+    background-position: 0px -1280px;
   }
   50% {
-    background-position: -96px -480px;
+    background-position: -192px -1280px;
   }
   100% {
-    background-position: 0px -480px;
+    background-position: 0px -1280px;
   }
 }
 
 .pixel-animation--think {
   --pixel-anchor-x: 50%;
   --pixel-anchor-y: 100%;
-  width: 64px;
-  height: 96px;
+  width: 192px;
+  height: 256px;
   background-image: url('/assets/atlases/character.png');
   background-repeat: no-repeat;
   image-rendering: pixelated;
@@ -194,10 +194,10 @@
 
 @keyframes pixel-animation-think {
   0% {
-    background-position: 0px -576px;
+    background-position: 0px -1536px;
   }
   100% {
-    background-position: 0px -576px;
+    background-position: 0px -1536px;
   }
 }
 
@@ -449,27 +449,27 @@
   }
   .pixel-animation--idle {
     animation: none;
-    background-position: 0px -96px;
+    background-position: 0px -256px;
   }
   .pixel-animation--point {
     animation: none;
-    background-position: 0px -192px;
+    background-position: 0px -512px;
   }
   .pixel-animation--question {
     animation: none;
-    background-position: 0px -288px;
+    background-position: 0px -768px;
   }
   .pixel-animation--run-loading {
     animation: none;
-    background-position: 0px -384px;
+    background-position: 0px -1024px;
   }
   .pixel-animation--teach {
     animation: none;
-    background-position: 0px -480px;
+    background-position: 0px -1280px;
   }
   .pixel-animation--think {
     animation: none;
-    background-position: 0px -576px;
+    background-position: 0px -1536px;
   }
   .pixel-animation--content-architecture {
     animation: none;

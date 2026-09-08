@@ -16,6 +16,13 @@ Reject the asset when it has character drift, meaningful embedded text, copied
 logos or locations, inconsistent lighting, or non-pixel edge treatment. Keep
 headings, navigation, claims, and accessible descriptions as editable HTML.
 
+## Canonical render signature
+
+All newly generated scenes, sprites, badges, icons, and content decorations must
+share the EzBuilder workshop render signature. Read
+[Render signature](references/render-signature.md) before prompting or reviewing
+new raster work. Reuse its rendering language, not its location or props.
+
 ## Read the relevant references
 
 - [Palette](references/palette.md) for the CSS token values and contrast.
@@ -32,7 +39,7 @@ headings, navigation, claims, and accessible descriptions as editable HTML.
 
 1. Start with the portfolio purpose and the HTML copy that surrounds the asset.
 2. Use the palette, lighting, character, and framing constraints from the
-   relevant references.
+   relevant references and the canonical render signature.
 3. Keep pixels crisp: hard stepped contours, limited clusters, and no smooth
    vector, painterly, photoreal, blur, or anti-aliased edge treatment.
 4. Review against every rejection condition before delivery.

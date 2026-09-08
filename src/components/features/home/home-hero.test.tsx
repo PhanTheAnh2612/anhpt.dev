@@ -14,7 +14,9 @@ it('keeps landing copy, character and real menu links separate from decorative s
     '/courses',
   )
   expect(
-    screen.getByRole('img', { name: /anh welcomes visitors/i }),
+    screen.getByRole('img', {
+      name: /anh welcomes visitors and points toward the journey menu/i,
+    }),
   ).toBeInTheDocument()
   expect(container.querySelector('.pixel-scene img')).toHaveAttribute('alt', '')
   expect(

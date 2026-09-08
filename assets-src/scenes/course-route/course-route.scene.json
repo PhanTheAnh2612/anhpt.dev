@@ -36,8 +36,8 @@
   },
   "anchors": {
     "character": {
-      "desktop": { "xPercent": 24, "yPercent": 86, "scale": 2 },
-      "mobile": { "xPercent": 15, "yPercent": 87, "scale": 2 }
+      "desktop": { "xPercent": 39, "yPercent": 78, "scale": 2 },
+      "mobile": { "xPercent": 32, "yPercent": 79, "scale": 2 }
     }
   }
 }

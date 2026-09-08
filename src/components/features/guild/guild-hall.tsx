@@ -33,7 +33,6 @@ export function GuildHall({ profile }: { profile: typeof guildProfile }) {
             <PixelScene
               className="portfolio-guild__scene"
               name="guild-hall"
-              overlays={{ character: <PixelAnimation name="point" /> }}
             />
             <p className="portfolio-guild__caption">{profile.introduction}</p>
           </div>

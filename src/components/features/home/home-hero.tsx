@@ -13,7 +13,10 @@ export function HomeHero() {
           name="home"
           overlays={{
             character: (
-              <PixelAnimation name="idle" label="Anh welcomes visitors" />
+              <PixelAnimation
+                name="point"
+                label="Anh welcomes visitors and points toward the journey menu"
+              />
             ),
           }}
         />

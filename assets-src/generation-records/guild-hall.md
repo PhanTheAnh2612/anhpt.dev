@@ -1,8 +1,8 @@
-# Guild hall scene pair
+# Guild Hall scene pair — integrated-character refresh
 
-- Desktop raw: `chatgpt-guild-hall-desktop.png`, generated in the ChatGPT browser and supplied by the parent agent.
-- Direction: an unoccupied Emerald-inspired timber-and-stone guild hall with central staircase, tall window, work tables, books, green banners, fireplace, and open rug/floor. No character or UI is baked into the scene.
-- Desktop normalization: opaque nearest-neighbor normalization to exactly 1536x1024.
-- Mobile derivation: deterministic nearest-neighbor centre cover crop to exactly 1024x1280, retaining the stairs, window, work areas, and open central floor.
-- Character anchor is on the open central floor: desktop (51,72), mobile (50,76), scale 2.
-- Review: source was visually inspected; the hall is unoccupied and contains no readable portfolio text or interface elements.
+- Desktop source: generated in the user-selected ChatGPT Chrome tab; export `1b75ba5fc7f9ba5c`.
+- Direction: grand but approachable timber-and-stone guild library with warm lamps, strategy table, blank project boards, books, and forested mountain windows.
+- Style: canonical EzBuilder-derived render signature from `.agents/skills/anhpt-art-direction/references/render-signature.md`.
+- Character policy: the explicitly approved integrated-character exception. Exactly one Anh avatar is baked into the hero, sharing its perspective, light, palette, and pixel density. The scene-level runtime point sprite was removed; the small editable Ranger Profile sprite remains separate.
+- Mobile: deterministic nearest-neighbor centre cover crop to 1024x1280, preserving Anh and the primary hall landmarks.
+- Review: desktop and mobile inspected; identity, framing, unified rendering, and absence of other people/readable text/logos pass.

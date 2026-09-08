@@ -1,8 +1,7 @@
-# Character run-loading sequence
+# Character run-loading — unified refresh
 
-- Reviewed source: `chatgpt-character-actions-sheet-transparent.png`, a combined 4x2 RGBA action sheet generated in the ChatGPT browser and supplied by the parent agent. The earlier opaque draft remains only as provenance and is not a runtime source.
-- Frames: top-third and top-fourth cells, in that order. The bottom alternates were not needed for the compact two-step loading loop.
-- Purpose: a brisk two-frame running loop used while route content is loading.
-- Normalization: each reviewed 384x512 transparent cell is separated mechanically and nearest-neighbor fit onto a transparent 96x96 canvas with a two-pixel bottom margin.
-- Metadata: bottom-center anchor (50,100), 360ms, looping, fallback frame 0.
-- Review: both frames were inspected individually at source size and normalized size. Identity and wardrobe are consistent, foot positions alternate clearly, transparent margins are clean, and no labels or neighboring-cell pixels remain.
+- Shared source: `character-master-v3.png`, supplied and explicitly selected by the user as the canonical ten-pose sheet.
+- Cells: row 2, columns 1–2, alternating legs.
+- Extraction: largest connected alpha silhouette, nearest-neighbor fit to transparent 192x256, two-pixel bottom margin, bottom-centre anchor (50,100).
+- Sequence: 360ms looping two-frame run.
+- Review: foot alternation and forward motion read clearly; identity, baseline, and alpha pass.

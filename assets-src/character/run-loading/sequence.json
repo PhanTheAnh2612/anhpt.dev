@@ -7,14 +7,14 @@
   "frames": [
     {
       "path": "run-1.png",
-      "width": 96,
-      "height": 96,
+      "width": 192,
+      "height": 256,
       "anchor": { "xPercent": 50, "yPercent": 100 }
     },
     {
       "path": "run-2.png",
-      "width": 96,
-      "height": 96,
+      "width": 192,
+      "height": 256,
       "anchor": { "xPercent": 50, "yPercent": 100 }
     }
   ]

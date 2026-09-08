@@ -1,8 +1,7 @@
-# Character point sequence
+# Character point — unified refresh
 
-- Reviewed source: `chatgpt-character-actions-sheet-transparent.png`, a combined 4x2 RGBA action sheet generated in the ChatGPT browser and supplied by the parent agent. The earlier opaque draft remains only as provenance and is not a runtime source.
-- Frames: top-second and bottom-second cells, in that order.
-- Purpose: an extended-arm pointing cue for navigation and emphasized guidance.
-- Normalization: each reviewed 384x512 transparent cell is separated mechanically and nearest-neighbor fit onto a transparent 96x96 canvas with a two-pixel bottom margin.
-- Metadata: bottom-center anchor (50,100), 800ms, looping, fallback frame 0.
-- Review: both frames were inspected individually at source size and normalized size. Identity, wardrobe, adult proportions, crisp silhouette, transparent margins, and pose continuity pass; there are no labels or neighboring-cell pixels.
+- Shared source: `character-master-v3.png`, supplied and explicitly selected by the user as the canonical ten-pose sheet.
+- Cells: row 1, columns 3–4, ordered A then B.
+- Extraction: largest connected alpha silhouette removes neighbouring-cell overlap; nearest-neighbor fit to transparent 192x256, two-pixel bottom margin, bottom-centre anchor (50,100).
+- Sequence: 800ms looping two-frame point.
+- Review: arm change is readable, scale and identity remain coherent, and no neighbouring pixels remain.

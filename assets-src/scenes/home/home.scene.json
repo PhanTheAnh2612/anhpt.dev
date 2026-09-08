@@ -57,13 +57,13 @@
   "anchors": {
     "character": {
       "desktop": {
-        "xPercent": 20,
-        "yPercent": 84,
+        "xPercent": 30,
+        "yPercent": 77,
         "scale": 2.5
       },
       "mobile": {
-        "xPercent": 25,
-        "yPercent": 72,
+        "xPercent": 27,
+        "yPercent": 78,
         "scale": 2
       }
     }

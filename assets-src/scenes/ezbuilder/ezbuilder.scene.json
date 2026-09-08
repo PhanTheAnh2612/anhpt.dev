@@ -1,0 +1,43 @@
+{
+  "name": "ezbuilder",
+  "desktop": "desktop/ezbuilder.desktop.png",
+  "mobile": "mobile/ezbuilder.mobile.png",
+  "desktopDimensions": { "width": 1536, "height": 1024 },
+  "mobileDimensions": { "width": 1024, "height": 1280 },
+  "focalArea": {
+    "desktop": {
+      "xPercent": 31,
+      "yPercent": 11,
+      "widthPercent": 66,
+      "heightPercent": 81
+    },
+    "mobile": {
+      "xPercent": 4,
+      "yPercent": 5,
+      "widthPercent": 92,
+      "heightPercent": 88
+    }
+  },
+  "safeZones": {
+    "dark-wall": {
+      "desktop": {
+        "xPercent": 2,
+        "yPercent": 7,
+        "widthPercent": 28,
+        "heightPercent": 62
+      },
+      "mobile": {
+        "xPercent": 4,
+        "yPercent": 68,
+        "widthPercent": 92,
+        "heightPercent": 28
+      }
+    }
+  },
+  "anchors": {
+    "detail": {
+      "desktop": { "xPercent": 74, "yPercent": 72, "scale": 1 },
+      "mobile": { "xPercent": 70, "yPercent": 70, "scale": 1 }
+    }
+  }
+}

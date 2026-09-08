@@ -1,13 +1,13 @@
 ---
 name: scene-generation
-description: Use when creating or reviewing an anhpt.dev environment-only desktop and mobile background pair with scene metadata.
+description: Use when creating or reviewing an anhpt.dev responsive scene pair, normally environment-only, or the explicitly approved Guild Hall integrated-character hero scene.
 ---
 
 # Scene Generation
 
-Create static environment-only background pairs. Scenes establish atmosphere
-and composition; DOM overlays and registered sprites provide all interaction,
-copy, and character activity.
+Create static background pairs. Scenes establish atmosphere and composition;
+DOM overlays provide all interaction and copy. They are environment-only except
+for the narrowly defined integrated-character mode below.
 
 ## Before prompting
 
@@ -23,6 +23,17 @@ copy, and character activity.
    variant dimensions, focal area, overlay safe zones, character anchors,
    prompt, references, and review notes.
 
+## Choose the scene mode
+
+- **Environment-only** is the default for every scene. Registered sprites supply
+  character activity when needed.
+- **Integrated-character** is allowed only when the user explicitly requests a
+  named page hero whose character and environment must share one lighting,
+  scale, and rendering pass. Record that approval in the generation record.
+  Guild Hall is the only currently approved integrated scene. Remove its
+  scene-level sprite overlay after registration; unrelated character UI may
+  continue using registered sprites.
+
 ## Generate one scene pair
 
 Generate exactly one location pair at a time: a 1536x1024 desktop PNG and a
@@ -32,14 +43,17 @@ and registered sprite anchors; the background must remain useful when
 animation is disabled.
 
 Permanent terrain, buildings, furniture, shelving, trees, and ambient decor
-are allowed. This skill is environment-only: never include Anh, NPCs, dynamic
-props, UI, menus, labels, dialogue, or readable text.
+are allowed. In environment-only mode, never include Anh or NPCs. In approved
+integrated-character mode, include only the declared character and preserve the
+canonical Anh identity. Neither mode may include UI, menus, labels, dialogue,
+readable text, copied interfaces, or watermarks.
 
 ## Validate and register
 
 Run the asset validation workflow for the scene pair. Confirm the required
 dimensions, opaque PNG output, shared visual identity, safe areas, focal area,
-and absence of characters, dynamic objects, UI, and generated text. Stop for
+and either absence of characters or exact approved character identity, plus
+absence of UI and generated text. Stop for
 visual review before approving or registering either production output.
 
 After approval, hand the accepted source files and metadata to

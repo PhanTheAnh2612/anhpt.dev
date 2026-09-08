@@ -10,8 +10,8 @@
   "frames": [
     {
       "path": "pose.png",
-      "width": 64,
-      "height": 96,
+      "width": 192,
+      "height": 256,
       "anchor": {
         "xPercent": 50,
         "yPercent": 100

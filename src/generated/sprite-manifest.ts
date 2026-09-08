@@ -3,8 +3,8 @@ import type { SpriteSequence } from '../../scripts/assets/pack-atlases'
 export const spriteAtlases = {
   character: {
     src: '/assets/atlases/character.png',
-    width: 640,
-    height: 672,
+    width: 1920,
+    height: 1792,
   },
   content: {
     src: '/assets/atlases/content.png',
@@ -32,28 +32,8 @@ export const spriteManifest = {
       {
         x: 0,
         y: 0,
-        width: 64,
-        height: 96,
-        anchor: {
-          xPercent: 50,
-          yPercent: 100,
-        },
-      },
-      {
-        x: 64,
-        y: 0,
-        width: 64,
-        height: 96,
-        anchor: {
-          xPercent: 50,
-          yPercent: 100,
-        },
-      },
-      {
-        x: 128,
-        y: 0,
-        width: 64,
-        height: 96,
+        width: 192,
+        height: 256,
         anchor: {
           xPercent: 50,
           yPercent: 100,
@@ -62,28 +42,8 @@ export const spriteManifest = {
       {
         x: 192,
         y: 0,
-        width: 64,
-        height: 96,
-        anchor: {
-          xPercent: 50,
-          yPercent: 100,
-        },
-      },
-      {
-        x: 256,
-        y: 0,
-        width: 64,
-        height: 96,
-        anchor: {
-          xPercent: 50,
-          yPercent: 100,
-        },
-      },
-      {
-        x: 320,
-        y: 0,
-        width: 64,
-        height: 96,
+        width: 192,
+        height: 256,
         anchor: {
           xPercent: 50,
           yPercent: 100,
@@ -92,28 +52,8 @@ export const spriteManifest = {
       {
         x: 384,
         y: 0,
-        width: 64,
-        height: 96,
-        anchor: {
-          xPercent: 50,
-          yPercent: 100,
-        },
-      },
-      {
-        x: 448,
-        y: 0,
-        width: 64,
-        height: 96,
-        anchor: {
-          xPercent: 50,
-          yPercent: 100,
-        },
-      },
-      {
-        x: 512,
-        y: 0,
-        width: 64,
-        height: 96,
+        width: 192,
+        height: 256,
         anchor: {
           xPercent: 50,
           yPercent: 100,
@@ -122,8 +62,68 @@ export const spriteManifest = {
       {
         x: 576,
         y: 0,
-        width: 64,
-        height: 96,
+        width: 192,
+        height: 256,
+        anchor: {
+          xPercent: 50,
+          yPercent: 100,
+        },
+      },
+      {
+        x: 768,
+        y: 0,
+        width: 192,
+        height: 256,
+        anchor: {
+          xPercent: 50,
+          yPercent: 100,
+        },
+      },
+      {
+        x: 960,
+        y: 0,
+        width: 192,
+        height: 256,
+        anchor: {
+          xPercent: 50,
+          yPercent: 100,
+        },
+      },
+      {
+        x: 1152,
+        y: 0,
+        width: 192,
+        height: 256,
+        anchor: {
+          xPercent: 50,
+          yPercent: 100,
+        },
+      },
+      {
+        x: 1344,
+        y: 0,
+        width: 192,
+        height: 256,
+        anchor: {
+          xPercent: 50,
+          yPercent: 100,
+        },
+      },
+      {
+        x: 1536,
+        y: 0,
+        width: 192,
+        height: 256,
+        anchor: {
+          xPercent: 50,
+          yPercent: 100,
+        },
+      },
+      {
+        x: 1728,
+        y: 0,
+        width: 192,
+        height: 256,
         anchor: {
           xPercent: 50,
           yPercent: 100,
@@ -143,29 +143,9 @@ export const spriteManifest = {
     frames: [
       {
         x: 0,
-        y: 96,
-        width: 64,
-        height: 96,
-        anchor: {
-          xPercent: 50,
-          yPercent: 100,
-        },
-      },
-      {
-        x: 64,
-        y: 96,
-        width: 64,
-        height: 96,
-        anchor: {
-          xPercent: 50,
-          yPercent: 100,
-        },
-      },
-      {
-        x: 128,
-        y: 96,
-        width: 64,
-        height: 96,
+        y: 256,
+        width: 192,
+        height: 256,
         anchor: {
           xPercent: 50,
           yPercent: 100,
@@ -173,29 +153,9 @@ export const spriteManifest = {
       },
       {
         x: 192,
-        y: 96,
-        width: 64,
-        height: 96,
-        anchor: {
-          xPercent: 50,
-          yPercent: 100,
-        },
-      },
-      {
-        x: 256,
-        y: 96,
-        width: 64,
-        height: 96,
-        anchor: {
-          xPercent: 50,
-          yPercent: 100,
-        },
-      },
-      {
-        x: 320,
-        y: 96,
-        width: 64,
-        height: 96,
+        y: 256,
+        width: 192,
+        height: 256,
         anchor: {
           xPercent: 50,
           yPercent: 100,
@@ -203,29 +163,9 @@ export const spriteManifest = {
       },
       {
         x: 384,
-        y: 96,
-        width: 64,
-        height: 96,
-        anchor: {
-          xPercent: 50,
-          yPercent: 100,
-        },
-      },
-      {
-        x: 448,
-        y: 96,
-        width: 64,
-        height: 96,
-        anchor: {
-          xPercent: 50,
-          yPercent: 100,
-        },
-      },
-      {
-        x: 512,
-        y: 96,
-        width: 64,
-        height: 96,
+        y: 256,
+        width: 192,
+        height: 256,
         anchor: {
           xPercent: 50,
           yPercent: 100,
@@ -233,9 +173,69 @@ export const spriteManifest = {
       },
       {
         x: 576,
-        y: 96,
-        width: 64,
-        height: 96,
+        y: 256,
+        width: 192,
+        height: 256,
+        anchor: {
+          xPercent: 50,
+          yPercent: 100,
+        },
+      },
+      {
+        x: 768,
+        y: 256,
+        width: 192,
+        height: 256,
+        anchor: {
+          xPercent: 50,
+          yPercent: 100,
+        },
+      },
+      {
+        x: 960,
+        y: 256,
+        width: 192,
+        height: 256,
+        anchor: {
+          xPercent: 50,
+          yPercent: 100,
+        },
+      },
+      {
+        x: 1152,
+        y: 256,
+        width: 192,
+        height: 256,
+        anchor: {
+          xPercent: 50,
+          yPercent: 100,
+        },
+      },
+      {
+        x: 1344,
+        y: 256,
+        width: 192,
+        height: 256,
+        anchor: {
+          xPercent: 50,
+          yPercent: 100,
+        },
+      },
+      {
+        x: 1536,
+        y: 256,
+        width: 192,
+        height: 256,
+        anchor: {
+          xPercent: 50,
+          yPercent: 100,
+        },
+      },
+      {
+        x: 1728,
+        y: 256,
+        width: 192,
+        height: 256,
         anchor: {
           xPercent: 50,
           yPercent: 100,
@@ -255,19 +255,19 @@ export const spriteManifest = {
     frames: [
       {
         x: 0,
-        y: 192,
-        width: 96,
-        height: 96,
+        y: 512,
+        width: 192,
+        height: 256,
         anchor: {
           xPercent: 50,
           yPercent: 100,
         },
       },
       {
-        x: 96,
-        y: 192,
-        width: 96,
-        height: 96,
+        x: 192,
+        y: 512,
+        width: 192,
+        height: 256,
         anchor: {
           xPercent: 50,
           yPercent: 100,
@@ -287,9 +287,9 @@ export const spriteManifest = {
     frames: [
       {
         x: 0,
-        y: 288,
-        width: 64,
-        height: 96,
+        y: 768,
+        width: 192,
+        height: 256,
         anchor: {
           xPercent: 50,
           yPercent: 100,
@@ -309,19 +309,19 @@ export const spriteManifest = {
     frames: [
       {
         x: 0,
-        y: 384,
-        width: 96,
-        height: 96,
+        y: 1024,
+        width: 192,
+        height: 256,
         anchor: {
           xPercent: 50,
           yPercent: 100,
         },
       },
       {
-        x: 96,
-        y: 384,
-        width: 96,
-        height: 96,
+        x: 192,
+        y: 1024,
+        width: 192,
+        height: 256,
         anchor: {
           xPercent: 50,
           yPercent: 100,
@@ -341,19 +341,19 @@ export const spriteManifest = {
     frames: [
       {
         x: 0,
-        y: 480,
-        width: 96,
-        height: 96,
+        y: 1280,
+        width: 192,
+        height: 256,
         anchor: {
           xPercent: 50,
           yPercent: 100,
         },
       },
       {
-        x: 96,
-        y: 480,
-        width: 96,
-        height: 96,
+        x: 192,
+        y: 1280,
+        width: 192,
+        height: 256,
         anchor: {
           xPercent: 50,
           yPercent: 100,
@@ -373,9 +373,9 @@ export const spriteManifest = {
     frames: [
       {
         x: 0,
-        y: 576,
-        width: 64,
-        height: 96,
+        y: 1536,
+        width: 192,
+        height: 256,
         anchor: {
           xPercent: 50,
           yPercent: 100,

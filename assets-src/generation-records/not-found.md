@@ -1,7 +1,8 @@
-# Not found scene pair
+# Not-found scene pair — unified refresh
 
-- Source: the approved clean `home` scene pair, reused under a distinct semantic scene name according to the project's reuse-first asset policy.
-- Prompt: none; no new artwork was generated.
-- Normalization: nearest-neighbor copy/normalization to exactly 1536x1024 desktop and 1024x1280 mobile, opaque RGB.
-- Metadata intentionally mirrors the home composition so the missing-route message can use the calm ocean zone and the character can remain on the lower-left path.
-- Review: the reused sources contain no people, logos, readable text, or UI.
+- Desktop source: generated in the user-selected ChatGPT Chrome tab; export `f0b7841f5145c23b`.
+- Direction: twilight forest crossroads beside a broken bridge, blank signs, lanterns, lake, and distant mountain sunset.
+- Style: canonical EzBuilder-derived render signature from `.agents/skills/anhpt-art-direction/references/render-signature.md` with a darker state-appropriate value range.
+- Character policy: environment-only; runtime character remains an overlay.
+- Mobile: deterministic nearest-neighbor centre cover crop to 1024x1280.
+- Review: desktop and mobile inspected; the crossroads and broken route remain obvious without baked text or UI.

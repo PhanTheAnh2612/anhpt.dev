@@ -34,8 +34,8 @@ export function CourseOverview({
             overlays={{
               character: (
                 <PixelAnimation
-                  name="idle"
-                  label="Anh welcomes you to the learning route"
+                  name="point"
+                  label="Anh points toward the selected learning route"
                 />
               ),
             }}

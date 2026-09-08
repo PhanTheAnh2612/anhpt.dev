@@ -47,14 +47,70 @@ export const sceneManifest = {
     anchors: {
       character: {
         desktop: {
-          xPercent: 24,
-          yPercent: 86,
+          xPercent: 39,
+          yPercent: 78,
           scale: 2,
         },
         mobile: {
-          xPercent: 15,
-          yPercent: 87,
+          xPercent: 32,
+          yPercent: 79,
           scale: 2,
+        },
+      },
+    },
+  },
+  ezbuilder: {
+    desktop: {
+      src: '/assets/scenes/ezbuilder.desktop.png',
+      width: 1536,
+      height: 1024,
+    },
+    mobile: {
+      src: '/assets/scenes/ezbuilder.mobile.png',
+      width: 1024,
+      height: 1280,
+    },
+    focalArea: {
+      desktop: {
+        xPercent: 31,
+        yPercent: 11,
+        widthPercent: 66,
+        heightPercent: 81,
+      },
+      mobile: {
+        xPercent: 4,
+        yPercent: 5,
+        widthPercent: 92,
+        heightPercent: 88,
+      },
+    },
+    safeZones: {
+      'dark-wall': {
+        desktop: {
+          xPercent: 2,
+          yPercent: 7,
+          widthPercent: 28,
+          heightPercent: 62,
+        },
+        mobile: {
+          xPercent: 4,
+          yPercent: 68,
+          widthPercent: 92,
+          heightPercent: 28,
+        },
+      },
+    },
+    anchors: {
+      detail: {
+        desktop: {
+          xPercent: 74,
+          yPercent: 72,
+          scale: 1,
+        },
+        mobile: {
+          xPercent: 70,
+          yPercent: 70,
+          scale: 1,
         },
       },
     },
@@ -173,13 +229,13 @@ export const sceneManifest = {
     anchors: {
       character: {
         desktop: {
-          xPercent: 20,
-          yPercent: 84,
+          xPercent: 30,
+          yPercent: 77,
           scale: 2.5,
         },
         mobile: {
-          xPercent: 25,
-          yPercent: 72,
+          xPercent: 27,
+          yPercent: 78,
           scale: 2,
         },
       },

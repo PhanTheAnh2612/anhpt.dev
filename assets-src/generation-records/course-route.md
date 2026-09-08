@@ -1,9 +1,8 @@
-# Course route scene pair
+# Course route scene pair — unified refresh
 
-- Desktop raw: `chatgpt-course-route-desktop.png`, generated in the ChatGPT browser and supplied by the parent agent.
-- Direction: a bright Emerald-inspired mountain learning route with a winding lower-left path, hilltop pavilion, lake and mountains, and an open right clearing. No character or UI is baked into the scene.
-- Desktop normalization: opaque nearest-neighbor normalization to exactly 1536x1024.
-- Mobile raw: `chatgpt-course-route-mobile.png`, a true portrait companion generated in the ChatGPT browser.
-- Mobile normalization: opaque nearest-neighbor normalization to exactly 1024x1280, retaining the route, pavilion, and useful right-side clearing without an automated crop.
-- Character anchor is on the lower-left path: desktop (24,86), mobile (15,87), scale 2.
-- Review: source was visually inspected; there are no people, logos, or readable interface elements.
+- Desktop source: generated in the user-selected ChatGPT Chrome tab; export `3dafd3f8481fca96`.
+- Direction: mountain learning camp with blank boards, work tables, route signs, lake, forest, and a large open training ground.
+- Style: canonical EzBuilder-derived render signature from `.agents/skills/anhpt-art-direction/references/render-signature.md`.
+- Character policy: environment-only; runtime character animation remains an overlay.
+- Mobile: deterministic nearest-neighbor centre cover crop to 1024x1280.
+- Review: desktop and mobile inspected; overlay space and route cues survive the crop, with no people, readable text, or copied UI.

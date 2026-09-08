@@ -23,7 +23,49 @@ async function normalizeSprite(
     const [r, g, b] = data.subarray(i * 4, i * 4 + 3)
     return Math.min(r, g, b) > 205 && Math.max(r, g, b) - Math.min(r, g, b) < 35
   }
-  if (mode === 'magenta') {
+  if (mode === 'alpha') {
+    // Preserve generated RGBA artwork exactly; only discard near-transparent fringe.
+    for (let alphaIndex = 3; alphaIndex < data.length; alphaIndex += 4) {
+      background[(alphaIndex - 3) / 4] = data[alphaIndex] < 128 ? 1 : 0
+    }
+    // A generated sheet can let a neighbouring pose cross a nominal cell edge.
+    // Keep only the largest connected opaque silhouette in the crop.
+    const seen = new Uint8Array(total)
+    let largest: number[] = []
+    for (let start = 0; start < total; start++) {
+      if (background[start] || seen[start]) continue
+      const component: number[] = []
+      const queue = [start]
+      seen[start] = 1
+      // The queue grows while it is traversed, so this cannot be a for-of loop.
+      // eslint-disable-next-line @typescript-eslint/prefer-for-of
+      for (let j = 0; j < queue.length; j++) {
+        const i = queue[j]
+        component.push(i)
+        const x = i % sourceWidth
+        const y = Math.floor(i / sourceWidth)
+        const neighbours = [
+          x ? i - 1 : -1,
+          x + 1 < sourceWidth ? i + 1 : -1,
+          y ? i - sourceWidth : -1,
+          y + 1 < sourceHeight ? i + sourceWidth : -1,
+        ]
+        for (const neighbour of neighbours) {
+          if (
+            neighbour >= 0 &&
+            !background[neighbour] &&
+            !seen[neighbour]
+          ) {
+            seen[neighbour] = 1
+            queue.push(neighbour)
+          }
+        }
+      }
+      if (component.length > largest.length) largest = component
+    }
+    background.fill(1)
+    for (const i of largest) background[i] = 0
+  } else if (mode === 'magenta') {
     for (let i = 0; i < total; i++) {
       const [r, g, b] = data.subarray(i * 4, i * 4 + 3)
       // Include dark magenta fringe pixels without erasing neutral outlines or red clothes.
@@ -207,6 +249,6 @@ if (mode === 'sprite') {
   await copyFile(resolve(source), resolve(directory, basename(source)))
 } else {
   throw new Error(
-    'Use sprite <source> <output> [magenta|neutral] [width] [height], scene <source> <output> <width> <height>, scene-cover <source> <output> <width> <height> [position], map-mobile <source> <output>, crop <source> <output> <x> <y> <w> <h>, preserve <source> <directory>',
+    'Use sprite <source> <output> [alpha|magenta|neutral] [width] [height], scene <source> <output> <width> <height>, scene-cover <source> <output> <width> <height> [position], map-mobile <source> <output>, crop <source> <output> <x> <y> <w> <h>, preserve <source> <directory>',
   )
 }

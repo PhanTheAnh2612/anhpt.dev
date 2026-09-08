@@ -52,6 +52,10 @@ export function PixelSprite({
   }
 
   const sprite = sequence.frames[frame]
+  const densityScale =
+    sequence.atlas === 'character' && sprite.height > 96
+      ? 96 / sprite.height
+      : 1
 
   const style = {
     '--pixel-atlas': `url('/assets/atlases/${sequence.atlas}.png')`,
@@ -59,7 +63,7 @@ export function PixelSprite({
     '--pixel-anchor-y': `${sprite.anchor.yPercent}%`,
     '--pixel-frame-height': `${sprite.height}px`,
     '--pixel-frame-width': `${sprite.width}px`,
-    '--pixel-scale': `${scale}`,
+    '--pixel-scale': `${scale * densityScale}`,
     '--pixel-x': `${-sprite.x}px`,
     '--pixel-y': `${-sprite.y}px`,
   } as CSSProperties

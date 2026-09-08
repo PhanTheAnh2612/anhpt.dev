@@ -9,6 +9,14 @@ Maintain one coherent, extensible Anh character library. Create or revise one
 named animation sequence at a time; accepted sequences never require unrelated
 frames to be regenerated.
 
+When the user explicitly requests a full-library visual migration, use a
+coordinated master-sheet refresh instead. Generate one character master sheet
+containing every declared pose and alternate in a fixed grid, extract frames
+mechanically, then review and register each named sequence independently. This
+exception reduces identity, scale, palette, and lighting drift across the whole
+library; it does not permit packed production atlases or hand-authored atlas
+coordinates.
+
 ## Registered initial states
 
 The initial state registry is `idle`, `blink`, `talk`, `think`, `question`,
@@ -24,7 +32,10 @@ are declared before generation.
 2. Inspect accepted Anh sequences, character metadata, and generation records
    before prompting to preserve the approved adult identity, wardrobe,
    proportions, and lighting.
-3. State the exact output paths and metadata before generation:
+3. Read the shared art direction's canonical render signature. For a full-
+   library refresh, declare the complete grid, pose-to-cell map, common canvas,
+   background-removal strategy, and extraction review image before generation.
+4. State the exact output paths and metadata before generation:
    `assets-src/character/<sequence>/<frame>.png` and
    `assets-src/generation-records/character-<sequence>.md`. Declare the
    sequence name, ordered frame list, transparent canvas dimensions,

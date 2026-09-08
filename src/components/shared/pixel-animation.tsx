@@ -24,7 +24,13 @@ export function PixelAnimation({
     throw new RangeError(`Sprite sequence "${name}" is not registered.`)
   }
 
-  const style = { '--pixel-scale': `${scale}` } as CSSProperties
+  const sequence = spriteManifest[name]
+  const sourceHeight = sequence.frames[0].height
+  const densityScale =
+    sequence.atlas === 'character' && sourceHeight > 96 ? 96 / sourceHeight : 1
+  const style = {
+    '--pixel-scale': `${scale * densityScale}`,
+  } as CSSProperties
   const accessibility =
     label !== undefined
       ? { 'aria-label': label, role: 'img' }
