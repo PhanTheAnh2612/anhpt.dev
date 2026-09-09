@@ -36,8 +36,32 @@
   },
   "anchors": {
     "character": {
-      "desktop": { "xPercent": 51, "yPercent": 72, "scale": 2 },
-      "mobile": { "xPercent": 50, "yPercent": 76, "scale": 2 }
+      "desktop": { "xPercent": 69, "yPercent": 73, "scale": 1 },
+      "mobile": { "xPercent": 86, "yPercent": 79, "scale": 1 }
+    },
+    "role": {
+      "desktop": { "xPercent": 47, "yPercent": 48, "scale": 1 },
+      "mobile": { "xPercent": 44, "yPercent": 47, "scale": 1 }
+    },
+    "impact": {
+      "desktop": { "xPercent": 34, "yPercent": 72, "scale": 1 },
+      "mobile": { "xPercent": 31, "yPercent": 76, "scale": 1 }
+    },
+    "team": {
+      "desktop": { "xPercent": 38, "yPercent": 56, "scale": 1 },
+      "mobile": { "xPercent": 34, "yPercent": 58, "scale": 1 }
+    },
+    "achievement": {
+      "desktop": { "xPercent": 82, "yPercent": 43, "scale": 1 },
+      "mobile": { "xPercent": 70, "yPercent": 43, "scale": 1 }
+    },
+    "values": {
+      "desktop": { "xPercent": 82, "yPercent": 24, "scale": 1 },
+      "mobile": { "xPercent": 13, "yPercent": 23, "scale": 1 }
+    },
+    "confidentiality": {
+      "desktop": { "xPercent": 92, "yPercent": 54, "scale": 1 },
+      "mobile": { "xPercent": 68, "yPercent": 34, "scale": 1 }
     }
   }
 }

@@ -4,7 +4,13 @@ export const guildProfile = {
   introduction:
     'A frontend-focused career built around dependable interfaces, thoughtful collaboration, and continuous improvement.',
   dialogue:
-    'I’m a Frontend Engineer at Knorex Vietnam. I build high-quality advertising technology products with speed, ownership, and teamwork. I support urgent initiatives without compromising quality and help teammates grow through collaboration and knowledge sharing.',
+    'I’m a Frontend Engineer at Knorex Vietnam. I build dependable ad-tech interfaces and help my team ship urgent work without trading away quality.',
+  guide: {
+    label: 'Guild tour',
+    next: 'Next stop',
+    finish: 'Explore freely',
+    skip: 'Skip tour',
+  },
   ranger: {
     name: 'Anh Phan',
     role: 'Frontend Ranger',

@@ -141,9 +141,205 @@
 }
 .portfolio-guild__caption {
   color: var(--cream);
+  display: grid;
   font-size: 0.85rem;
+  gap: 0.7rem;
   margin: 0;
   padding: 0.8rem 1rem;
+}
+.portfolio-guild__caption p {
+  line-height: 1.55;
+  margin: 0;
+}
+.portfolio-guild__caption section {
+  border-top: 2px solid var(--emerald-700);
+  padding-top: 0.7rem;
+}
+.portfolio-guild__caption h2 {
+  color: var(--gold);
+  font-size: 0.62rem;
+  line-height: 1.5;
+  margin: 0 0 0.35rem;
+  text-transform: uppercase;
+}
+.portfolio-guild__scene {
+  background: var(--emerald-900);
+  overflow: visible;
+}
+.portfolio-guild__scene .pixel-scene__overlay:has(.guild-point--active),
+.portfolio-guild__scene .pixel-scene__overlay:has(.guild-point:hover),
+.portfolio-guild__scene .pixel-scene__overlay:has(.guild-point:focus-within) {
+  z-index: 10;
+}
+.guild-point {
+  position: relative;
+}
+.guild-point__pin {
+  align-items: center;
+  animation: guild-pin-pulse 1.6s steps(2, end) infinite;
+  background: var(--red);
+  border: 3px solid var(--ink);
+  border-radius: 50%;
+  box-shadow:
+    inset 0 0 0 2px var(--gold),
+    3px 3px 0 rgb(3 24 18 / 80%);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  font-family: var(--font-terminal);
+  font-size: 0.68rem;
+  font-weight: 900;
+  height: 2rem;
+  justify-content: center;
+  padding: 0;
+  width: 2rem;
+}
+.guild-point__pin::after {
+  border-left: 0.35rem solid transparent;
+  border-right: 0.35rem solid transparent;
+  border-top: 0.55rem solid var(--ink);
+  bottom: -0.55rem;
+  content: '';
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
+}
+.guild-point__pin:focus-visible {
+  outline: 3px solid white;
+  outline-offset: 3px;
+}
+.guild-point__bubble {
+  background: var(--cream);
+  border: 3px solid var(--ink);
+  bottom: calc(100% + 0.8rem);
+  box-shadow:
+    inset 0 0 0 2px white,
+    4px 4px 0 rgb(3 24 18 / 80%);
+  color: var(--ink);
+  left: 50%;
+  opacity: 0;
+  padding: 0.8rem;
+  pointer-events: none;
+  position: absolute;
+  transform: translate(-50%, 0.4rem);
+  transition:
+    opacity 120ms ease,
+    transform 120ms ease;
+  width: clamp(15rem, 28vw, 24rem);
+  z-index: 3;
+}
+.guild-point__bubble h2 {
+  font-family: var(--font-display);
+  font-size: 0.62rem;
+  line-height: 1.5;
+  margin: 0 0 0.45rem;
+  text-transform: uppercase;
+}
+.guild-point__bubble > p:last-of-type {
+  font-size: 0.92rem;
+  line-height: 1.45;
+  margin: 0;
+}
+.guild-point:hover .guild-point__bubble,
+.guild-point:focus-within .guild-point__bubble,
+.guild-point--active .guild-point__bubble {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, 0);
+}
+.guild-point__actions {
+  align-items: center;
+  display: flex;
+  gap: 0.8rem;
+  margin-top: 0.75rem;
+}
+.guild-point__actions .pixel-button {
+  cursor: pointer;
+  font-size: 0.62rem;
+  padding: 0.55rem 0.7rem;
+}
+.guild-point__skip {
+  background: transparent;
+  border: 0;
+  color: var(--emerald-700);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.72rem;
+  font-weight: 900;
+  padding: 0.5rem 0;
+  text-decoration: underline;
+}
+.portfolio-guild__scene [data-anchor='character'] .guild-point__bubble,
+.portfolio-guild__scene [data-anchor='achievement'] .guild-point__bubble,
+.portfolio-guild__scene [data-anchor='values'] .guild-point__bubble,
+.portfolio-guild__scene [data-anchor='confidentiality'] .guild-point__bubble {
+  left: auto;
+  right: 0;
+  transform: translate(0, 0.4rem);
+}
+.portfolio-guild__scene
+  [data-anchor='character']
+  .guild-point:hover
+  .guild-point__bubble,
+.portfolio-guild__scene
+  [data-anchor='character']
+  .guild-point:focus-within
+  .guild-point__bubble,
+.portfolio-guild__scene
+  [data-anchor='character']
+  .guild-point--active
+  .guild-point__bubble,
+.portfolio-guild__scene
+  [data-anchor='achievement']
+  .guild-point:hover
+  .guild-point__bubble,
+.portfolio-guild__scene
+  [data-anchor='achievement']
+  .guild-point:focus-within
+  .guild-point__bubble,
+.portfolio-guild__scene
+  [data-anchor='achievement']
+  .guild-point--active
+  .guild-point__bubble,
+.portfolio-guild__scene
+  [data-anchor='values']
+  .guild-point:hover
+  .guild-point__bubble,
+.portfolio-guild__scene
+  [data-anchor='values']
+  .guild-point:focus-within
+  .guild-point__bubble,
+.portfolio-guild__scene
+  [data-anchor='values']
+  .guild-point--active
+  .guild-point__bubble,
+.portfolio-guild__scene
+  [data-anchor='confidentiality']
+  .guild-point:hover
+  .guild-point__bubble,
+.portfolio-guild__scene
+  [data-anchor='confidentiality']
+  .guild-point:focus-within
+  .guild-point__bubble,
+.portfolio-guild__scene
+  [data-anchor='confidentiality']
+  .guild-point--active
+  .guild-point__bubble {
+  transform: translate(0, 0);
+}
+.portfolio-guild__scene [data-anchor='role'] .guild-point__bubble,
+.portfolio-guild__scene [data-anchor='team'] .guild-point__bubble,
+.portfolio-guild__scene [data-anchor='achievement'] .guild-point__bubble,
+.portfolio-guild__scene [data-anchor='values'] .guild-point__bubble,
+.portfolio-guild__scene [data-anchor='confidentiality'] .guild-point__bubble {
+  bottom: auto;
+  top: calc(100% + 0.8rem);
+}
+@keyframes guild-pin-pulse {
+  50% {
+    filter: brightness(1.25);
+    transform: translateY(-2px);
+  }
 }
 .portfolio-guild .ranger-profile dt,
 .portfolio-guild .stat-level {
@@ -472,5 +668,107 @@
   }
   .portfolio-guild .guild-medal {
     grid-template-columns: minmax(0, 1fr);
+  }
+  .guild-point__bubble,
+  .portfolio-guild__scene [data-anchor] .guild-point__bubble {
+    bottom: calc(100% + 0.65rem);
+    left: 50%;
+    right: auto;
+    transform: translate(-50%, 0.4rem);
+    width: min(17rem, 78vw);
+  }
+  .guild-point:hover .guild-point__bubble,
+  .guild-point:focus-within .guild-point__bubble,
+  .guild-point--active .guild-point__bubble,
+  .portfolio-guild__scene [data-anchor] .guild-point:hover .guild-point__bubble,
+  .portfolio-guild__scene
+    [data-anchor]
+    .guild-point:focus-within
+    .guild-point__bubble,
+  .portfolio-guild__scene
+    [data-anchor]
+    .guild-point--active
+    .guild-point__bubble {
+    transform: translate(-50%, 0);
+  }
+  .portfolio-guild__scene [data-anchor='character'] .guild-point__bubble,
+  .portfolio-guild__scene [data-anchor='achievement'] .guild-point__bubble,
+  .portfolio-guild__scene [data-anchor='confidentiality'] .guild-point__bubble {
+    left: auto;
+    right: 0;
+    transform: translate(0, 0.4rem);
+  }
+  .portfolio-guild__scene
+    [data-anchor='character']
+    .guild-point:hover
+    .guild-point__bubble,
+  .portfolio-guild__scene
+    [data-anchor='character']
+    .guild-point:focus-within
+    .guild-point__bubble,
+  .portfolio-guild__scene
+    [data-anchor='character']
+    .guild-point--active
+    .guild-point__bubble,
+  .portfolio-guild__scene
+    [data-anchor='achievement']
+    .guild-point:hover
+    .guild-point__bubble,
+  .portfolio-guild__scene
+    [data-anchor='achievement']
+    .guild-point:focus-within
+    .guild-point__bubble,
+  .portfolio-guild__scene
+    [data-anchor='achievement']
+    .guild-point--active
+    .guild-point__bubble,
+  .portfolio-guild__scene
+    [data-anchor='confidentiality']
+    .guild-point:hover
+    .guild-point__bubble,
+  .portfolio-guild__scene
+    [data-anchor='confidentiality']
+    .guild-point:focus-within
+    .guild-point__bubble,
+  .portfolio-guild__scene
+    [data-anchor='confidentiality']
+    .guild-point--active
+    .guild-point__bubble {
+    transform: translate(0, 0);
+  }
+  .portfolio-guild__scene [data-anchor='values'] .guild-point__bubble {
+    left: 0;
+    right: auto;
+    transform: translate(0, 0.4rem);
+  }
+  .portfolio-guild__scene
+    [data-anchor='values']
+    .guild-point:hover
+    .guild-point__bubble,
+  .portfolio-guild__scene
+    [data-anchor='values']
+    .guild-point:focus-within
+    .guild-point__bubble,
+  .portfolio-guild__scene
+    [data-anchor='values']
+    .guild-point--active
+    .guild-point__bubble {
+    transform: translate(0, 0);
+  }
+  .portfolio-guild__scene [data-anchor='role'] .guild-point__bubble,
+  .portfolio-guild__scene [data-anchor='team'] .guild-point__bubble,
+  .portfolio-guild__scene [data-anchor='achievement'] .guild-point__bubble,
+  .portfolio-guild__scene [data-anchor='values'] .guild-point__bubble,
+  .portfolio-guild__scene [data-anchor='confidentiality'] .guild-point__bubble {
+    bottom: auto;
+    top: calc(100% + 0.65rem);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .guild-point__pin {
+    animation: none;
+  }
+  .guild-point__bubble {
+    transition: none;
   }
 }
