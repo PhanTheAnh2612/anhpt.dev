@@ -6,9 +6,26 @@
 @import './portfolio-pages.css';
 @import './learning-pages.css';
 
+@font-face {
+  font-family: 'Pixeloid Sans';
+  src: url('/assets/fonts/pixeloid/PixeloidSans-Regular.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Pixeloid Sans';
+  src: url('/assets/fonts/pixeloid/PixeloidSans-Bold.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
 :root {
   --font-display: 'Press Start 2P', ui-monospace, monospace;
   --font-content: 'Pixelify Sans', system-ui, sans-serif;
+  --font-reading: 'Pixeloid Sans', 'Pixelify Sans', system-ui, sans-serif;
   --font-terminal: 'VT323', ui-monospace, monospace;
   --ink: #14211d;
   --emerald-950: #061f1b;
@@ -1296,9 +1313,14 @@ h2 {
 .article-panel {
   background: var(--cream);
   color: var(--ink);
+  font-family: var(--font-reading);
   margin: 0 auto;
   max-width: 64rem;
   padding: clamp(1.2rem, 4vw, 3rem);
+}
+.article-panel h1,
+.article-panel h2 {
+  font-family: var(--font-reading);
 }
 .article-description {
   color: #526b5b;
@@ -1306,8 +1328,17 @@ h2 {
   line-height: 1.5;
 }
 .markdown-renderer {
+  font-family: var(--font-reading);
   line-height: 1.8;
   margin-top: 2rem;
+}
+.markdown-renderer h1,
+.markdown-renderer h2,
+.markdown-renderer h3,
+.markdown-renderer h4,
+.markdown-renderer h5,
+.markdown-renderer h6 {
+  font-family: var(--font-reading);
 }
 .markdown-renderer h1 {
   font-size: 2.4rem;

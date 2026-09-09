@@ -222,6 +222,13 @@
   border-bottom: 3px solid var(--emerald-700);
   padding-bottom: 1rem;
 }
+.learning-article {
+  font-family: var(--font-reading);
+}
+.learning-article h1,
+.learning-article h2 {
+  font-family: var(--font-reading);
+}
 .learning-article .markdown-renderer {
   font-size: 1.15rem;
   overflow-wrap: anywhere;
