@@ -242,6 +242,68 @@
   }
 }
 
+.pixel-animation--content-brand-educative {
+  --pixel-anchor-x: 50%;
+  --pixel-anchor-y: 100%;
+  width: 32px;
+  height: 32px;
+  background-image: url('/assets/atlases/content.png');
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+  animation: pixel-animation-content-brand-educative 1000ms steps(1, end) 1
+    forwards;
+}
+
+@keyframes pixel-animation-content-brand-educative {
+  0% {
+    background-position: 0px -64px;
+  }
+  100% {
+    background-position: 0px -64px;
+  }
+}
+
+.pixel-animation--content-brand-knorex {
+  --pixel-anchor-x: 50%;
+  --pixel-anchor-y: 100%;
+  width: 32px;
+  height: 32px;
+  background-image: url('/assets/atlases/content.png');
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+  animation: pixel-animation-content-brand-knorex 1000ms steps(1, end) 1
+    forwards;
+}
+
+@keyframes pixel-animation-content-brand-knorex {
+  0% {
+    background-position: 0px -96px;
+  }
+  100% {
+    background-position: 0px -96px;
+  }
+}
+
+.pixel-animation--content-brand-other {
+  --pixel-anchor-x: 50%;
+  --pixel-anchor-y: 100%;
+  width: 32px;
+  height: 32px;
+  background-image: url('/assets/atlases/content.png');
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+  animation: pixel-animation-content-brand-other 1000ms steps(1, end) 1 forwards;
+}
+
+@keyframes pixel-animation-content-brand-other {
+  0% {
+    background-position: 0px -128px;
+  }
+  100% {
+    background-position: 0px -128px;
+  }
+}
+
 .pixel-animation--content-current {
   --pixel-anchor-x: 50%;
   --pixel-anchor-y: 100%;
@@ -255,10 +317,10 @@
 
 @keyframes pixel-animation-content-current {
   0% {
-    background-position: 0px -64px;
+    background-position: 0px -160px;
   }
   100% {
-    background-position: 0px -64px;
+    background-position: 0px -160px;
   }
 }
 
@@ -275,10 +337,10 @@
 
 @keyframes pixel-animation-content-locked {
   0% {
-    background-position: 0px -96px;
+    background-position: 0px -192px;
   }
   100% {
-    background-position: 0px -96px;
+    background-position: 0px -192px;
   }
 }
 
@@ -295,10 +357,10 @@
 
 @keyframes pixel-animation-content-note {
   0% {
-    background-position: 0px -128px;
+    background-position: 0px -224px;
   }
   100% {
-    background-position: 0px -128px;
+    background-position: 0px -224px;
   }
 }
 
@@ -315,10 +377,10 @@
 
 @keyframes pixel-animation-content-quest {
   0% {
-    background-position: 0px -160px;
+    background-position: 0px -256px;
   }
   100% {
-    background-position: 0px -160px;
+    background-position: 0px -256px;
   }
 }
 
@@ -335,10 +397,10 @@
 
 @keyframes pixel-animation-content-remember {
   0% {
-    background-position: 0px -192px;
+    background-position: 0px -288px;
   }
   100% {
-    background-position: 0px -192px;
+    background-position: 0px -288px;
   }
 }
 
@@ -355,10 +417,10 @@
 
 @keyframes pixel-animation-content-resource {
   0% {
-    background-position: 0px -224px;
+    background-position: 0px -320px;
   }
   100% {
-    background-position: 0px -224px;
+    background-position: 0px -320px;
   }
 }
 
@@ -375,10 +437,10 @@
 
 @keyframes pixel-animation-content-reward {
   0% {
-    background-position: 0px -256px;
+    background-position: 0px -352px;
   }
   100% {
-    background-position: 0px -256px;
+    background-position: 0px -352px;
   }
 }
 
@@ -395,10 +457,10 @@
 
 @keyframes pixel-animation-content-success {
   0% {
-    background-position: 0px -288px;
+    background-position: 0px -384px;
   }
   100% {
-    background-position: 0px -288px;
+    background-position: 0px -384px;
   }
 }
 
@@ -415,10 +477,10 @@
 
 @keyframes pixel-animation-content-terminal {
   0% {
-    background-position: 0px -320px;
+    background-position: 0px -416px;
   }
   100% {
-    background-position: 0px -320px;
+    background-position: 0px -416px;
   }
 }
 
@@ -435,10 +497,10 @@
 
 @keyframes pixel-animation-content-warning {
   0% {
-    background-position: 0px -352px;
+    background-position: 0px -448px;
   }
   100% {
-    background-position: 0px -352px;
+    background-position: 0px -448px;
   }
 }
 
@@ -479,44 +541,56 @@
     animation: none;
     background-position: 0px -32px;
   }
-  .pixel-animation--content-current {
+  .pixel-animation--content-brand-educative {
     animation: none;
     background-position: 0px -64px;
   }
-  .pixel-animation--content-locked {
+  .pixel-animation--content-brand-knorex {
     animation: none;
     background-position: 0px -96px;
   }
-  .pixel-animation--content-note {
+  .pixel-animation--content-brand-other {
     animation: none;
     background-position: 0px -128px;
   }
-  .pixel-animation--content-quest {
+  .pixel-animation--content-current {
     animation: none;
     background-position: 0px -160px;
   }
-  .pixel-animation--content-remember {
+  .pixel-animation--content-locked {
     animation: none;
     background-position: 0px -192px;
   }
-  .pixel-animation--content-resource {
+  .pixel-animation--content-note {
     animation: none;
     background-position: 0px -224px;
   }
-  .pixel-animation--content-reward {
+  .pixel-animation--content-quest {
     animation: none;
     background-position: 0px -256px;
   }
-  .pixel-animation--content-success {
+  .pixel-animation--content-remember {
     animation: none;
     background-position: 0px -288px;
   }
-  .pixel-animation--content-terminal {
+  .pixel-animation--content-resource {
     animation: none;
     background-position: 0px -320px;
   }
-  .pixel-animation--content-warning {
+  .pixel-animation--content-reward {
     animation: none;
     background-position: 0px -352px;
+  }
+  .pixel-animation--content-success {
+    animation: none;
+    background-position: 0px -384px;
+  }
+  .pixel-animation--content-terminal {
+    animation: none;
+    background-position: 0px -416px;
+  }
+  .pixel-animation--content-warning {
+    animation: none;
+    background-position: 0px -448px;
   }
 }

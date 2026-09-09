@@ -965,6 +965,7 @@ h2 {
 .tag-filter .pixel-bubble {
   border-color: #07120f;
   box-shadow: 3px 3px 0 #020b09;
+  color: var(--ink);
 }
 .tag-filter a:hover .pixel-bubble,
 .tag-filter a:focus-visible .pixel-bubble,

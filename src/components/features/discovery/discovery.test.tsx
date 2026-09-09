@@ -7,25 +7,50 @@ import { JournalList } from './journal-list'
 import { SecretBaseScene } from './secret-base-scene'
 import { NotFound } from './not-found'
 
-it('exposes badge names and availability in text without claiming persisted progress', async () => {
+it('sorts and filters achievement rows while exposing detail links', async () => {
   await renderWithRouter(
     <BadgeCase
+      activeTag="Educative"
       badges={[
         {
-          name: 'Rookie Compass',
-          description: 'Find a route.',
-          state: 'Locked',
+          id: 'older-certificate',
+          title: 'Older Certificate',
+          description: 'An older learning milestone.',
+          issuer: 'Educative',
+          issuedAt: '2025-01-01',
+          detailsHref: 'https://example.com/older',
+        },
+        {
+          id: 'newer-certificate',
+          title: 'Newer Certificate',
+          description: 'A newer learning milestone.',
+          issuer: 'Educative',
+          issuedAt: '2026-03-01',
+          detailsHref: 'https://example.com/newer',
+        },
+        {
+          id: 'work-award',
+          title: 'Work Award',
+          description: 'A workplace achievement.',
+          issuer: 'Knorex',
+          issuedAt: '2026-06-01',
+          detailsHref: 'https://example.com/work',
         },
       ]}
     />,
   )
+  const articles = screen.getAllByRole('article')
+  expect(articles).toHaveLength(2)
+  expect(articles[0]).toHaveTextContent('Newer Certificate')
+  expect(articles[1]).toHaveTextContent('Older Certificate')
+  expect(screen.queryByText('Work Award')).not.toBeInTheDocument()
   expect(
-    screen.getByRole('heading', { name: 'Rookie Compass' }),
-  ).toBeInTheDocument()
-  expect(screen.getByText('Locked')).toBeInTheDocument()
-  expect(
-    screen.getByRole('article').querySelector('.pixel-sprite'),
-  ).toHaveAttribute('aria-hidden', 'true')
+    screen.getByRole('link', { name: /newer certificate/i }),
+  ).toHaveAttribute('href', 'https://example.com/newer')
+  expect(articles[0].querySelector('.pixel-sprite')).toHaveAttribute(
+    'aria-hidden',
+    'true',
+  )
 })
 it('filters journal articles by exact tag and provides empty-state recovery', async () => {
   const entries = getContentByKind('journal')

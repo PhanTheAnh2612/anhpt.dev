@@ -9,7 +9,7 @@ export const spriteAtlases = {
   content: {
     src: '/assets/atlases/content.png',
     width: 32,
-    height: 384,
+    height: 480,
   },
   world: {
     src: '/assets/atlases/world.png',
@@ -427,7 +427,7 @@ export const spriteManifest = {
       },
     ],
   },
-  'content-current': {
+  'content-brand-educative': {
     atlas: 'content',
     durationMs: 1000,
     loop: false,
@@ -449,7 +449,7 @@ export const spriteManifest = {
       },
     ],
   },
-  'content-locked': {
+  'content-brand-knorex': {
     atlas: 'content',
     durationMs: 1000,
     loop: false,
@@ -471,7 +471,7 @@ export const spriteManifest = {
       },
     ],
   },
-  'content-note': {
+  'content-brand-other': {
     atlas: 'content',
     durationMs: 1000,
     loop: false,
@@ -493,7 +493,7 @@ export const spriteManifest = {
       },
     ],
   },
-  'content-quest': {
+  'content-current': {
     atlas: 'content',
     durationMs: 1000,
     loop: false,
@@ -515,7 +515,7 @@ export const spriteManifest = {
       },
     ],
   },
-  'content-remember': {
+  'content-locked': {
     atlas: 'content',
     durationMs: 1000,
     loop: false,
@@ -537,7 +537,7 @@ export const spriteManifest = {
       },
     ],
   },
-  'content-resource': {
+  'content-note': {
     atlas: 'content',
     durationMs: 1000,
     loop: false,
@@ -559,7 +559,7 @@ export const spriteManifest = {
       },
     ],
   },
-  'content-reward': {
+  'content-quest': {
     atlas: 'content',
     durationMs: 1000,
     loop: false,
@@ -581,7 +581,7 @@ export const spriteManifest = {
       },
     ],
   },
-  'content-success': {
+  'content-remember': {
     atlas: 'content',
     durationMs: 1000,
     loop: false,
@@ -603,7 +603,7 @@ export const spriteManifest = {
       },
     ],
   },
-  'content-terminal': {
+  'content-resource': {
     atlas: 'content',
     durationMs: 1000,
     loop: false,
@@ -625,7 +625,7 @@ export const spriteManifest = {
       },
     ],
   },
-  'content-warning': {
+  'content-reward': {
     atlas: 'content',
     durationMs: 1000,
     loop: false,
@@ -638,6 +638,72 @@ export const spriteManifest = {
       {
         x: 0,
         y: 352,
+        width: 32,
+        height: 32,
+        anchor: {
+          xPercent: 50,
+          yPercent: 100,
+        },
+      },
+    ],
+  },
+  'content-success': {
+    atlas: 'content',
+    durationMs: 1000,
+    loop: false,
+    fallback: 0,
+    anchor: {
+      xPercent: 50,
+      yPercent: 100,
+    },
+    frames: [
+      {
+        x: 0,
+        y: 384,
+        width: 32,
+        height: 32,
+        anchor: {
+          xPercent: 50,
+          yPercent: 100,
+        },
+      },
+    ],
+  },
+  'content-terminal': {
+    atlas: 'content',
+    durationMs: 1000,
+    loop: false,
+    fallback: 0,
+    anchor: {
+      xPercent: 50,
+      yPercent: 100,
+    },
+    frames: [
+      {
+        x: 0,
+        y: 416,
+        width: 32,
+        height: 32,
+        anchor: {
+          xPercent: 50,
+          yPercent: 100,
+        },
+      },
+    ],
+  },
+  'content-warning': {
+    atlas: 'content',
+    durationMs: 1000,
+    loop: false,
+    fallback: 0,
+    anchor: {
+      xPercent: 50,
+      yPercent: 100,
+    },
+    frames: [
+      {
+        x: 0,
+        y: 448,
         width: 32,
         height: 32,
         anchor: {

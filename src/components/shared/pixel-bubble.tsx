@@ -1,5 +1,7 @@
+import type { ReactNode } from 'react'
+
 type PixelBubbleProps = {
-  icon: string
+  icon: ReactNode
   label: string
 }
 

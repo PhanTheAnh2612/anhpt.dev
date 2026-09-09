@@ -58,11 +58,14 @@ export const portfolioPages = {
     ],
   },
   badges: {
-    label: 'THE MILESTONES ALONG THE WAY',
-    title: 'Badge Case',
+    label: 'ACHIEVEMENTS & CERTIFICATES',
+    title: 'Badge Archive',
     introduction:
-      'A collection of learning milestones and the challenges still ahead.',
-    disclaimer: 'Portfolio milestones, not saved visitor progress.',
+      'A chronological record of recognition earned at work and certificates collected along the learning trail.',
+    disclaimer:
+      'Sample records for now — verified links and details are coming next.',
+    empty:
+      'No achievements carry this tag yet. Choose another tag or return to all achievements.',
   },
   journal: {
     label: 'FIELD NOTES',

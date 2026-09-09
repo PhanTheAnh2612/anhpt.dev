@@ -1,49 +1,52 @@
 export type Badge = {
-  name: string
+  id: string
+  title: string
   description: string
-  state: 'Earned' | 'Locked'
+  issuer: 'Knorex' | 'Educative' | 'Other'
+  issuedAt: string
+  detailsHref: string
 }
 
 export const badges: ReadonlyArray<Badge> = [
   {
-    name: 'Rookie Compass',
-    description: 'Found a dependable path through the fundamentals.',
-    state: 'Earned',
+    id: 'knorex-five-year-milestone',
+    title: 'Five-Year Milestone',
+    description: 'Recognized for five consecutive years of contribution.',
+    issuer: 'Knorex',
+    issuedAt: '2026-06-01',
+    detailsHref: 'https://www.linkedin.com/in/anhpt2612/',
   },
   {
-    name: 'Explorer Sun',
-    description: 'Learned beyond the marked trail.',
-    state: 'Earned',
+    id: 'educative-frontend-system-design',
+    title: 'Frontend System Design',
+    description: 'Completed a practical course in scalable frontend systems.',
+    issuer: 'Educative',
+    issuedAt: '2026-03-01',
+    detailsHref: 'https://www.educative.io/',
   },
   {
-    name: 'Component Crystal',
-    description: 'Built reusable interfaces with clear boundaries.',
-    state: 'Earned',
+    id: 'knorex-performance-award',
+    title: 'Performance Award',
+    description: 'Recognized for dependable delivery and team contribution.',
+    issuer: 'Knorex',
+    issuedAt: '2025-12-01',
+    detailsHref: 'https://www.linkedin.com/in/anhpt2612/',
   },
   {
-    name: 'Quality Guardian',
-    description: 'Protected accessibility, performance, and maintainability.',
-    state: 'Earned',
-  },
-  {
-    name: 'API Architect',
-    description: 'Next challenge: design a clear, dependable API.',
-    state: 'Locked',
-  },
-  {
-    name: 'Data Keeper',
-    description: 'Next challenge: model and safely evolve a database.',
-    state: 'Locked',
-  },
-  {
-    name: 'Launch Beacon',
+    id: 'educative-advanced-react',
+    title: 'Advanced React Patterns',
     description:
-      'Next challenge: take a website from development to production.',
-    state: 'Locked',
+      'Completed coursework in reusable and maintainable React patterns.',
+    issuer: 'Educative',
+    issuedAt: '2025-08-01',
+    detailsHref: 'https://www.educative.io/',
   },
   {
-    name: 'System Pathfinder',
-    description: 'Next challenge: explain a reliable system and its tradeoffs.',
-    state: 'Locked',
+    id: 'other-web-accessibility',
+    title: 'Web Accessibility Foundations',
+    description: 'Completed a foundation course in inclusive web experiences.',
+    issuer: 'Other',
+    issuedAt: '2025-02-01',
+    detailsHref: 'https://www.linkedin.com/in/anhpt2612/',
   },
 ]

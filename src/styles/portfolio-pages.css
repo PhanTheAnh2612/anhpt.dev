@@ -179,25 +179,29 @@
   color: var(--gold);
   font-size: 1rem;
 }
-.portfolio-badge-grid {
+.portfolio-badge-list {
   display: grid;
   gap: 1rem;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
-.portfolio-badge {
+.portfolio-badge-row {
+  align-items: center;
   background: var(--cream);
   border: 3px solid var(--ink);
   box-shadow: 4px 4px 0 var(--emerald-950);
   color: var(--ink);
-  padding: 1.5rem 1.15rem;
-  text-align: center;
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: auto minmax(8rem, 0.25fr) minmax(0, 1fr) auto;
+  padding: 1rem 1.25rem;
 }
-.portfolio-badge h2 {
+.portfolio-badge-row h2 {
   font-size: 0.8rem;
   line-height: 1.8;
+  margin: 0.2rem 0 0.4rem;
 }
-.portfolio-badge > p:last-child {
-  font-size: 1.05rem;
+.portfolio-badge-row__copy > p:last-child {
+  font-size: 1rem;
+  margin: 0;
 }
 .portfolio-badge__emblem {
   align-items: center;
@@ -207,21 +211,27 @@
   color: var(--gold);
   display: flex;
   font-family: var(--font-display);
-  height: 5rem;
+  height: 4rem;
   justify-content: center;
-  margin: 0 auto 1.3rem;
-  width: 5rem;
+  width: 4rem;
 }
 .portfolio-badge__state {
   color: var(--emerald-800);
-  font-size: 0.95rem;
+  font-size: 0.8rem;
   font-weight: 700;
+  margin: 0;
   text-transform: uppercase;
 }
-.portfolio-badge--locked .portfolio-badge__emblem {
-  background: var(--ink);
-  border-color: var(--cream);
-  color: var(--cream);
+.portfolio-badge-row__date {
+  font-family: var(--font-terminal);
+  font-size: 1.25rem;
+  line-height: 1.2;
+}
+.portfolio-badge-row__link {
+  white-space: nowrap;
+}
+.portfolio-badges .tag-filter [aria-current='page'] .pixel-bubble {
+  background: var(--gold);
 }
 .portfolio-entry-grid {
   display: grid;
@@ -363,8 +373,11 @@
   .portfolio-base__discovery {
     font-size: 1.4rem;
   }
-  .portfolio-badge-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .portfolio-badge-row {
+    grid-template-columns: auto minmax(8rem, 0.35fr) minmax(0, 1fr);
+  }
+  .portfolio-badge-row__link {
+    grid-column: 2 / -1;
   }
   .portfolio-guild .guild-command-grid {
     grid-template-columns: minmax(0, 1fr);
@@ -423,12 +436,20 @@
   .portfolio-entry-grid {
     grid-template-columns: minmax(0, 1fr);
   }
-  .portfolio-badge {
-    padding: 1.2rem 0.7rem;
+  .portfolio-badge-row {
+    align-items: start;
+    gap: 0.8rem 1rem;
+    grid-template-columns: auto minmax(0, 1fr);
+    padding: 1rem;
   }
-  .portfolio-badge h2 {
+  .portfolio-badge-row h2 {
     font-size: 0.65rem;
     overflow-wrap: anywhere;
+  }
+  .portfolio-badge-row__date,
+  .portfolio-badge-row__copy,
+  .portfolio-badge-row__link {
+    grid-column: 2;
   }
   .portfolio-search__form > div {
     flex-direction: column;
