@@ -20,7 +20,12 @@ export function CourseOverview({
       (entry) =>
         entry.kind === 'course' && (!category || entry.category === category),
     )
-    .sort((a, b) => a.order - b.order || a.title.localeCompare(b.title))
+    .sort(
+      (a, b) =>
+        Number(a.level === 'advanced') - Number(b.level === 'advanced') ||
+        a.order - b.order ||
+        a.title.localeCompare(b.title),
+    )
 
   return (
     <main className="page-shell learning-page">
@@ -104,6 +109,7 @@ export function CourseOverview({
                     <p className="eyebrow">
                       {getLearningCategory(entry.category || undefined)
                         ?.title ?? 'Learning route'}
+                      {entry.level === 'advanced' ? ' · ADVANCED' : ''}
                     </p>
                     <h3>{entry.title}</h3>
                     <p>{entry.description}</p>
@@ -121,10 +127,7 @@ export function CourseOverview({
               ))}
             </ol>
           ) : (
-            <p>
-              No lessons published for this route yet. Explore another category
-              while the trail grows.
-            </p>
+            <p>This content will be available soon.</p>
           )}
         </section>
         <aside className="learning-rail" aria-label="Route information">

@@ -147,20 +147,20 @@ Outer note closing.
   })
 
   it('renders the serializable parsed document stored on a content entry', () => {
-    const entry = getContent('course', 'frontend-foundations')
+    const entry = getContent('course', 'how-the-web-works')
 
     expect(entry?.document).toMatchObject({ children: expect.any(Array) })
   })
 
   it('renders a real course entry and its directives without losing code highlighting', () => {
-    const entry = getContent('course', 'frontend-foundations')!
+    const entry = getContent('course', 'typescript-and-fetch')!
     const { container } = render(<MarkdownContent entry={entry} />)
     expect(
-      screen.getByRole('heading', { name: 'Frontend foundations' }),
+      screen.getByRole('heading', { name: 'Add typed browser behavior' }),
     ).toBeInTheDocument()
-    expect(screen.getByRole('note', { name: 'Note' })).toHaveTextContent(
-      'Headings, navigation links, and form labels',
+    expect(screen.getByRole('note', { name: 'Warning' })).toHaveTextContent(
+      'Do not put API keys in browser code',
     )
-    expect(container.querySelector('.th-keyword')).toHaveTextContent('const')
+    expect(container.querySelector('.th-keyword')).toHaveTextContent('export')
   })
 })

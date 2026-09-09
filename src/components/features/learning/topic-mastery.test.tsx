@@ -23,7 +23,7 @@ describe('TopicMastery', () => {
   it('presents authored challenges and learning rewards without completion controls', async () => {
     await renderWithRouter(
       <TopicMastery
-        entry={getContent('course', 'react-interfaces')!}
+        entry={getContent('course', 'react-shadcn-setup')!}
         mastery={{
           challenges: [
             {
@@ -62,6 +62,6 @@ describe('TopicMastery', () => {
     ).not.toBeInTheDocument()
     expect(
       screen.getByRole('link', { name: /return to lesson/i }),
-    ).toHaveAttribute('href', '/courses/react-interfaces?category=react')
+    ).toHaveAttribute('href', '/courses/react-shadcn-setup?category=react')
   })
 })

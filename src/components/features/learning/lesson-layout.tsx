@@ -17,7 +17,12 @@ export function LessonLayout({
       (lesson) =>
         lesson.kind === 'course' && lesson.category === entry.category,
     )
-    .sort((a, b) => a.order - b.order || a.title.localeCompare(b.title))
+    .sort(
+      (a, b) =>
+        Number(a.level === 'advanced') - Number(b.level === 'advanced') ||
+        a.order - b.order ||
+        a.title.localeCompare(b.title),
+    )
   const index = lessons.findIndex((lesson) => lesson.slug === entry.slug)
   const previous = index > 0 ? lessons[index - 1] : undefined
   const next = index >= 0 ? lessons[index + 1] : undefined
@@ -40,6 +45,7 @@ export function LessonLayout({
                   aria-current={entry.slug === lesson.slug ? 'page' : undefined}
                 >
                   {lesson.title}
+                  {lesson.level === 'advanced' ? ' [advanced]' : ''}
                 </Link>
               </li>
             ))}
@@ -61,6 +67,7 @@ export function LessonLayout({
           <p className="eyebrow">
             {category?.title ?? 'Learning route'} · LESSON{' '}
             {Math.max(index + 1, 1)}
+            {entry.level === 'advanced' ? ' · ADVANCED' : ''}
           </p>
           <h1>{entry.title}</h1>
           <p className="article-description">{entry.description}</p>

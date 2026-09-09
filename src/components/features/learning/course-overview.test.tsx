@@ -18,8 +18,8 @@ vi.mock('../../../generated/sprite-manifest', async () => ({
     .spriteManifestFixture,
 }))
 
-const react = getContent('course', 'react-interfaces')!
-const foundations = getContent('course', 'frontend-foundations')!
+const react = getContent('course', 'react-shadcn-setup')!
+const foundations = getContent('course', 'how-the-web-works')!
 afterEach(cleanup)
 
 describe('CourseOverview', () => {
@@ -29,6 +29,13 @@ describe('CourseOverview', () => {
         category="react"
         entries={[
           { ...react, slug: 'later', title: 'Later React', order: 9 },
+          {
+            ...react,
+            slug: 'advanced-first-by-number',
+            title: 'Advanced React',
+            order: 1,
+            level: 'advanced',
+          },
           foundations,
           react,
         ]}
@@ -39,13 +46,20 @@ describe('CourseOverview', () => {
       screen.getByRole('list', { name: 'Available lessons' }),
     )
     const links = lessons.getAllByRole('link', { name: /begin lesson/i })
-    expect(links).toHaveLength(2)
+    expect(links).toHaveLength(3)
     expect(links[0]).toHaveAttribute(
       'href',
-      '/courses/react-interfaces?category=react',
+      '/courses/react-shadcn-setup?category=react',
     )
     expect(links[1]).toHaveAttribute('href', '/courses/later?category=react')
-    expect(screen.queryByText('Frontend foundations')).not.toBeInTheDocument()
+    expect(links[2]).toHaveAttribute(
+      'href',
+      '/courses/advanced-first-by-number?category=react',
+    )
+    expect(screen.getByText('ReactJS · ADVANCED')).toBeInTheDocument()
+    expect(
+      screen.queryByText('How a web application works'),
+    ).not.toBeInTheDocument()
     expect(screen.queryByRole('progressbar')).not.toBeInTheDocument()
     expect(screen.queryByText(/recorded completions/i)).not.toBeInTheDocument()
     expect(screen.getByText(/progress is not tracked/i)).toBeInTheDocument()
@@ -64,7 +78,9 @@ describe('CourseOverview', () => {
     expect(
       screen.queryByRole('link', { name: /begin lesson/i }),
     ).not.toBeInTheDocument()
-    expect(screen.getByText(/no lessons published/i)).toBeInTheDocument()
+    expect(
+      screen.getAllByText('This content will be available soon.'),
+    ).toHaveLength(2)
     expect(screen.getByRole('link', { name: /all courses/i })).toHaveAttribute(
       'href',
       '/courses',

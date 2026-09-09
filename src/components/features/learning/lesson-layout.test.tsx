@@ -10,7 +10,7 @@ vi.mock('../../../generated/sprite-manifest', async () => ({
     .spriteManifestFixture,
 }))
 
-const react = getContent('course', 'react-interfaces')!
+const react = getContent('course', 'react-shadcn-setup')!
 const source =
   '<!-- ::start:trainer-tip pose="think" -->\nKeep state close.\n<!-- ::end:trainer-tip -->\n\n```ts\nconst count = 1\n```'
 const current = {
@@ -29,7 +29,7 @@ describe('LessonLayout', () => {
         entry={current}
         entries={[
           later,
-          getContent('course', 'frontend-foundations')!,
+          getContent('course', 'how-the-web-works')!,
           current,
           earlier,
         ]}
@@ -42,7 +42,7 @@ describe('LessonLayout', () => {
     const links = content.getAllByRole('link')
     expect(links.map((link) => link.textContent)).toEqual([
       'Earlier lesson',
-      'React interfaces',
+      'Start React with shadcn/ui',
       'Later lesson',
     ])
     expect(links[1]).toHaveAttribute('aria-current', 'page')
@@ -72,7 +72,7 @@ describe('LessonLayout', () => {
       screen.getByRole('link', { name: /topic mastery/i }),
     ).toHaveAttribute(
       'href',
-      '/courses/react-interfaces/mastery?category=react',
+      '/courses/react-shadcn-setup/mastery?category=react',
     )
   })
 })

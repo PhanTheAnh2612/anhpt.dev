@@ -27,10 +27,10 @@ export const learningPath = [
   {
     slug: 'databases',
     order: 4,
-    title: 'Postgres',
-    icon: 'DB',
+    title: 'SQLite',
+    icon: 'SQ',
     mapClass: 'map-stop--databases',
-    description: 'Model, query, and safely evolve data with PostgreSQL.',
+    description: 'Model, query, and safely evolve relational data with SQLite.',
   },
   {
     slug: 'deployment',
@@ -46,8 +46,7 @@ export const learningPath = [
     title: 'Security',
     icon: 'SEC',
     mapClass: 'map-stop--security',
-    description:
-      'Advanced defenses for identities, data, and web applications.',
+    description: 'This content will be available soon.',
   },
   {
     slug: 'tips',
@@ -55,8 +54,7 @@ export const learningPath = [
     title: 'Tips & Tricks',
     icon: 'TIP',
     mapClass: 'map-stop--tips',
-    description:
-      'Small tools and habits that make everyday development easier.',
+    description: 'This content will be available soon.',
   },
   {
     slug: 'system-design',
@@ -64,7 +62,7 @@ export const learningPath = [
     title: 'System Design',
     icon: 'SYS',
     mapClass: 'map-stop--system-design',
-    description: 'Design reliable systems and understand their tradeoffs.',
+    description: 'This content will be available soon.',
   },
 ] as const
 

@@ -5,6 +5,7 @@ import { parseContentMarkdown } from './markdown-extensions'
 import type { CourseCategory } from './learning-path'
 
 export type ContentKind = 'journal' | 'course'
+export type CourseLevel = 'core' | 'advanced'
 export type ContentEntry = {
   body: string
   category: CourseCategory | ''
@@ -12,6 +13,7 @@ export type ContentEntry = {
   description: string
   document: MarkdownDocument
   kind: ContentKind
+  level: CourseLevel
   order: number
   slug: string
   tags: string[]
@@ -45,6 +47,7 @@ const toEntry = (path: string, source: string): ContentEntry => {
     description: readField(frontmatter, 'description'),
     document,
     kind: path.includes('/courses/') ? 'course' : 'journal',
+    level: readField(frontmatter, 'level') === 'advanced' ? 'advanced' : 'core',
     order: Number(readField(frontmatter, 'order') || '0'),
     slug,
     tags: readList(frontmatter, 'tags'),

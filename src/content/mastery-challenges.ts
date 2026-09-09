@@ -4,171 +4,110 @@ export type MasteryChallenges = {
 }
 
 export const masteryChallenges: Readonly<Record<string, MasteryChallenges>> = {
-  'frontend-foundations': {
+  'typescript-and-fetch': {
     challenges: [
       {
-        title: 'Build the smallest page',
+        title: 'Model the hotel flow',
         description:
-          'Create a personal homepage with semantic headings, navigation, and a main content region before adding visual detail.',
+          'Define room and reservation types, then compile with no unchecked property access in the request path.',
       },
       {
-        title: 'Test the foundations',
+        title: 'Exercise every response',
         description:
-          'Use only the keyboard, then disable JavaScript. Check that the content and navigation still work at a narrow screen width.',
+          'Show useful loading, empty, success, validation, and offline outcomes without losing the entered reservation.',
       },
       {
-        title: 'Add one typed interaction',
+        title: 'Explain the trust boundary',
         description:
-          'Add a small TypeScript interaction and explain how it improves the page without hiding essential content.',
+          'Identify which browser checks help the guest and which rules the API must repeat.',
       },
     ],
     reward:
-      'A responsive homepage with an accessible foundation you can keep extending.',
+      'A responsive hotel form whose browser behavior and network boundary you can explain.',
   },
-  'react-interfaces': {
+  'react-api-states': {
     challenges: [
       {
-        title: 'Build a project filter',
+        title: 'Compose the dashboard',
         description:
-          'Create a project list with a clearly labelled, keyboard-friendly filter. Keep the source list separate from the selected filter.',
+          'Use owned shadcn/ui primitives to render rooms, an empty reservation list, and a labelled booking form.',
       },
       {
-        title: 'Derive the visible list',
+        title: 'Connect the API',
         description:
-          'Calculate matching projects during render instead of synchronizing a second list with an effect. Include an honest empty state.',
+          'Create a reservation, reload server data, and preserve input when the API reports a room conflict.',
       },
       {
-        title: 'Explain the state boundary',
+        title: 'Test like a receptionist',
         description:
-          'Describe which component owns the filter, which props its children need, and how you would test the interaction.',
+          'Complete the flow with a keyboard at 390 pixels wide and verify each asynchronous state is understandable.',
       },
     ],
     reward:
-      'A small React interface whose state and accessibility choices you can explain.',
+      'A small React front desk interface built from shadcn/ui source you can inspect and adapt.',
   },
-  'nestjs-api': {
+  'nestjs-tests-configuration': {
     challenges: [
       {
-        title: 'Separate the responsibilities',
+        title: 'Expose the hotel boundary',
         description:
-          'Build a tiny guestbook endpoint with HTTP handling in a controller and application decisions in a service.',
+          'Implement room reads, reservation creation, and named stay transitions with controllers delegating to services.',
       },
       {
-        title: 'Validate the boundary',
+        title: 'Reject invalid stays',
         description:
-          'Try valid, missing, and malformed input. Return understandable errors without exposing internal details.',
+          'Prove invalid dates, unknown rooms, overlaps, and impossible status transitions return stable HTTP errors.',
       },
       {
-        title: 'Connect the interface',
+        title: 'Reproduce from configuration',
         description:
-          'Read the endpoint from a React page and provide loading, empty, and error states.',
-      },
-    ],
-    reward: 'A small API boundary that is clear enough to maintain and test.',
-  },
-  'postgres-basics': {
-    challenges: [
-      {
-        title: 'Model a small record',
-        description:
-          'Create a projects or guestbook table with a primary key and constraints that express its essential rules.',
-      },
-      {
-        title: 'Use safe queries',
-        description:
-          'Insert and retrieve records using parameterized queries. Verify that invalid records fail without changing valid data.',
-      },
-      {
-        title: 'Plan a schema change',
-        description:
-          'Describe a small migration and how you would verify existing records remain usable afterward.',
+          'Start and test the API from a clean checkout using only committed files plus values documented in .env.example.',
       },
     ],
     reward:
-      'A simple, durable data model with explicit rules and safe query boundaries.',
+      'A tested NestJS API whose module boundaries and reservation rules remain clear.',
   },
-  'deploy-your-site': {
+  'sqlite-migrations-backups': {
     challenges: [
       {
-        title: 'Reproduce the build',
+        title: 'Build from zero',
         description:
-          'Install and build the project from a clean checkout using the committed lockfile.',
+          'Apply every migration to a new SQLite file and verify constraints reject an invalid stay.',
       },
       {
-        title: 'Check the public URL',
+        title: 'Persist safe queries',
         description:
-          'Verify HTTPS, asset loading, and direct links to nested pages on both mobile and desktop.',
+          'Create and read a reservation with prepared statements, including a guest name containing an apostrophe.',
       },
       {
-        title: 'Write a release checklist',
+        title: 'Prove the backup',
         description:
-          'Record which configuration is public, how secrets are supplied, and how to return to the previous working release.',
+          'Restore a backup to another path and verify room and reservation records through the API.',
       },
     ],
     reward:
-      'A repeatable release process and a website you know how to verify.',
+      'A reproducible SQLite schema and a restore procedure you have actually exercised.',
   },
-  'web-security': {
+  'release-operations': {
     challenges: [
       {
-        title: 'Map the trust boundaries',
+        title: 'Reproduce the repository',
         description:
-          'List where user input, identity, and stored data cross boundaries in your own website.',
+          'Clone from GitHub, install with the lockfile, apply migrations, and pass every check using the README alone.',
       },
       {
-        title: 'Test authorization',
+        title: 'Verify the Cloudflare release',
         description:
-          'In a local test environment, verify that one account cannot change another account’s data by changing a request identifier.',
+          'Test the Pages frontend and D1-backed Worker API on mobile and desktop, including an overlapping booking.',
       },
       {
-        title: 'Explain the next defense',
+        title: 'Practice a failure',
         description:
-          'Choose the highest-impact risk in your notes and explain the smallest concrete change that reduces it.',
+          'Simulate an API failure and document the user message, privacy-safe log evidence, and rollback decision.',
       },
     ],
     reward:
-      'A practical threat model and a clearer understanding of your application’s boundaries.',
-  },
-  'developer-tips': {
-    challenges: [
-      {
-        title: 'Automate a repeatable check',
-        description:
-          'Add one command that runs the project checks you otherwise repeat by hand.',
-      },
-      {
-        title: 'Reproduce a small bug',
-        description:
-          'Write down the smallest reproduction and use browser or terminal tools to test a specific explanation.',
-      },
-      {
-        title: 'Leave useful notes',
-        description:
-          'Create a short release checklist that another developer could follow without relying on your memory.',
-      },
-    ],
-    reward: 'A calmer daily workflow with checks and notes you can reuse.',
-  },
-  'system-design-foundations': {
-    challenges: [
-      {
-        title: 'Start with requirements',
-        description:
-          'Describe the users, data, constraints, and failure modes of the website you built.',
-      },
-      {
-        title: 'Draw the smallest architecture',
-        description:
-          'Show the browser, server, and storage boundaries. Explain one request from start to finish.',
-      },
-      {
-        title: 'Discuss a tradeoff',
-        description:
-          'Choose a potential traffic or reliability problem and compare two responses before adding a new service.',
-      },
-    ],
-    reward:
-      'An architecture you can explain through requirements and tradeoffs, not just technology names.',
+      'A deployed Hotel Manager demo with a repeatable build, durable demo data, and an operational checklist.',
   },
 }
 
@@ -177,18 +116,18 @@ export const defaultMasteryChallenges: MasteryChallenges = {
     {
       title: 'Build the checkpoint',
       description:
-        'Revisit this lesson’s checkpoint and make the smallest working version in your own project.',
+        'Complete this lesson’s checkpoint in the Hotel Manager and keep the smallest working version.',
     },
     {
-      title: 'Check your assumptions',
+      title: 'Test the boundary',
       description:
-        'Try a normal case, an empty case, and a failure case. Write down what you observe.',
+        'Try the normal case, empty or missing input, and one realistic failure; record what the user observes.',
     },
     {
-      title: 'Explain the choice',
+      title: 'Explain the decision',
       description:
-        'Describe why your approach works and one tradeoff you would revisit as the project grows.',
+        'Describe why the approach fits this small application and what would make you revisit it.',
     },
   ],
-  reward: 'A practical example and a set of notes you can return to.',
+  reward: 'A working Hotel Manager increment and concise notes you can reuse.',
 }
