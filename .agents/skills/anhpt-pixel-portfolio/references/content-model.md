@@ -1,5 +1,9 @@
 # Editable content model
 
+For content planning, drafting, editorial review, and SEO rules, also use
+`../../anhpt-content-authoring/SKILL.md`. This reference remains the concise
+implementation contract for portfolio pages.
+
 ## General rule
 
 Portfolio text belongs in source content, not inside raster images or CSS

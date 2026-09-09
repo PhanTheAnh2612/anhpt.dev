@@ -38,13 +38,6 @@ describe('visual skill contract', () => {
     )
   })
 
-  it('routes legacy sprite requests without retaining atlas generation', async () => {
-    const source = await skill('sprite-generation')
-    expect(source).toContain('../character-animation/SKILL.md')
-    expect(source).toContain('../anhpt-pixel-portfolio/SKILL.md')
-    expect(source).not.toContain('complete atlas')
-  })
-
   it('keeps portfolio composition manifest-driven', async () => {
     const source = await skill('anhpt-pixel-portfolio')
     expect(source).toContain('registered scene/sprite manifests')

@@ -102,6 +102,10 @@ tanstackIntent:
 
 ## Project skills
 
+- Use `.agents/skills/anhpt-content-authoring/SKILL.md` when creating or
+  reviewing public courses, lessons, journal posts, Journey category copy,
+  skills, badges, mastery challenges, or their SEO-facing editorial fields.
+
 - Before generating or reviewing anhpt.dev imagery, read
   `.agents/skills/anhpt-art-direction/SKILL.md` and the asset-type skill it routes to.
 - Use `.agents/skills/scene-generation/SKILL.md` for environment-only desktop
@@ -117,5 +121,3 @@ tanstackIntent:
   editable portfolio content, Journey/Guild Hall pattern, or base sprite-atlas
   work, read and follow
   `.agents/skills/anhpt-pixel-portfolio/SKILL.md` before editing.
-- `.agents/skills/sprite-generation/SKILL.md` is a compatibility router for
-  legacy requests; use the focused skills above for new artwork.

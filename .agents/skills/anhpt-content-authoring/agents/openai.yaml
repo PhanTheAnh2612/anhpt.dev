@@ -1,0 +1,4 @@
+interface:
+  display_name: 'anhpt.dev Content Authoring'
+  short_description: 'Write trustworthy, search-ready portfolio content'
+  default_prompt: 'Use $anhpt-content-authoring to create or revise an anhpt.dev lesson, journal entry, skill, badge, or mastery challenge.'
