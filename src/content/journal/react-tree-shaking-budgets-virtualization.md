@@ -39,6 +39,112 @@ Pagination or “load more” may be simpler, more indexable, and easier for ass
 
 TanStack Virtual is a headless virtualizer: it calculates the visible range while your application owns markup and styles. Its current [introduction](https://tanstack.com/virtual/latest/docs/introduction) demonstrates rendering visible items inside a full-size scroll surface.
 
+## Prove that code disappeared
+
+Compare the production graph before and after changing an import. A direct import helps only when the package exposes removable modules and the selected module does not pull the barrel back in.
+
+```ts title="imports.ts"
+// Risky when the barrel initializes every editor plugin.
+import { MarkdownEditor } from '@acme/editors'
+
+// Measurably better only if this entry is independently removable.
+import { MarkdownEditor } from '@acme/editors/markdown'
+```
+
+Treat `sideEffects` as correctness metadata:
+
+```json title="package.json"
+{
+  "sideEffects": ["**/*.css", "./src/register-editor-plugins.ts"]
+}
+```
+
+After the change, inspect the built route chunk and run the editor path. A smaller bundle with missing registration or styles is a regression, not successful tree shaking.
+
+## Make a route budget fail continuous integration
+
+Keep the budget close to the artifact it protects. This small script deliberately fails when the main route crosses the declared compressed-byte limit:
+
+```ts title="check-route-budget.ts"
+import { readFileSync } from 'node:fs'
+import { gzipSync } from 'node:zlib'
+
+const file = process.argv[2]
+const limit = Number(process.argv[3])
+const bytes = gzipSync(readFileSync(file)).byteLength
+
+if (bytes > limit) {
+  throw new Error(`${file}: ${bytes} compressed bytes exceeds ${limit}`)
+}
+```
+
+Production manifests are a better source than a hard-coded filename; the teaching point is that an exceeded budget produces a visible release failure with the responsible route attached.
+
+## Virtualize one measured list
+
+```tsx title="VirtualResults.tsx"
+import { useRef } from 'react'
+import { useVirtualizer } from '@tanstack/react-virtual'
+
+export function VirtualResults({
+  rows,
+}: {
+  rows: Array<{ id: string; name: string }>
+}) {
+  const viewportRef = useRef<HTMLDivElement>(null)
+  const virtualizer = useVirtualizer({
+    count: rows.length,
+    estimateSize: () => 44,
+    getItemKey: (index) => rows[index].id,
+    getScrollElement: () => viewportRef.current,
+    overscan: 6,
+  })
+
+  return (
+    <div
+      aria-label="Search results"
+      ref={viewportRef}
+      role="list"
+      style={{ height: 420, overflow: 'auto' }}
+    >
+      <div style={{ height: virtualizer.getTotalSize(), position: 'relative' }}>
+        {virtualizer.getVirtualItems().map((item) => (
+          <div
+            aria-posinset={item.index + 1}
+            aria-setsize={rows.length}
+            data-index={item.index}
+            key={item.key}
+            ref={virtualizer.measureElement}
+            role="listitem"
+            style={{
+              position: 'absolute',
+              transform: `translateY(${item.start}px)`,
+              width: '100%',
+            }}
+          >
+            {rows[item.index].name}
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+```
+
+<!-- ::start:architecture -->
+
+```text
+10,000 records in the data model
+          ↓
+virtualizer calculates visible range 240..267
+          ↓
+28 rows plus overscan mounted in the DOM
+```
+
+<!-- ::end:architecture -->
+
+Filtering, selection, and “select all” still operate on `rows`, not `getVirtualItems()`. If focus may move outside the mounted range, define how keyboard navigation scrolls and restores that row before calling the interaction accessible.
+
 ## Preserve the scroll and accessibility contract
 
 Use stable item keys, measure variable rows, and choose overscan that avoids blank flashes without mounting too much. Preserve focus when an item moves outside the virtual window. Announce counts and positions when the semantic control requires them, and test screen-reader navigation rather than assuming off-screen DOM is irrelevant.

@@ -26,6 +26,83 @@ Interaction loading fits an expensive editor, picker, or preview that opens rare
 
 Never make a keyboard user pay a later load than a pointer user. Focus is intent. Touch devices lack hover, so the direct activation path must remain complete.
 
+## Implement visibility, intent, and activation with one loader
+
+Keep one cached import promise. Visibility and focus may start it early; activation awaits the same promise and always completes the requested action.
+
+```tsx title="DeferredEditor.tsx"
+import { lazy, Suspense, useEffect, useRef, useState } from 'react'
+
+let editorImport: Promise<typeof import('./Editor')> | undefined
+const importEditor = () => import('./Editor')
+const loadEditor = () => (editorImport ??= importEditor())
+const Editor = lazy(loadEditor)
+
+export function DeferredEditor() {
+  const boundaryRef = useRef<HTMLDivElement>(null)
+  const [open, setOpen] = useState(false)
+  const [pending, setPending] = useState(false)
+
+  useEffect(() => {
+    const boundary = boundaryRef.current
+    if (!boundary) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          void loadEditor()
+          observer.disconnect()
+        }
+      },
+      { rootMargin: '240px' },
+    )
+    observer.observe(boundary)
+    return () => observer.disconnect()
+  }, [])
+
+  async function activate() {
+    setPending(true)
+    try {
+      await loadEditor()
+      setOpen(true)
+    } finally {
+      setPending(false)
+    }
+  }
+
+  return (
+    <div ref={boundaryRef}>
+      <button
+        aria-expanded={open}
+        disabled={pending}
+        onClick={() => void activate()}
+        onFocus={() => void loadEditor()}
+        onPointerEnter={() => void loadEditor()}
+      >
+        {pending ? 'Opening editor…' : 'Open editor'}
+      </button>
+      {open ? (
+        <Suspense fallback={<p role="status">Loading editor…</p>}>
+          <Editor />
+        </Suspense>
+      ) : null}
+    </div>
+  )
+}
+```
+
+<!-- ::start:architecture -->
+
+```text
+activation      certain ──> await load; complete the original action
+focus / hover   high ─────> speculative module load
+near viewport   medium ───> prepare measured below-fold content
+idle            low ─────> only cheap, safe, discardable work
+```
+
+<!-- ::end:architecture -->
+
+Wrap the lazy component in an error boundary that exposes a retry when the chunk download fails. Data loading needs its own freshness and cancellation policy instead of being hidden inside the module import.
+
 ## Prefetch when intent is likely
 
 Route links can prefetch code and data on hover, focus, viewport entry, or a router-specific intent signal. Use cache freshness rules so a prefetched response is reusable. Cancel or deprioritize work where the platform supports it, and respect data-saving conditions.

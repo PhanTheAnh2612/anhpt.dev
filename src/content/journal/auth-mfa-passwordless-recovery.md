@@ -28,6 +28,29 @@ _Each path proves something different. Enrollment and recovery must preserve the
 
 Use MFA for privileged accounts, sensitive data, high-value transactions, and risk-triggered step-up. Prefer phishing-resistant factors where feasible. A magic link can remove a site password, but it is only as strong as the email account and the link-handling design.
 
+## Model assurance, not an OTP screen
+
+<!-- ::start:architecture -->
+
+```text
+primary authenticator
+        ↓
+short-lived pending login
+        ↓
+required assurance for this action?
+   ┌────┴─────────────┐
+   │                  │
+enough             step-up required
+   │                  ↓
+issue session    TOTP / passkey / security key
+                      ↓
+               rotate and elevate session
+```
+
+<!-- ::end:architecture -->
+
+Record the authentication methods and time on server-side session state. A React screen may explain that step-up is needed, but the protected NestJS action must check the required assurance again.
+
 ## NestJS and React example
 
 <!-- ::start:code-example -->
@@ -115,6 +138,34 @@ export function MfaPage() {
 ```
 
 For magic links, store a hash of a random single-use token, expire it quickly, bind it to the intended action, and consume it atomically. Email security scanners may open links automatically; avoid completing a sensitive action on a bare GET without an intentional confirmation step.
+
+## Implement a single-use recovery link safely
+
+The email link should open a confirmation page. A separate `POST` performs the state change so link scanners do not recover the account merely by fetching the URL.
+
+```ts title="recovery.service.ts"
+async function beginRecovery(userId: string) {
+  const token = randomBytes(32).toString('base64url')
+  await recoveryTokens.insert({
+    userId,
+    tokenHash: await keyedHash(token),
+    expiresAt: addMinutes(new Date(), 15),
+    consumedAt: null,
+  })
+  await mail.sendRecoveryLink(userId, `/recover/confirm?token=${token}`)
+}
+
+async function completeRecovery(token: string) {
+  return database.transaction(async (tx) => {
+    const record = await tx.recoveryTokens.consumeOnce(await keyedHash(token))
+    if (!record || record.expiresAt <= new Date()) throw new InvalidRecovery()
+    await tx.sessions.revokeAllForUser(record.userId)
+    return tx.sessions.issueRestrictedRecoverySession(record.userId)
+  })
+}
+```
+
+The restricted session may set a new authenticator, but it should not silently grant ordinary account access. Notify the user, audit the recovery, and require a fresh normal sign-in after the credential changes.
 
 ## Tradeoffs and drawbacks
 

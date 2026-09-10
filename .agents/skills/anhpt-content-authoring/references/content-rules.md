@@ -13,7 +13,7 @@ and phrases such as “ultimate guide,” “master instantly,” or “best pra
 without context. Expand an acronym on first use unless the intended reader can
 reasonably be expected to know it.
 
-## Course lessons (`src/content/courses/*.md`)
+## Syllabus lessons (`src/content/courses/*.md`)
 
 Required frontmatter:
 
@@ -63,15 +63,27 @@ Required frontmatter:
 title: Specific observation or technique
 date: YYYY-MM-DD
 description: The question answered and why it matters.
-tags: react, accessibility
+tags: ReactJS, Accessibility
 ---
 ```
 
-- Use lowercase, comma-separated tags. Prefer existing tags and 2–5 precise
-  terms over synonyms added only for search coverage.
+- Use comma-separated canonical display tags already present in the repository,
+  such as `ReactJS` and `Auth`. Prefer 2–5 precise terms over synonyms added
+  only for search coverage; tag matching is case-sensitive.
 - A journal entry may be narrower, more exploratory, or more opinionated than a
   lesson, but it must make the evidence and limits of the conclusion clear.
 - State version or date context when framework behavior is version-sensitive.
+- Review a related tag or syllabus as a set before expanding individual posts.
+  Deepen the entries where a reader cannot yet reproduce the method, trace the
+  workflow, or reason about failure. Leave focused entries compact when they
+  already answer their question.
+- For security content, make trust boundaries, token or credential ownership,
+  state transitions, replay behavior, and recovery paths explicit. Never imply
+  that a browser, backend, identity provider, or workload owns secret material
+  that the chosen architecture assigns elsewhere.
+- For React performance and rendering content, show at least one observable
+  path from trigger or request to user-visible result. Distinguish framework
+  behavior from portable React or browser behavior.
 
 ## Journey categories and public skills
 
@@ -116,6 +128,15 @@ tags: react, accessibility
   Keep samples focused, internally consistent, accessible, and free of secrets.
 - Explain why the example works and what it omits. Include destructive commands
   only when necessary, clearly scoped, and paired with the relevant caution.
+- Use an `architecture` directive for text-native workflows and trust-boundary
+  diagrams. Keep labels semantic and understandable in the raw Markdown; a
+  diagram must clarify sequence or ownership rather than decorate the page.
+- Prefer one complete-enough vertical slice over several disconnected snippets.
+  Name app-owned helpers and framework-specific assumptions. Pair security and
+  asynchronous examples with at least one failure, cancellation, expiry, or
+  retry path when that behavior changes correctness.
+- Worked traces and comparison tables must label illustrative measurements as
+  examples, not as observed production results.
 - Use descriptive link text that makes sense out of context. Do not use repeated
   “click here” links.
 
@@ -125,5 +146,10 @@ tags: react, accessibility
 - Dates and public claims are verified; placeholders are obvious.
 - The title, introduction, headings, and checkpoint describe the same intent.
 - Examples support the stated audience and have no unexplained critical step.
+- High-risk concepts have an implementation, workflow, worked trace, or failure
+  matrix chosen for comprehension—not a quota—and code is coherent at its
+  stated scope.
+- Series entries complement rather than repeat one another; intentionally
+  omitted detail is either unnecessary for the question or routed elsewhere.
 - Nearby content is linked or consolidated when the new draft would duplicate it.
 - Language is inclusive, readable, and free of needless idiom.

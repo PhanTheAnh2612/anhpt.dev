@@ -49,6 +49,60 @@ Good boundaries match how a reader understands the page:
 
 The primary article does not disappear while recommendations load. Nested boundaries may reveal independently when that improves comprehension. Too many boundaries cause visual flicker and make error ownership unclear.
 
+## Follow one request from response to interaction
+
+<!-- ::start:architecture -->
+
+```text
+request
+  ↓
+server renders route
+  ├─ article body ───────── ready
+  └─ recommendations ───── pending behind Suspense
+  ↓
+HTML shell streams ───────> browser paints readable article
+  ↓
+recommendations resolve ──> server streams boundary content
+  ↓
+Client Component code ────> bookmark button hydrates and becomes interactive
+```
+
+<!-- ::end:architecture -->
+
+The server API makes the shell boundary visible. This Node example streams ordinary SSR HTML; it does not implement the framework-owned React Server Component transport:
+
+```tsx title="article-handler.tsx"
+import type { IncomingMessage, ServerResponse } from 'node:http'
+import { renderToPipeableStream } from 'react-dom/server'
+
+export function handleArticle(
+  request: IncomingMessage,
+  response: ServerResponse,
+) {
+  const stream = renderToPipeableStream(<ArticleRoute />, {
+    onShellReady() {
+      response.statusCode = 200
+      response.setHeader('content-type', 'text/html; charset=utf-8')
+      stream.pipe(response)
+    },
+    onShellError(error) {
+      response.statusCode = 500
+      response.end('The article could not be rendered.')
+      reportRenderError(error)
+    },
+    onError(error) {
+      reportRenderError(error)
+    },
+  })
+
+  request.on('aborted', () => stream.abort())
+}
+```
+
+`ArticleRoute` and `reportRenderError` are application-owned route and telemetry functions. The handler deliberately shows only the streaming lifecycle.
+
+When the route uses Server Components, apply the same visible sequence but let the framework own Flight serialization, module references, caching, and client reconstruction. Do not copy this SSR handler and call it an RSC implementation.
+
 ## Plan failure and cancellation with the happy path
 
 Streaming can fail before the shell, after the shell, or inside one boundary. Decide the HTTP status policy, the fallback users retain, and the logging context for each stage. Abort work when a request disconnects or exceeds its usefulness. A progressive interface is trustworthy only when its partial states are designed.

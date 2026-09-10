@@ -23,40 +23,58 @@ Authentication repeats the pattern with `navigator.credentials.get()`. The serve
 
 ## NestJS and React example
 
+<!-- ::start:architecture -->
+
+```text
+Registration                            Authentication
+
+React -> NestJS: registration options   React -> NestJS: request options
+NestJS -> DB: store expiring challenge  NestJS -> DB: store expiring challenge
+React -> authenticator: create()        React -> authenticator: get()
+React -> NestJS: credential             React -> NestJS: assertion
+NestJS: verify origin, RP ID, challenge NestJS: load public key and verify signature
+NestJS -> DB: store public key + ID     NestJS -> DB: update credential metadata
+                                        NestJS: issue application session
+```
+
+<!-- ::end:architecture -->
+
 <!-- ::start:code-example -->
 
-```tsx title="PasskeyButton.tsx"
-import type { PublicKeyCredentialRequestOptionsJSON } from '@simplewebauthn/types'
+```tsx title="PasskeyEnrollment.tsx"
+import { startRegistration } from '@simplewebauthn/browser'
 
-async function signInWithPasskey() {
-  const options: PublicKeyCredentialRequestOptionsJSON = await fetch(
-    '/api/passkeys/options',
-    {
-      method: 'POST',
-      credentials: 'include',
-    },
-  ).then((response) => response.json())
-  const credential = await navigator.credentials.get({ publicKey: options })
-  return fetch('/api/passkeys/verify', {
+export async function enrollPasskey() {
+  const options = await fetch('/api/auth/passkeys/registration/options', {
+    method: 'POST',
+    credentials: 'include',
+  }).then((response) => response.json())
+  const credential = await startRegistration({ optionsJSON: options })
+  return fetch('/api/auth/passkeys/registration/verify', {
     method: 'POST',
     credentials: 'include',
     headers: { 'content-type': 'application/json' },
-    body: JSON.stringify(serializeCredential(credential)),
+    body: JSON.stringify(credential),
   })
 }
 ```
 
 ```ts title="passkeys.controller.ts"
-import { Body, Controller, Post, Req, UnauthorizedException } from '@nestjs/common'
-import type { AuthenticationResponseJSON } from '@simplewebauthn/types'
+import { Body, Controller, Post, Req } from '@nestjs/common'
+import type { RegistrationResponseJSON } from '@simplewebauthn/types'
 import type { Request } from 'express'
 
-@Post('verify')
-async verify(@Req() req: Request, @Body() response: AuthenticationResponseJSON) {
-  const pending = await this.challenges.consume(req, response.id)
-  const result = await this.webAuthn.verifyAuthentication(response, pending)
-  if (!result.verified) throw new UnauthorizedException()
-  return this.sessions.issueForResponse(result.userId)
+@Post('registration/options')
+options(@Req() request: Request & { user: { id: string } }) {
+  return this.passkeys.createRegistrationOptions(request.user.id)
+}
+
+@Post('registration/verify')
+verify(
+  @Req() request: Request & { user: { id: string } },
+  @Body() credential: RegistrationResponseJSON,
+) {
+  return this.passkeys.verifyRegistration(request.user.id, credential)
 }
 ```
 
@@ -120,7 +138,7 @@ export function PasskeyButton() {
 }
 ```
 
-Serialization converts WebAuthn byte arrays safely; challenge consumption must be one-time and expiring.
+The same browser/server library now owns JSON conversion in both ceremonies. On cancellation, return the button to its idle state without treating the user gesture as an authentication failure. Challenge consumption must be one-time and expiring; also test a wrong origin, wrong RP ID, replay, unknown credential, and a signature-counter change as a risk signal rather than universal clone proof.
 
 ## Use cases, tradeoffs, and recovery
 

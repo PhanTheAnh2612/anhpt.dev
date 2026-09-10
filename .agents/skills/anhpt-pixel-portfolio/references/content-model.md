@@ -22,7 +22,9 @@ and private performance records beyond facts the user explicitly approved.
 
 ## Markdown frontmatter
 
-Courses belong to exactly one Journey category:
+Syllabus lessons in `src/content/courses/` belong to exactly one Journey
+category. The directory name is a content-storage contract and does not imply a
+public `/courses` route:
 
 ```yaml
 ---
@@ -47,8 +49,9 @@ tags: learning, typescript
 ---
 ```
 
-Courses use `category`; Journal uses `tags`. Do not reintroduce the ambiguous
-`topic` field.
+Syllabus lessons use `category`; Journal uses `tags`. Journal posts may be
+mapped into a syllabus by their tag and route configuration. Do not reintroduce
+the ambiguous `topic` field.
 
 ## Rendering
 
@@ -56,3 +59,8 @@ Courses use `category`; Journal uses `tags`. Do not reintroduce the ambiguous
 Markdown and TanStack Highlight. Extend its typed `ContentEntry` contract when
 adding a maintained field. Invalid course categories should resolve to an empty
 category rather than being trusted blindly.
+
+Use the registered `architecture` directive for semantic, text-native flows,
+timelines, and trust boundaries. Keep meaningful labels in Markdown so the
+explanation remains available without imagery. Reserve raster assets for visual
+explanation that cannot be expressed clearly through structured content.

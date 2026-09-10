@@ -49,6 +49,29 @@ Server-rendered HTML and the first client render must agree. Locale, time, rando
 
 A product page may use a cached static shell, request-time inventory, and client-side cart interaction. Modern frameworks can compose these strategies, but every boundary adds a cache and failure mode. Start with the coarsest route-level choice that meets the requirement, then split only when measurement or freshness demands it.
 
+## Decide one product page region by region
+
+<!-- ::start:architecture -->
+
+```text
+/products/green-mug
+  ├─ description + images ── static/revalidated ── shared public cache
+  ├─ price + inventory ───── request-fresh API ─── region + product key
+  └─ cart controls ───────── client state ───────── current browser session
+```
+
+<!-- ::end:architecture -->
+
+The route can still begin with one coarse static or SSR decision. Split a region only when its freshness, personalization, or failure policy differs enough to justify another boundary.
+
+| Region      | Authoritative owner                      | Failure behavior                                                       |
+| ----------- | ---------------------------------------- | ---------------------------------------------------------------------- |
+| description | published catalog version                | keep the last valid page; invalidate urgent corrections                |
+| inventory   | inventory service                        | show unavailable status; never reuse another region or user’s response |
+| cart        | server cart plus optimistic browser view | keep edits pending, then reconcile with the server result              |
+
+This case does not prescribe framework syntax. ISR, revalidation tags, server loaders, and partial rendering are platform contracts; write the same ownership and failure decisions before choosing those APIs.
+
 <!-- ::start:quest difficulty="intermediate" -->
 
 Choose three routes in one application. Record audience, freshness tolerance, personalization, cache key, first-response content, and client interaction. Select a rendering mode for each and write the invalidation or failure behavior in one sentence.

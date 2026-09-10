@@ -107,6 +107,66 @@ export async function api(path: string, init: RequestInit = {}) {
 
 Use a maintained JOSE library; the sketch shows the validation contract, not cryptographic implementation. A browser-facing Backend for Frontend (BFF) can keep refresh tokens in an `HttpOnly` cookie and access tokens out of persistent Web Storage.
 
+## Implement refresh rotation as a state machine
+
+The refresh path needs its own persisted lifecycle. Store only a verifier for the token, not the raw bearer value, and group replacements into a family:
+
+```ts title="refresh-token-record.ts"
+export type RefreshTokenRecord = {
+  id: string
+  familyId: string
+  tokenHash: string
+  parentId: string | null
+  expiresAt: Date
+  consumedAt: Date | null
+  revokedAt: Date | null
+}
+```
+
+<!-- ::start:architecture -->
+
+```text
+API request
+  ├─ 2xx ─────────────────────────────────────> return response
+  └─ 401
+      ↓
+shared refresh promise in the browser
+      ↓
+POST /auth/refresh with HttpOnly refresh cookie
+  ├─ current token ─> consume atomically ─> issue child ─> retry once
+  ├─ consumed token ─> reuse detected ─────> revoke family ─> sign in
+  └─ expired/revoked ──────────────────────> clear session ─> sign in
+```
+
+<!-- ::end:architecture -->
+
+The repository operation must consume the current token and insert its child in one transaction. A uniqueness constraint on the consumed transition is what makes two simultaneous refresh requests resolve as one winner rather than two valid branches.
+
+On the client, share one in-flight refresh promise so a screen that produces several `401` responses does not rotate the same credential several times:
+
+```ts title="refresh-coordinator.ts"
+let refreshInFlight: Promise<boolean> | undefined
+
+export function refreshOnce() {
+  refreshInFlight ??= fetch('/api/auth/refresh', {
+    method: 'POST',
+    credentials: 'include',
+  })
+    .then(async (response) => {
+      if (!response.ok) return false
+      setAccessToken((await response.json()).accessToken)
+      return true
+    })
+    .finally(() => {
+      refreshInFlight = undefined
+    })
+
+  return refreshInFlight
+}
+```
+
+Retry the original API request at most once. A second `401`, a rejected refresh, or reuse detection is a terminal authentication result, not a reason to loop.
+
 ## Tradeoffs and drawbacks
 
 - Local signature validation reduces central reads, but permission changes remain stale until expiry unless you add introspection or revocation state.

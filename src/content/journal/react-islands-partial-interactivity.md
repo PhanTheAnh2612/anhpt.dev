@@ -38,6 +38,39 @@ Separate roots do not share React Context. They communicate through URL state, s
 
 Also count duplicated runtime and library code. Framework tooling may deduplicate shared chunks, but do not assume ten islands mean ten free components. Inspect the production bundle and network trace.
 
+## Keep independent islands independent
+
+<!-- ::start:architecture -->
+
+```text
+static article HTML
+  ├─ ThemeToggle island ───── owns local preference
+  └─ Comments island ──────── owns server comments + composer
+
+rejected split:
+  SearchBox island <── live query/results/selection ──> Results island
+                     frequent shared state means one app boundary
+```
+
+<!-- ::end:architecture -->
+
+In an Astro page, two independent React roots can hydrate on different evidence while the article remains plain HTML:
+
+```astro title="article.astro"
+---
+import ThemeToggle from '../components/ThemeToggle.tsx'
+import Comments from '../components/Comments.tsx'
+---
+
+<article>
+  <ThemeToggle client:load />
+  <slot />
+  <Comments client:visible articleId={Astro.params.slug} />
+</article>
+```
+
+This example is Astro-specific. The architectural test is portable: each island needs a resilient HTML boundary, an explicit hydration trigger, and little or no high-frequency state exchange with another root.
+
 ## Use the architecture for a page, not a slogan
 
 Choose islands when static content dominates, interactive regions are few and independent, and the framework can emit resilient HTML. Choose a cohesive React application when interaction dominates and state crosses the screen. Hybrid sites can use both on different routes.

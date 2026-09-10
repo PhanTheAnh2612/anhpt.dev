@@ -15,9 +15,32 @@ OAuth 2.0 delegates access to an API. OpenID Connect (OIDC) adds an identity lay
 
 _The browser redirect and callback form one loop; the server-to-server code exchange and protected API call form separate trusted paths._
 
+## Choose the browser architecture before implementing PKCE
+
+The component that starts the OAuth transaction must also own its correlation material. In a browser-only public client, React can generate the PKCE verifier and retain it for the callback. In the Backend for Frontend (BFF) design used by the examples below, NestJS creates and stores the verifier, `state`, and OIDC `nonce`; React only follows redirects and receives the resulting application session.
+
+<!-- ::start:architecture -->
+
+```text
+Browser-only client                 Backend for Frontend
+
+React creates verifier              Browser -> NestJS /start
+  -> authorization server                      creates state + nonce + verifier
+  <- one-time code                             stores short-lived transaction
+  -> token endpoint + verifier      Browser -> provider -> NestJS /callback
+React validates result                         consumes transaction once
+                                                exchanges code + verifier
+                                                validates OIDC result
+                                                issues app session cookie
+```
+
+<!-- ::end:architecture -->
+
+RFC 10017 describes these as different browser application patterns with different token exposure. Do not combine the browser-only ownership sentence with a server-owned transaction implementation.
+
 ## Use Authorization Code with PKCE
 
-The React application generates a random `code_verifier`, derives a `code_challenge`, and starts authorization with `state`, `nonce`, an exact redirect URI, and requested scopes. After the callback, a trusted server exchanges the one-time code and verifier. It validates the ID Token signature through the issuer’s keys plus `iss`, `aud`, `exp`, and `nonce`, then establishes the application’s own session.
+NestJS generates a random `code_verifier`, derives a `code_challenge`, and starts authorization with `state`, `nonce`, an exact redirect URI, and requested scopes. After the callback, it exchanges the one-time code and verifier, validates the ID Token signature through the issuer’s keys plus `iss`, `aud`, `exp`, and `nonce`, then establishes the application’s own session.
 
 Use this for consumer social login, workforce identity, and delegated access to third-party APIs. Use client credentials—not a user flow—for a service acting only as itself. Avoid the implicit grant and Resource Owner Password Credentials grant.
 
@@ -101,6 +124,16 @@ export function SocialLoginButton() {
 ```
 
 The unique account key is normally `(issuer, subject)`, not email. Email can change, be recycled, or be absent. Account linking needs an authenticated, explicit flow to prevent takeover.
+
+Treat callback failures as ordinary protocol outcomes with one terminal response:
+
+| Callback condition                  | Result                                                         |
+| ----------------------------------- | -------------------------------------------------------------- |
+| missing or unknown `state`          | reject without exchanging the code                             |
+| provider `error=access_denied`      | return a safe cancelled-login screen                           |
+| consumed transaction                | reject the replay and do not restart implicitly                |
+| nonce, issuer, or audience mismatch | reject the identity result and record a non-secret audit event |
+| successful validation               | consume transaction, issue local session, redirect once        |
 
 ## Tradeoffs and drawbacks
 
@@ -192,7 +225,7 @@ Local logout destroys the application session; provider logout may end a wider S
 - [OpenID Connect Core 1.0](https://openid.net/specs/openid-connect-core-1_0.html)
 - [RFC 7636: Proof Key for Code Exchange](https://www.rfc-editor.org/rfc/rfc7636)
 - [RFC 9700: OAuth 2.0 Security Best Current Practice](https://www.rfc-editor.org/rfc/rfc9700)
-- [OAuth 2.0 for Browser-Based Applications draft](https://datatracker.ietf.org/doc/draft-ietf-oauth-browser-based-apps/)
+- [RFC 10017: OAuth 2.0 for Browser-Based Applications](https://www.rfc-editor.org/rfc/rfc10017)
 
 <!-- ::start:quest difficulty="advanced" -->
 

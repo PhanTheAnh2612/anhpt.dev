@@ -50,16 +50,22 @@ includes a new public page, search optimization, metadata, or a content audit.
 3. Draft using the relevant content contract and the site's direct, practical
    teaching voice. Prefer concrete examples, boundary cases, and tradeoffs over
    broad claims or RPG-flavored filler.
-4. Apply the SEO editorial rules without keyword stuffing or weakening the
+4. For technical Journal content, audit the whole related series before adding
+   depth. Strengthen only entries with a real comprehension gap, using the
+   smallest useful combination of an implementation, workflow diagram, worked
+   trace, or failure matrix; do not lengthen every entry uniformly.
+5. Apply the SEO editorial rules without keyword stuffing or weakening the
    lesson. Link to relevant internal content only when it helps the reader.
-5. Check frontmatter, heading hierarchy, directive syntax, code, accessibility,
+6. Check frontmatter, heading hierarchy, directive syntax, code, accessibility,
    factual support, privacy, and duplication against nearby content.
-6. Run the repository's relevant checks when files changed. Report any content
+7. Run the repository's relevant checks when files changed. Report any content
    that is metadata-ready but not emitted by the current route implementation.
 
 ## Definition of done
 
 The content answers a recognizable reader question, teaches or proves something
 specific, matches its repository schema, makes only supportable public claims,
-and has a unique search title/description direction. It remains useful when
-read without the pixel-RPG decoration.
+and has a unique search title/description direction. A technical series also
+has enough concrete implementation and workflow evidence to explain its
+highest-risk concepts without duplicating the same example across posts. It
+remains useful when read without the pixel-RPG decoration.

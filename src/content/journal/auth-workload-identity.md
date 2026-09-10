@@ -28,14 +28,13 @@ React is not a workload-identity client. A person authenticates to the React-fac
 <!-- ::start:architecture -->
 
 ```text
-person -> React -> NestJS gateway (human session)
-                         |
-                         | mTLS using short-lived X.509 SVID
-                         v
-                  orders service
-                         |
-                         v
-                  payments service
+SPIRE Agent --rotated X.509-SVID + trust bundle--> NestJS gateway
+                                                        |
+person -> React --human session--> NestJS gateway       | mTLS
+                                      |                 v
+                                      | user token   orders service
+                                      +------------> authorizes both:
+                                                     workload + user action
 ```
 
 <!-- ::end:architecture -->
@@ -104,7 +103,32 @@ export class OrdersService {
 }
 ```
 
-`WorkloadHttpClient` obtains rotating mTLS material from the local identity agent and verifies the orders-service identity. Do not implement it as a wrapper around a static certificate path.
+`WorkloadHttpClient` is an adapter boundary, not a static-certificate wrapper. Its implementation subscribes to the Workload API, replaces the active certificate and trust bundle when the stream rotates, supplies that material to the TLS client, and rejects a peer whose validated SPIFFE ID is not the expected orders-service identity.
+
+```ts title="workload-http-client.contract.ts"
+type CurrentX509Svid = {
+  certificateChainPem: string
+  privateKeyPem: string
+  trustBundlePem: string
+  expiresAt: Date
+}
+
+export interface WorkloadApiAdapter {
+  currentX509Svid(): Promise<CurrentX509Svid>
+  onX509ContextRotated(listener: () => void): () => void
+}
+
+export interface MtlsTransport {
+  request(input: {
+    url: URL
+    identity: CurrentX509Svid
+    expectedPeerId: `spiffe://${string}`
+    headers: Record<string, string>
+  }): Promise<Response>
+}
+```
+
+The SPIFFE client library and runtime own socket details and private-key handling. The application-owned contract makes the security decisions observable: which current identity is used, which peer is expected, and which separately audience-bound user context is forwarded.
 
 The transport authenticates the gateway workload, not the original person. User delegation needs a separate, protected representation with an audience, expiry, and minimal claims. The orders service authorizes both the calling workload and the delegated user action.
 
