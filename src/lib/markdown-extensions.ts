@@ -11,6 +11,7 @@ import { parseMarkdown } from '@tanstack/markdown/parser'
 import { spriteManifest } from '../generated/sprite-manifest'
 
 const spriteName = Symbol('registered-sprite-name')
+const freeText = Symbol('free-text')
 
 export const directiveContract = {
   'trainer-tip': { pose: ['idle', 'think', 'question', 'point', 'teach'] },
@@ -33,9 +34,10 @@ export const directiveContract = {
   terminal: {},
   architecture: {},
   resource: {},
+  'interview-question': { question: freeText },
 } as const
 
-type AttributeRule = readonly string[] | typeof spriteName
+type AttributeRule = readonly string[] | typeof freeText | typeof spriteName
 type DirectiveName = keyof typeof directiveContract
 type BlockDirectiveMarker = {
   column: number
@@ -72,6 +74,12 @@ const validateDirective = (
     }
 
     const rule = contract[attribute]
+    if (rule === freeText) {
+      if (!value.trim()) {
+        throw new Error(`${name}: "${attribute}" cannot be empty`)
+      }
+      continue
+    }
     if (rule === spriteName) {
       if (!Object.hasOwn(spriteManifest, value)) {
         throw new Error(`${name}: unknown sprite "${value}" for "${attribute}"`)

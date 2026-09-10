@@ -2,7 +2,7 @@
 title: React 19 ref props and the migration details worth checking
 date: 2026-09-03
 description: Simplify a typed input ref, avoid callback-return traps, and upgrade React without turning every component into a rewrite.
-tags: react, typescript, migration
+tags: ReactJS
 ---
 
 # React 19 ref props and the migration details worth checking

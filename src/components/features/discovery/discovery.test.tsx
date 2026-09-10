@@ -1,4 +1,4 @@
-import { fireEvent, screen } from '@testing-library/react'
+import { fireEvent, screen, within } from '@testing-library/react'
 import { expect, it } from 'vitest'
 import { renderWithRouter } from '../../../test/render-with-router'
 import { getContentByKind } from '../../../lib/content'
@@ -90,6 +90,96 @@ it('includes matching journal notes and excludes notes from other tags', async (
     '/journal/react-note',
   )
   expect(screen.queryByRole('link', { name: 'A TypeScript note' })).toBeNull()
+})
+it('orders Auth journal posts from foundational to advanced', async () => {
+  const entries = getContentByKind('journal')
+  await renderWithRouter(<JournalList entries={entries} activeTag="Auth" />)
+
+  const syllabus = screen.getByRole('region', {
+    name: /from browser sessions to workload identity/i,
+  })
+  const details = syllabus.querySelector('details')!
+  expect(details).not.toHaveAttribute('open')
+  expect(
+    within(syllabus).getByText(/start with the field guide/i),
+  ).toBeVisible()
+
+  fireEvent.click(details.querySelector('summary')!)
+
+  expect(details).toHaveAttribute('open')
+  expect(within(syllabus).getAllByRole('link')).toHaveLength(10)
+
+  const titles = screen
+    .getAllByRole('heading', { level: 2 })
+    .map((heading) => heading.textContent)
+  expect(titles).toEqual([
+    'Authentication and authorization: the complete field guide',
+    'Password authentication with secure server sessions',
+    'Authorization models from ownership checks to ReBAC',
+    'JWT access tokens and safe refresh rotation',
+    'OAuth, OpenID Connect, and social login without confusion',
+    'Passkeys and WebAuthn for phishing-resistant login',
+    'MFA, OTP, magic links, and recovery as one system',
+    'API keys, Basic auth, mTLS, and service identity',
+    'SAML enterprise SSO for React and NestJS applications',
+    'Workload identity with short-lived credentials and SPIFFE',
+  ])
+})
+it('presents ReactJS journal posts as an ordered syllabus', async () => {
+  const entries = getContentByKind('journal')
+  await renderWithRouter(<JournalList entries={entries} activeTag="ReactJS" />)
+
+  const syllabus = screen.getByRole('region', {
+    name: /design, plan, implement, then optimize/i,
+  })
+  const details = syllabus.querySelector('details')!
+  expect(details).not.toHaveAttribute('open')
+  expect(
+    within(syllabus).getByText(/start with interface states/i),
+  ).toBeVisible()
+
+  fireEvent.click(details.querySelector('summary')!)
+
+  expect(details).toHaveAttribute('open')
+  const syllabusLinks = within(syllabus)
+    .getAllByRole('link')
+    .map((link) => link.textContent)
+
+  expect(syllabusLinks).toEqual([
+    'Design React components from states, not screenshots',
+    'Plan React component boundaries and state ownership',
+    'Design React component APIs with composition',
+    'Implement accessible typed React components',
+    'Use React Effects for synchronization, not control flow',
+    'Choose React Context, state, or an external store',
+    'Model React events, reducers, middleware, and commands',
+    'Read legacy JavaScript patterns without copying them',
+    'Structure React projects by feature and dependency direction',
+    'Choose CSR, SSR, static rendering, or ISR by route',
+    'Coordinate React route loaders and query caches',
+    'Design async React components across client and server',
+    'Design React streaming, hydration, and Server Components',
+    'Use islands when most of a page is not interactive',
+    'Improve React Core Web Vitals from the loading sequence',
+    'Design React code-splitting boundaries that users feel',
+    'Load React features on visibility, interaction, or intent',
+    'Combine tree shaking, budgets, and React virtualization',
+    'Adopt React Compiler with a measured rollout',
+  ])
+})
+it('uses one canonical tag for every ReactJS and Auth article', () => {
+  const entries = getContentByKind('journal')
+  const reactEntries = entries.filter((entry) =>
+    entry.slug.startsWith('react-'),
+  )
+  const authEntries = entries.filter((entry) => entry.slug.startsWith('auth-'))
+
+  expect(reactEntries.length).toBeGreaterThan(0)
+  expect(authEntries.length).toBeGreaterThan(0)
+  expect(reactEntries.every((entry) => entry.tags.join() === 'ReactJS')).toBe(
+    true,
+  )
+  expect(authEntries.every((entry) => entry.tags.join() === 'Auth')).toBe(true)
 })
 it('presents secret-base projects as an accessible carousel', async () => {
   await renderWithRouter(<SecretBaseScene />)

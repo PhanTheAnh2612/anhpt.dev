@@ -2,7 +2,7 @@
 title: Optimistic React 19 interfaces that tell the truth
 date: 2026-09-03
 description: Make a bookmark feel immediate with useOptimistic, then handle rejection without pretending the save succeeded.
-tags: react, state-management, user-experience
+tags: ReactJS
 ---
 
 # Optimistic React 19 interfaces that tell the truth

@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">Props flow down and events flow up a component tree</title>
+  <desc id="desc">PeopleSearch owns query state, passes values to SearchField and SearchResults, and receives an onQueryChange event from SearchField.</desc>
+  <defs>
+    <marker id="down" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0 0l12 6-12 6z" fill="#176b4e"/></marker>
+    <marker id="up" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0 0l12 6-12 6z" fill="#a93d31"/></marker>
+  </defs>
+  <rect width="1200" height="720" rx="24" fill="#f7f4ee"/>
+  <text x="600" y="68" text-anchor="middle" fill="#18231f" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="700">One owner, explicit data flow</text>
+
+  <g font-family="Inter, Arial, sans-serif">
+    <rect x="385" y="108" width="430" height="160" rx="20" fill="#fff" stroke="#26352f" stroke-width="4"/>
+    <text x="600" y="157" text-anchor="middle" fill="#18231f" font-size="27" font-weight="700">PeopleSearch</text>
+    <rect x="462" y="179" width="276" height="58" rx="12" fill="#e3f0ea"/>
+    <text x="600" y="215" text-anchor="middle" fill="#176b4e" font-size="23" font-weight="700">owns query state</text>
+
+    <rect x="106" y="458" width="390" height="154" rx="20" fill="#fff" stroke="#26352f" stroke-width="4"/>
+    <text x="301" y="512" text-anchor="middle" fill="#18231f" font-size="27" font-weight="700">SearchField</text>
+    <text x="301" y="557" text-anchor="middle" fill="#596862" font-size="21">renders input + label</text>
+
+    <rect x="704" y="458" width="390" height="154" rx="20" fill="#fff" stroke="#26352f" stroke-width="4"/>
+    <text x="899" y="512" text-anchor="middle" fill="#18231f" font-size="27" font-weight="700">SearchResults</text>
+    <text x="899" y="557" text-anchor="middle" fill="#596862" font-size="21">renders filtered people</text>
+
+    <path d="M520 268C460 330 372 350 317 448" fill="none" stroke="#176b4e" stroke-width="6" marker-end="url(#down)"/>
+    <rect x="290" y="316" width="198" height="50" rx="25" fill="#e3f0ea"/>
+    <text x="389" y="348" text-anchor="middle" fill="#176b4e" font-size="20" font-weight="700">value={query}</text>
+
+    <path d="M680 268C740 330 828 350 883 448" fill="none" stroke="#176b4e" stroke-width="6" marker-end="url(#down)"/>
+    <rect x="713" y="316" width="244" height="50" rx="25" fill="#e3f0ea"/>
+    <text x="835" y="348" text-anchor="middle" fill="#176b4e" font-size="20" font-weight="700">results={visible}</text>
+
+    <path d="M230 448C250 352 360 298 470 250" fill="none" stroke="#a93d31" stroke-width="6" stroke-dasharray="12 10" marker-end="url(#up)"/>
+    <rect x="106" y="342" width="274" height="50" rx="25" fill="#f8ded9"/>
+    <text x="243" y="374" text-anchor="middle" fill="#a93d31" font-size="20" font-weight="700">onQueryChange(next)</text>
+
+    <g transform="translate(353 657)">
+      <line x1="0" y1="0" x2="90" y2="0" stroke="#176b4e" stroke-width="6" marker-end="url(#down)"/>
+      <text x="112" y="7" fill="#596862" font-size="20">props flow down</text>
+      <line x1="320" y1="0" x2="410" y2="0" stroke="#a93d31" stroke-width="6" stroke-dasharray="12 10" marker-end="url(#up)"/>
+      <text x="432" y="7" fill="#596862" font-size="20">events request updates</text>
+    </g>
+  </g>
+</svg>

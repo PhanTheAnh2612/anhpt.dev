@@ -469,6 +469,182 @@
 .portfolio-journal .tag-filter [aria-current='page'] .pixel-bubble {
   background: var(--gold);
 }
+.portfolio-journal:has(.journal-syllabus) {
+  padding-bottom: 8rem;
+}
+.journal-syllabus {
+  background: var(--cream);
+  border: 3px solid var(--ink);
+  bottom: 1.25rem;
+  box-shadow:
+    inset 0 0 0 2px white,
+    7px 7px 0 color-mix(in srgb, var(--emerald-950) 85%, transparent);
+  color: var(--ink);
+  max-width: calc(100vw - 2rem);
+  position: fixed;
+  right: max(1rem, calc((100vw - 82rem) / 2));
+  width: min(34rem, calc(100vw - 2rem));
+  z-index: 18;
+}
+.journal-syllabus details {
+  overflow: hidden;
+}
+.journal-syllabus summary {
+  align-items: center;
+  cursor: pointer;
+  display: grid;
+  gap: 0.8rem;
+  grid-template-columns: minmax(0, 1fr) auto;
+  list-style: none;
+  padding: 0.9rem 1rem;
+}
+.journal-syllabus summary::-webkit-details-marker {
+  display: none;
+}
+.journal-syllabus summary:focus-visible {
+  outline: 3px solid var(--red);
+  outline-offset: 3px;
+}
+.journal-syllabus__summary-copy {
+  display: grid;
+  gap: 0.2rem;
+  min-width: 0;
+}
+.journal-syllabus__summary-copy .eyebrow {
+  color: var(--emerald-700);
+  font-size: 0.55rem;
+  margin: 0;
+}
+.journal-syllabus__summary-copy strong {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  line-height: 1.45;
+}
+.journal-syllabus__hint {
+  color: #526b5b;
+  font-size: 0.92rem;
+  line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.journal-syllabus__toggle {
+  align-items: center;
+  color: var(--emerald-800);
+  display: flex;
+  font-size: 0.72rem;
+  font-weight: 900;
+  gap: 0.55rem;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.journal-syllabus__toggle-icon {
+  align-items: center;
+  background: var(--emerald-800);
+  color: var(--cream);
+  display: flex;
+  font-family: var(--font-display);
+  height: 2.2rem;
+  justify-content: center;
+  transition: transform 140ms steps(2, end);
+  width: 2.2rem;
+}
+.journal-syllabus__toggle-open {
+  display: none;
+}
+.journal-syllabus details[open] .journal-syllabus__toggle-closed {
+  display: none;
+}
+.journal-syllabus details[open] .journal-syllabus__toggle-open {
+  display: inline;
+}
+.journal-syllabus details[open] .journal-syllabus__toggle-icon {
+  transform: rotate(45deg);
+}
+.journal-syllabus__route {
+  border-top: 2px solid color-mix(in srgb, var(--ink) 22%, transparent);
+  max-height: min(66vh, 35rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 0 1rem 1rem;
+}
+.journal-syllabus__route > p {
+  color: #526b5b;
+  font-size: 0.92rem;
+  margin: 0;
+  padding: 0.8rem 0 0.2rem;
+}
+.journal-syllabus ol {
+  display: grid;
+  gap: 0.55rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.journal-syllabus li {
+  align-items: start;
+  border-top: 1px solid color-mix(in srgb, var(--ink) 22%, transparent);
+  display: grid;
+  gap: 0.7rem;
+  grid-template-columns: 2rem minmax(0, 1fr);
+  padding-top: 0.55rem;
+}
+.journal-syllabus li > span {
+  align-items: center;
+  background: var(--emerald-800);
+  color: var(--cream);
+  display: flex;
+  font-family: var(--font-display);
+  font-size: 0.58rem;
+  height: 2rem;
+  justify-content: center;
+}
+.journal-syllabus li a {
+  color: var(--ink);
+  font-size: 0.92rem;
+  font-weight: 900;
+  line-height: 1.35;
+  text-underline-offset: 0.25em;
+}
+.journal-syllabus li a:focus-visible {
+  outline: 3px solid var(--red);
+  outline-offset: 2px;
+}
+.journal-syllabus li p {
+  color: #526b5b;
+  font-size: 0.82rem;
+  line-height: 1.35;
+  margin: 0.2rem 0 0;
+}
+@media (max-width: 560px) {
+  .journal-syllabus {
+    bottom: 0.65rem;
+    max-width: calc(100vw - 1.3rem);
+    right: 0.65rem;
+    width: calc(100vw - 1.3rem);
+  }
+  .journal-syllabus summary {
+    padding: 0.75rem;
+  }
+  .journal-syllabus__summary-copy strong {
+    font-size: 0.62rem;
+  }
+  .journal-syllabus__hint {
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    display: -webkit-box;
+    font-size: 0.78rem;
+    white-space: normal;
+  }
+  .journal-syllabus__toggle-closed,
+  .journal-syllabus__toggle-open {
+    display: none !important;
+  }
+  .journal-syllabus__route {
+    max-height: 62vh;
+    padding-inline: 0.75rem;
+  }
+}
 .portfolio-search__form {
   background: var(--cream);
   border: 3px solid var(--ink);

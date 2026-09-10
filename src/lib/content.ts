@@ -16,7 +16,9 @@ export type ContentEntry = {
   level: CourseLevel
   order: number
   slug: string
+  socialImage: string
   tags: string[]
+  thumbnail: string
   title: string
 }
 
@@ -50,7 +52,9 @@ const toEntry = (path: string, source: string): ContentEntry => {
     level: readField(frontmatter, 'level') === 'advanced' ? 'advanced' : 'core',
     order: Number(readField(frontmatter, 'order') || '0'),
     slug,
+    socialImage: readField(frontmatter, 'socialImage'),
     tags: readList(frontmatter, 'tags'),
+    thumbnail: readField(frontmatter, 'thumbnail'),
     title: readField(frontmatter, 'title') || slug,
   }
 }

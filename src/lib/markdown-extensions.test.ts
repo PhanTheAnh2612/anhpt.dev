@@ -112,6 +112,8 @@ Keep your notes nearby.
       architecture:
         '<!-- ::start:architecture -->\nArchitecture\n<!-- ::end:architecture -->',
       resource: '<!-- ::start:resource -->\nResource\n<!-- ::end:resource -->',
+      'interview-question':
+        '<!-- ::start:interview-question question="Why?" -->\nBecause.\n<!-- ::end:interview-question -->',
     } satisfies Record<keyof typeof directiveContract, string>
 
     expect(Object.keys(sources).sort()).toEqual(

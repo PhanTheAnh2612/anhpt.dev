@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" role="img" aria-labelledby="title desc">
+  <title id="title">Boolean configuration compared with composition</title>
+  <desc id="desc">The left side shows conflicting boolean props entering one component. The right side shows a stable Panel shell accepting heading, actions, and children slots.</desc>
+  <rect width="1200" height="700" rx="24" fill="#f7f4ee"/>
+  <g font-family="Inter, Arial, sans-serif">
+    <text x="300" y="72" text-anchor="middle" fill="#a93d31" font-size="30" font-weight="700">Configuration maze</text>
+    <text x="900" y="72" text-anchor="middle" fill="#176b4e" font-size="30" font-weight="700">Compositional contract</text>
+    <line x1="600" y1="36" x2="600" y2="660" stroke="#d6d1c8" stroke-width="3"/>
+
+    <rect x="190" y="280" width="220" height="126" rx="20" fill="#fff" stroke="#26352f" stroke-width="4"/>
+    <text x="300" y="335" text-anchor="middle" fill="#18231f" font-size="27" font-weight="700">MegaPanel</text>
+    <text x="300" y="373" text-anchor="middle" fill="#596862" font-size="20">many combinations</text>
+    <g fill="#f8ded9" stroke="#a93d31" stroke-width="2">
+      <rect x="62" y="132" width="210" height="54" rx="27"/><rect x="328" y="132" width="210" height="54" rx="27"/>
+      <rect x="62" y="480" width="210" height="54" rx="27"/><rect x="328" y="480" width="210" height="54" rx="27"/>
+      <rect x="196" y="564" width="210" height="54" rx="27"/>
+    </g>
+    <g fill="#a93d31" font-size="19" font-weight="700" text-anchor="middle">
+      <text x="167" y="166">compact?</text><text x="433" y="166">large?</text>
+      <text x="167" y="514">iconOnly?</text><text x="433" y="514">hideAction?</text><text x="301" y="598">danger?</text>
+    </g>
+    <g stroke="#a93d31" stroke-width="4"><line x1="180" y1="186" x2="247" y2="280"/><line x1="420" y1="186" x2="353" y2="280"/><line x1="180" y1="480" x2="247" y2="406"/><line x1="420" y1="480" x2="353" y2="406"/><line x1="301" y1="564" x2="301" y2="406"/></g>
+
+    <rect x="754" y="206" width="292" height="320" rx="22" fill="#fff" stroke="#26352f" stroke-width="4"/>
+    <text x="900" y="252" text-anchor="middle" fill="#18231f" font-size="27" font-weight="700">Panel shell</text>
+    <rect x="788" y="282" width="224" height="58" rx="12" fill="#e3f0ea" stroke="#176b4e" stroke-width="2"/>
+    <text x="900" y="318" text-anchor="middle" fill="#176b4e" font-size="21" font-weight="700">heading slot</text>
+    <rect x="788" y="358" width="224" height="58" rx="12" fill="#e3f0ea" stroke="#176b4e" stroke-width="2"/>
+    <text x="900" y="394" text-anchor="middle" fill="#176b4e" font-size="21" font-weight="700">actions slot</text>
+    <rect x="788" y="434" width="224" height="58" rx="12" fill="#e3f0ea" stroke="#176b4e" stroke-width="2"/>
+    <text x="900" y="470" text-anchor="middle" fill="#176b4e" font-size="21" font-weight="700">children</text>
+    <text x="900" y="584" text-anchor="middle" fill="#596862" font-size="21">The shell owns layout.</text>
+    <text x="900" y="618" text-anchor="middle" fill="#596862" font-size="21">The caller owns content semantics.</text>
+  </g>
+</svg>

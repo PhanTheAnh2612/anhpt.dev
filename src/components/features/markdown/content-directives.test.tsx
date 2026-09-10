@@ -63,4 +63,18 @@ describe('content directive visuals', () => {
     expect(html).toContain('A useful reminder.')
     expect(html).toContain('aria-label="Note"')
   })
+
+  it('renders an interview question as a native disclosure with its model answer', () => {
+    render(
+      <MarkdownContent
+        source={
+          '<!-- ::start:interview-question question="Why authorize on the server?" -->\nThe browser is not a trust boundary.\n<!-- ::end:interview-question -->'
+        }
+      />,
+    )
+    expect(screen.getByText('Why authorize on the server?')).toBeInTheDocument()
+    expect(
+      screen.getByText('The browser is not a trust boundary.'),
+    ).toBeInTheDocument()
+  })
 })

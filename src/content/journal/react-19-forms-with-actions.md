@@ -2,7 +2,7 @@
 title: React 19 forms without the pending-state puzzle
 date: 2026-09-03
 description: Give Actions, useActionState, and useFormStatus one clear job each, with a client-only form you can actually try.
-tags: react, forms, typescript
+tags: ReactJS
 ---
 
 # React 19 forms without the pending-state puzzle

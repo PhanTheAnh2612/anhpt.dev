@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">Dependency direction across application, features, and shared code</title>
+  <desc id="desc">Application routes may import checkout and account features, and features may import shared code. Imports into route modules, across feature internals, and from shared code back into features are blocked.</desc>
+  <defs>
+    <marker id="allowed" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0 0l12 6-12 6z" fill="#176b4e"/></marker>
+    <marker id="blocked" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0 0l12 6-12 6z" fill="#a93d31"/></marker>
+  </defs>
+  <rect width="1200" height="720" rx="24" fill="#f7f4ee"/>
+  <text x="600" y="68" text-anchor="middle" fill="#18231f" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="700">Imports flow toward stable layers</text>
+
+  <g font-family="Inter, Arial, sans-serif">
+    <rect x="410" y="110" width="380" height="112" rx="20" fill="#fff" stroke="#26352f" stroke-width="4"/>
+    <text x="600" y="158" text-anchor="middle" fill="#18231f" font-size="27" font-weight="700">app / routes</text>
+    <text x="600" y="193" text-anchor="middle" fill="#596862" font-size="20">compose product screens</text>
+
+    <rect x="116" y="332" width="390" height="132" rx="20" fill="#fff" stroke="#26352f" stroke-width="4"/>
+    <text x="311" y="382" text-anchor="middle" fill="#18231f" font-size="27" font-weight="700">checkout feature</text>
+    <text x="311" y="421" text-anchor="middle" fill="#596862" font-size="20">owns checkout decisions</text>
+
+    <rect x="694" y="332" width="390" height="132" rx="20" fill="#fff" stroke="#26352f" stroke-width="4"/>
+    <text x="889" y="382" text-anchor="middle" fill="#18231f" font-size="27" font-weight="700">account feature</text>
+    <text x="889" y="421" text-anchor="middle" fill="#596862" font-size="20">owns account decisions</text>
+
+    <rect x="410" y="566" width="380" height="112" rx="20" fill="#fff" stroke="#26352f" stroke-width="4"/>
+    <text x="600" y="614" text-anchor="middle" fill="#18231f" font-size="27" font-weight="700">shared</text>
+    <text x="600" y="649" text-anchor="middle" fill="#596862" font-size="20">domain-neutral primitives</text>
+
+    <path d="M520 222L368 322" fill="none" stroke="#176b4e" stroke-width="6" marker-end="url(#allowed)"/>
+    <path d="M680 222L832 322" fill="none" stroke="#176b4e" stroke-width="6" marker-end="url(#allowed)"/>
+    <path d="M378 464L528 556" fill="none" stroke="#176b4e" stroke-width="6" marker-end="url(#allowed)"/>
+    <path d="M822 464L672 556" fill="none" stroke="#176b4e" stroke-width="6" marker-end="url(#allowed)"/>
+
+    <path d="M520 582C230 560 198 516 219 474" fill="none" stroke="#a93d31" stroke-width="5" stroke-dasharray="12 10" marker-end="url(#blocked)"/>
+    <circle cx="365" cy="552" r="20" fill="#f8ded9" stroke="#a93d31" stroke-width="4"/>
+    <path d="M356 543l18 18m0-18l-18 18" stroke="#a93d31" stroke-width="5" stroke-linecap="round"/>
+
+    <path d="M506 390L684 390" fill="none" stroke="#a93d31" stroke-width="5" stroke-dasharray="12 10" marker-end="url(#blocked)"/>
+    <circle cx="595" cy="390" r="20" fill="#f8ded9" stroke="#a93d31" stroke-width="4"/>
+    <path d="M586 381l18 18m0-18l-18 18" stroke="#a93d31" stroke-width="5" stroke-linecap="round"/>
+
+    <rect x="858" y="545" width="250" height="54" rx="27" fill="#e3f0ea"/>
+    <line x1="884" y1="572" x2="948" y2="572" stroke="#176b4e" stroke-width="6" marker-end="url(#allowed)"/>
+    <text x="1033" y="579" text-anchor="middle" fill="#176b4e" font-size="19" font-weight="700">allowed</text>
+
+    <rect x="858" y="618" width="250" height="54" rx="27" fill="#f8ded9"/>
+    <line x1="884" y1="645" x2="948" y2="645" stroke="#a93d31" stroke-width="5" stroke-dasharray="12 10" marker-end="url(#blocked)"/>
+    <text x="1033" y="652" text-anchor="middle" fill="#a93d31" font-size="19" font-weight="700">blocked</text>
+  </g>
+</svg>

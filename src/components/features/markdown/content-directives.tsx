@@ -10,6 +10,7 @@ type DirectiveAttributes = {
   'data-icon'?: string
   'data-pose'?: string
   'data-reward'?: string
+  'data-question'?: string
 }
 type AsideProps = ComponentProps<'aside'> & DirectiveAttributes
 type SectionProps = ComponentProps<'section'> & DirectiveAttributes
@@ -91,6 +92,20 @@ const section = (label: string, defaultIcon: PixelSpriteName) =>
     )
   }
 
+function InterviewQuestion({
+  children,
+  className = '',
+  ...props
+}: SectionProps) {
+  const question = props['data-question']
+  return (
+    <details {...props} className={`interview-question ${className}`.trim()}>
+      <summary>{question}</summary>
+      <div className="interview-question__answer">{children}</div>
+    </details>
+  )
+}
+
 export const markdownComponents = {
   'content-trainer-tip': TrainerTip,
   'content-note': note('Note', 'content-note'),
@@ -109,4 +124,5 @@ export const markdownComponents = {
   'content-terminal': section('Terminal', 'content-terminal'),
   'content-architecture': section('Architecture', 'content-architecture'),
   'content-resource': section('Resource', 'content-resource'),
+  'content-interview-question': InterviewQuestion,
 } satisfies MarkdownComponents

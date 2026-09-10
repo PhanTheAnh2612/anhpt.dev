@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">Async React flow across browser and server</title>
+  <desc id="desc">Initial data flows from a framework loader on the server to a client component. A user action creates optimistic UI, sends a mutation, receives a confirmed result, and invalidates authoritative data.</desc>
+  <defs>
+    <marker id="arrow-green" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0 0l12 6-12 6z" fill="#176b4e"/></marker>
+    <marker id="arrow-red" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0 0l12 6-12 6z" fill="#a93d31"/></marker>
+  </defs>
+  <rect width="1200" height="720" rx="24" fill="#f7f4ee"/>
+  <g font-family="Inter, Arial, sans-serif">
+    <rect x="48" y="46" width="510" height="628" rx="24" fill="#eef4f1" stroke="#176b4e" stroke-width="3"/>
+    <rect x="642" y="46" width="510" height="628" rx="24" fill="#f1efeb" stroke="#26352f" stroke-width="3"/>
+    <text x="303" y="100" text-anchor="middle" fill="#176b4e" font-size="30" font-weight="700">Browser</text>
+    <text x="897" y="100" text-anchor="middle" fill="#26352f" font-size="30" font-weight="700">Server</text>
+
+    <rect x="134" y="154" width="338" height="112" rx="18" fill="#fff" stroke="#176b4e" stroke-width="3"/>
+    <text x="303" y="201" text-anchor="middle" fill="#18231f" font-size="25" font-weight="700">Client Component</text>
+    <text x="303" y="237" text-anchor="middle" fill="#596862" font-size="19">interaction + browser APIs</text>
+
+    <rect x="728" y="154" width="338" height="112" rx="18" fill="#fff" stroke="#26352f" stroke-width="3"/>
+    <text x="897" y="201" text-anchor="middle" fill="#18231f" font-size="25" font-weight="700">Framework loader</text>
+    <text x="897" y="237" text-anchor="middle" fill="#596862" font-size="19">authoritative initial data</text>
+
+    <path d="M728 230C640 278 562 278 472 230" fill="none" stroke="#176b4e" stroke-width="6" marker-end="url(#arrow-green)"/>
+    <rect x="511" y="254" width="178" height="44" rx="22" fill="#e3f0ea"/>
+    <text x="600" y="283" text-anchor="middle" fill="#176b4e" font-size="18" font-weight="700">initial render</text>
+
+    <rect x="134" y="350" width="338" height="112" rx="18" fill="#fff" stroke="#e8b949" stroke-width="4"/>
+    <text x="303" y="397" text-anchor="middle" fill="#18231f" font-size="25" font-weight="700">Optimistic projection</text>
+    <text x="303" y="433" text-anchor="middle" fill="#796220" font-size="19">temporary, reversible UI</text>
+    <path d="M303 266v74" fill="none" stroke="#e8b949" stroke-width="6" marker-end="url(#arrow-green)"/>
+
+    <rect x="728" y="350" width="338" height="112" rx="18" fill="#fff" stroke="#a93d31" stroke-width="3"/>
+    <text x="897" y="397" text-anchor="middle" fill="#18231f" font-size="25" font-weight="700">Action / mutation</text>
+    <text x="897" y="433" text-anchor="middle" fill="#596862" font-size="19">validate + authorize + persist</text>
+    <path d="M472 388h246" fill="none" stroke="#a93d31" stroke-width="6" marker-end="url(#arrow-red)"/>
+    <text x="595" y="373" text-anchor="middle" fill="#a93d31" font-size="18" font-weight="700">user intent</text>
+
+    <path d="M728 442H472" fill="none" stroke="#176b4e" stroke-width="6" marker-end="url(#arrow-green)"/>
+    <text x="600" y="480" text-anchor="middle" fill="#176b4e" font-size="18" font-weight="700">confirmed result or expected rejection</text>
+
+    <rect x="728" y="536" width="338" height="82" rx="18" fill="#fff" stroke="#26352f" stroke-width="3"/>
+    <text x="897" y="586" text-anchor="middle" fill="#18231f" font-size="23" font-weight="700">Invalidate / refresh data</text>
+    <path d="M897 462v64" fill="none" stroke="#26352f" stroke-width="5" marker-end="url(#arrow-green)"/>
+
+    <text x="303" y="584" text-anchor="middle" fill="#596862" font-size="20">Pending is visible.</text>
+    <text x="303" y="616" text-anchor="middle" fill="#596862" font-size="20">Failure keeps a recovery path.</text>
+  </g>
+</svg>
