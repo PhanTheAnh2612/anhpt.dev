@@ -28,12 +28,8 @@ export function HomeHero() {
             <Link className="menu-choice" to="/journey">
               <span aria-hidden="true">▶ </span>Start journey
             </Link>
-            <Link
-              className="menu-choice"
-              to="/courses"
-              search={{ category: undefined }}
-            >
-              Continue
+            <Link className="menu-choice" to="/journal">
+              Read journal
             </Link>
             <Link className="menu-choice" to="/secret-base">
               Secret base

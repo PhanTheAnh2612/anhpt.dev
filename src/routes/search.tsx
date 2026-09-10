@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { SearchResults } from '../components/features/discovery/search-results'
-import { content } from '../lib/content'
+import { getContentByKind } from '../lib/content'
 import { searchContent } from '../lib/search-content'
 
 export const Route = createFileRoute('/search')({
@@ -12,6 +12,9 @@ export const Route = createFileRoute('/search')({
 function SearchPage() {
   const { q } = Route.useSearch()
   return (
-    <SearchResults query={q ?? ''} entries={searchContent(content, q ?? '')} />
+    <SearchResults
+      query={q ?? ''}
+      entries={searchContent(getContentByKind('journal'), q ?? '')}
+    />
   )
 }

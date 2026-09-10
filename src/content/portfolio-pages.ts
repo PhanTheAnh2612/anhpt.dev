@@ -78,9 +78,8 @@ export const portfolioPages = {
   search: {
     label: 'THE RANGER INDEX',
     title: 'Search the trail',
-    introduction:
-      'Find a course or journal entry by title, description, category, or tag.',
-    empty: 'Enter a topic to search the local courses and journal.',
+    introduction: 'Find a journal entry by title, description, or tag.',
+    empty: 'Enter a topic to search the journal.',
     noResults:
       'No matching entries. Try a broader topic or explore the world map.',
   },

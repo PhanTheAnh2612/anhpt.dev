@@ -15,6 +15,7 @@ export const learningPath = [
     mapClass: 'map-stop--react',
     description:
       'Build accessible interfaces from components, state, and data.',
+    journalTag: 'ReactJS',
   },
   {
     slug: 'nestjs',
@@ -47,6 +48,7 @@ export const learningPath = [
     icon: 'SEC',
     mapClass: 'map-stop--security',
     description: 'This content will be available soon.',
+    journalTag: 'Auth',
   },
   {
     slug: 'tips',

@@ -2,7 +2,6 @@ import { Link } from '@tanstack/react-router'
 
 const navigation = [
   ['Journey', '/journey'],
-  ['Courses', '/courses'],
   ['Guild Hall', '/guild-hall'],
   ['Badges', '/badges'],
   ['Secret Base', '/secret-base'],

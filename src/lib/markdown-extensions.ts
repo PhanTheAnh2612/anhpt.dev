@@ -7,6 +7,7 @@ import {
   commentComponentsExtension,
   parseComponentComment,
 } from '@tanstack/markdown/extensions/comment-components'
+import { headingCollectionExtension } from '@tanstack/markdown/extensions/headings'
 import { parseMarkdown } from '@tanstack/markdown/parser'
 import { spriteManifest } from '../generated/sprite-manifest'
 
@@ -330,7 +331,7 @@ export const parseContentMarkdown = (
   validateDirectiveBoundaries(source, context.sourceLabel ?? defaultSourceLabel)
 
   return parseMarkdown(source, {
-    extensions: [contentDirectiveExtension],
+    extensions: [contentDirectiveExtension, headingCollectionExtension()],
     frontmatter: true,
     headingIds: true,
   })

@@ -469,6 +469,87 @@
 .portfolio-journal .tag-filter [aria-current='page'] .pixel-bubble {
   background: var(--gold);
 }
+.journal-article-layout {
+  align-items: start;
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: minmax(15rem, 18rem) minmax(0, 1fr);
+}
+.journal-article-layout .article-panel {
+  margin: 0;
+  max-width: 64rem;
+  min-width: 0;
+  width: 100%;
+}
+.journal-article-sidebar {
+  background: var(--emerald-900);
+  border: 3px solid var(--ink);
+  box-shadow: 5px 5px 0 var(--emerald-950);
+  color: var(--cream);
+  max-height: calc(100vh - 7rem);
+  overflow-y: auto;
+  padding: 1rem;
+  position: sticky;
+  scrollbar-color: var(--emerald-700) var(--emerald-950);
+  scrollbar-width: thin;
+  top: 6rem;
+}
+.journal-article-sidebar .panel-label {
+  color: var(--gold);
+  font-size: 0.7rem;
+  line-height: 1.8;
+  margin: 1.5rem 0 0.8rem;
+}
+.journal-article-sidebar ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.journal-article-sidebar nav a {
+  border-left: 3px solid var(--emerald-700);
+  display: block;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  padding: 0.65rem;
+  text-decoration: none;
+}
+.journal-article-sidebar nav a:hover,
+.journal-article-sidebar nav a[aria-current='page'] {
+  background: var(--emerald-950);
+  border-color: var(--gold);
+  color: var(--gold);
+}
+.journal-article-sidebar a:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 3px;
+}
+.journal-article-sidebar__syllabus {
+  max-height: 19rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-color: var(--emerald-700) var(--emerald-950);
+  scrollbar-width: thin;
+}
+.journal-article-sidebar__sections a {
+  font-family: var(--font-reading);
+}
+.journal-article-sidebar .learning-guide p {
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+#journal-body,
+.journal-article-layout .markdown-renderer [id] {
+  scroll-margin-top: 7rem;
+}
+@media (max-width: 860px) {
+  .journal-article-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .journal-article-sidebar {
+    max-height: none;
+    position: static;
+  }
+}
 .portfolio-journal:has(.journal-syllabus) {
   padding-bottom: 8rem;
 }

@@ -1,6 +1,7 @@
 import { Link, createFileRoute, notFound } from '@tanstack/react-router'
 import { AuthArticleNavigation } from '../../components/features/discovery/auth-article-navigation'
 import { ReactComponentArticleNavigation } from '../../components/features/discovery/react-component-article-navigation'
+import { JournalArticleSidebar } from '../../components/features/discovery/journal-article-sidebar'
 import { MarkdownContent } from '../../components/features/markdown/markdown-content'
 import { getContent, getContentByKind } from '../../lib/content'
 
@@ -58,26 +59,19 @@ export const Route = createFileRoute('/journal/$slug')({
 })
 function Entry() {
   const entry = Route.useLoaderData()
+  const entries = getContentByKind('journal')
   return (
-    <main className="page-shell">
+    <main className="page-shell journal-article-layout">
+      <JournalArticleSidebar entry={entry} entries={entries} />
       <article className="article-panel">
-        <Link className="back-link" to="/journal">
-          ← Back to Journal
-        </Link>
         <p className="eyebrow">{entry.date}</p>
         <h1>{entry.title}</h1>
         <p className="article-description">{entry.description}</p>
-        <div className="markdown-renderer">
+        <div className="markdown-renderer" id="journal-body" tabIndex={-1}>
           <MarkdownContent entry={entry} />
         </div>
-        <AuthArticleNavigation
-          entry={entry}
-          entries={getContentByKind('journal')}
-        />
-        <ReactComponentArticleNavigation
-          entry={entry}
-          entries={getContentByKind('journal')}
-        />
+        <AuthArticleNavigation entry={entry} entries={entries} />
+        <ReactComponentArticleNavigation entry={entry} entries={entries} />
       </article>
     </main>
   )

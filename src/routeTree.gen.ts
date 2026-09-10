@@ -11,17 +11,13 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BadgesRouteImport } from './routes/badges'
-import { Route as CoursesRouteImport } from './routes/courses'
 import { Route as GuildHallRouteImport } from './routes/guild-hall'
 import { Route as JournalRouteImport } from './routes/journal'
 import { Route as JourneyRouteImport } from './routes/journey'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as SecretBaseRouteImport } from './routes/secret-base'
-import { Route as CoursesIndexRouteImport } from './routes/courses.index'
-import { Route as CoursesSlugRouteImport } from './routes/courses/$slug'
 import { Route as JournalIndexRouteImport } from './routes/journal.index'
 import { Route as JournalSlugRouteImport } from './routes/journal/$slug'
-import { Route as CoursesSlugMasteryRouteImport } from './routes/courses/$slug_.mastery'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -31,11 +27,6 @@ const IndexRoute = IndexRouteImport.update({
 const BadgesRoute = BadgesRouteImport.update({
   id: '/badges',
   path: '/badges',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CoursesRoute = CoursesRouteImport.update({
-  id: '/courses',
-  path: '/courses',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GuildHallRoute = GuildHallRouteImport.update({
@@ -63,16 +54,6 @@ const SecretBaseRoute = SecretBaseRouteImport.update({
   path: '/secret-base',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CoursesIndexRoute = CoursesIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => CoursesRoute,
-} as any)
-const CoursesSlugRoute = CoursesSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => CoursesRoute,
-} as any)
 const JournalIndexRoute = JournalIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -83,26 +64,17 @@ const JournalSlugRoute = JournalSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => JournalRoute,
 } as any)
-const CoursesSlugMasteryRoute = CoursesSlugMasteryRouteImport.update({
-  id: '/$slug_/mastery',
-  path: '/$slug/mastery',
-  getParentRoute: () => CoursesRoute,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/badges': typeof BadgesRoute
-  '/courses': typeof CoursesRouteWithChildren
   '/guild-hall': typeof GuildHallRoute
   '/journal': typeof JournalRouteWithChildren
   '/journey': typeof JourneyRoute
   '/search': typeof SearchRoute
   '/secret-base': typeof SecretBaseRoute
-  '/courses/$slug': typeof CoursesSlugRoute
   '/journal/$slug': typeof JournalSlugRoute
-  '/courses/': typeof CoursesIndexRoute
   '/journal/': typeof JournalIndexRoute
-  '/courses/$slug/mastery': typeof CoursesSlugMasteryRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -111,44 +83,33 @@ export interface FileRoutesByTo {
   '/journey': typeof JourneyRoute
   '/search': typeof SearchRoute
   '/secret-base': typeof SecretBaseRoute
-  '/courses/$slug': typeof CoursesSlugRoute
   '/journal/$slug': typeof JournalSlugRoute
-  '/courses': typeof CoursesIndexRoute
   '/journal': typeof JournalIndexRoute
-  '/courses/$slug/mastery': typeof CoursesSlugMasteryRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/badges': typeof BadgesRoute
-  '/courses': typeof CoursesRouteWithChildren
   '/guild-hall': typeof GuildHallRoute
   '/journal': typeof JournalRouteWithChildren
   '/journey': typeof JourneyRoute
   '/search': typeof SearchRoute
   '/secret-base': typeof SecretBaseRoute
-  '/courses/$slug': typeof CoursesSlugRoute
   '/journal/$slug': typeof JournalSlugRoute
-  '/courses/': typeof CoursesIndexRoute
   '/journal/': typeof JournalIndexRoute
-  '/courses/$slug_/mastery': typeof CoursesSlugMasteryRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/badges'
-    | '/courses'
     | '/guild-hall'
     | '/journal'
     | '/journey'
     | '/search'
     | '/secret-base'
-    | '/courses/$slug'
     | '/journal/$slug'
-    | '/courses/'
     | '/journal/'
-    | '/courses/$slug/mastery'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -157,32 +118,24 @@ export interface FileRouteTypes {
     | '/journey'
     | '/search'
     | '/secret-base'
-    | '/courses/$slug'
     | '/journal/$slug'
-    | '/courses'
     | '/journal'
-    | '/courses/$slug/mastery'
   id:
     | '__root__'
     | '/'
     | '/badges'
-    | '/courses'
     | '/guild-hall'
     | '/journal'
     | '/journey'
     | '/search'
     | '/secret-base'
-    | '/courses/$slug'
     | '/journal/$slug'
-    | '/courses/'
     | '/journal/'
-    | '/courses/$slug_/mastery'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BadgesRoute: typeof BadgesRoute
-  CoursesRoute: typeof CoursesRouteWithChildren
   GuildHallRoute: typeof GuildHallRoute
   JournalRoute: typeof JournalRouteWithChildren
   JourneyRoute: typeof JourneyRoute
@@ -204,13 +157,6 @@ declare module '@tanstack/react-router' {
       path: '/badges'
       fullPath: '/badges'
       preLoaderRoute: typeof BadgesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/courses': {
-      id: '/courses'
-      path: '/courses'
-      fullPath: '/courses'
-      preLoaderRoute: typeof CoursesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/guild-hall': {
@@ -248,20 +194,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SecretBaseRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/courses/': {
-      id: '/courses/'
-      path: '/'
-      fullPath: '/courses/'
-      preLoaderRoute: typeof CoursesIndexRouteImport
-      parentRoute: typeof CoursesRoute
-    }
-    '/courses/$slug': {
-      id: '/courses/$slug'
-      path: '/$slug'
-      fullPath: '/courses/$slug'
-      preLoaderRoute: typeof CoursesSlugRouteImport
-      parentRoute: typeof CoursesRoute
-    }
     '/journal/': {
       id: '/journal/'
       path: '/'
@@ -276,30 +208,8 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof JournalSlugRouteImport
       parentRoute: typeof JournalRoute
     }
-    '/courses/$slug_/mastery': {
-      id: '/courses/$slug_/mastery'
-      path: '/$slug/mastery'
-      fullPath: '/courses/$slug/mastery'
-      preLoaderRoute: typeof CoursesSlugMasteryRouteImport
-      parentRoute: typeof CoursesRoute
-    }
   }
 }
-
-interface CoursesRouteChildren {
-  CoursesSlugRoute: typeof CoursesSlugRoute
-  CoursesIndexRoute: typeof CoursesIndexRoute
-  CoursesSlugMasteryRoute: typeof CoursesSlugMasteryRoute
-}
-
-const CoursesRouteChildren: CoursesRouteChildren = {
-  CoursesSlugRoute: CoursesSlugRoute,
-  CoursesIndexRoute: CoursesIndexRoute,
-  CoursesSlugMasteryRoute: CoursesSlugMasteryRoute,
-}
-
-const CoursesRouteWithChildren =
-  CoursesRoute._addFileChildren(CoursesRouteChildren)
 
 interface JournalRouteChildren {
   JournalSlugRoute: typeof JournalSlugRoute
@@ -317,7 +227,6 @@ const JournalRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BadgesRoute: BadgesRoute,
-  CoursesRoute: CoursesRouteWithChildren,
   GuildHallRoute: GuildHallRoute,
   JournalRoute: JournalRouteWithChildren,
   JourneyRoute: JourneyRoute,

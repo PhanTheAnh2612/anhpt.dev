@@ -9,9 +9,9 @@ it('keeps landing copy, character and real menu links separate from decorative s
     'href',
     '/journey',
   )
-  expect(screen.getByRole('link', { name: /continue/i })).toHaveAttribute(
+  expect(screen.getByRole('link', { name: /read journal/i })).toHaveAttribute(
     'href',
-    '/courses',
+    '/journal',
   )
   expect(
     screen.getByRole('img', {

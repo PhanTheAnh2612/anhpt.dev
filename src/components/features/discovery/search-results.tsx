@@ -23,7 +23,7 @@ export function SearchResults({
         role="search"
         className="portfolio-search__form"
       >
-        <label htmlFor="trail-query">Search courses and journal</label>
+        <label htmlFor="trail-query">Search the journal</label>
         <div>
           <input
             key={query}
@@ -50,23 +50,13 @@ export function SearchResults({
             key={`${entry.kind}:${entry.slug}`}
           >
             <p className="eyebrow">
-              {entry.kind === 'course' ? 'COURSE' : 'JOURNAL'}
+              JOURNAL
               {entry.category && ` · ${entry.category}`}
             </p>
             <h2>
-              {entry.kind === 'course' ? (
-                <Link
-                  to="/courses/$slug"
-                  params={{ slug: entry.slug }}
-                  search={{ category: undefined }}
-                >
-                  {entry.title}
-                </Link>
-              ) : (
-                <Link to="/journal/$slug" params={{ slug: entry.slug }}>
-                  {entry.title}
-                </Link>
-              )}
+              <Link to="/journal/$slug" params={{ slug: entry.slug }}>
+                {entry.title}
+              </Link>
             </h2>
             <p>{entry.description}</p>
             <ul className="portfolio-tags" aria-label="Tags">
